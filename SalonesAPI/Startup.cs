@@ -29,8 +29,8 @@ namespace SalonesAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = Configuration["JwtConfig:connectionString"];
-            var audience = Configuration["JwtConfig:Audience"];
+            string connectionString = Configuration["JwtConfig:connectionString"];
+            string[] audience = Configuration["JwtConfig:Audience"].ToString().Split(",");
             
             services.AddDbContext<Context>(options => SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<Context>(), connectionString));
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<Context>();

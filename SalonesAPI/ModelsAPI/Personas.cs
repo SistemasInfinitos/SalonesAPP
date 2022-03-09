@@ -17,16 +17,15 @@ namespace SalonesAPI.ModelsAPI
         public string telefono { get; set; }
         [Required]
         public string correo { get; set; }
-        [Required]
-        public int idDepartamento { get; set; }
+
         [Required]
         public int idCiudad { get; set; }
         [Required]
         public int edad { get; set; }
-        public DateTime fechaCreacion { get; set; }
-
-        //[BsonRepresentation(BsonType.DateTime)]
-        public DateTime? fechaActualizacion { get; set; }
+        public string fechaCreacion { get; set; }
+        public string fechaActualizacion { get; set; }
         public bool estado { get; set; }
+
+        public virtual int idDepartamento { get; set; }
     }
 }
