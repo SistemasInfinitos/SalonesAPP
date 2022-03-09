@@ -55,15 +55,15 @@ namespace SalonesAPI.Repositorio.PersonasES
                     if (ActualizarRegistro != null)
                     {
                         ActualizarRegistro.PrimerApellido = entidad.primerNombre;
-                        ActualizarRegistro.segundoNombre = entidad.segundoNombre;
-                        ActualizarRegistro.primerApellido = entidad.primerApellido;
-                        ActualizarRegistro.segundoApellido = entidad.segundoApellido;
-                        ActualizarRegistro.telefono = entidad.telefono;
-                        ActualizarRegistro.identificacion = entidad.identificacion;
-                        ActualizarRegistro.correo = entidad.correo;
-                        ActualizarRegistro.estado = entidad.estado;
+                        ActualizarRegistro.SegundoApellido = entidad.segundoNombre;
+                        ActualizarRegistro.PrimerApellido = entidad.primerApellido;
+                        ActualizarRegistro.SegundoApellido = entidad.segundoApellido;
+                        ActualizarRegistro.Telefono = entidad.telefono;
+                        ActualizarRegistro.Identificacion = entidad.identificacion;
+                        ActualizarRegistro.Correo = entidad.correo;
+                        ActualizarRegistro.Estado = entidad.estado;
 
-                        ActualizarRegistro.fechaActualizacion = DateTime.Now;
+                        ActualizarRegistro.FechaActualizacion = DateTime.Now;
 
                         _context.Entry(ActualizarRegistro).State = EntityState.Modified;
                         ok = await _context.SaveChangesAsync() > 0;
