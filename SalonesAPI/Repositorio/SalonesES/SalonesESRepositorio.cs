@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SalonesAPI.Repositorio
+namespace SalonesAPI.Repositorio.SalonesES
 {   
     public class SalonesESRepositorio:ISalonesESRepositorio
     {
