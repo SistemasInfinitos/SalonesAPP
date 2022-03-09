@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalonesAPI", "SalonesAPI\SalonesAPI.csproj", "{5787D27C-B304-40A5-A6C5-8BDD04689647}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalonesWEB", "SalonesWEB\SalonesWEB.csproj", "{BA4C3BA6-9FF2-43AA-8C98-73D2EA7297B5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5787D27C-B304-40A5-A6C5-8BDD04689647}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5787D27C-B304-40A5-A6C5-8BDD04689647}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5787D27C-B304-40A5-A6C5-8BDD04689647}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5787D27C-B304-40A5-A6C5-8BDD04689647}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA4C3BA6-9FF2-43AA-8C98-73D2EA7297B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA4C3BA6-9FF2-43AA-8C98-73D2EA7297B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA4C3BA6-9FF2-43AA-8C98-73D2EA7297B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA4C3BA6-9FF2-43AA-8C98-73D2EA7297B5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {150B3756-3DE5-46F7-BE77-664CA689D998}
+	EndGlobalSection
+EndGlobal
