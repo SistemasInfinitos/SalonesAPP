@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+
+#nullable disable
 
 namespace SalonesAPI.ModelsDB
 {
-    public class Context : DbContext
+    public partial class Context : DbContext
     {
         public Context()
         {
@@ -16,5 +16,116 @@ namespace SalonesAPI.ModelsDB
             : base(options)
         {
         }
+
+        public virtual DbSet<Persona> Personas { get; set; }
+        public virtual DbSet<Salone> Salones { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=WIN-DESARROLLO\\DEVSQLSERVER;Database=pruebas;user=simplexwebuser;Password=Ic3b3rg2021**;");
+            }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasAnnotation("Relational:Collation", "Modern_Spanish_CI_AS");
+
+            modelBuilder.Entity<Persona>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Correo)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnName("correo");
+
+                entity.Property(e => e.Edad).HasColumnName("edad");
+
+                entity.Property(e => e.Estado)
+                    .IsRequired()
+                    .HasColumnName("estado")
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.FechaActualizacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fechaActualizacion")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.FechaCreacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fechaCreacion")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.IdCiudad).HasColumnName("idCiudad");
+
+                entity.Property(e => e.Identificacion)
+                    .IsRequired()
+                    .HasMaxLength(15)
+                    .IsUnicode(false)
+                    .HasColumnName("identificacion");
+
+                entity.Property(e => e.PrimerApellido)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("primerApellido");
+
+                entity.Property(e => e.PrimerNombre)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("primerNombre");
+
+                entity.Property(e => e.SegundoApellido)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("segundoApellido");
+
+                entity.Property(e => e.SegundoNombre)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("segundoNombre");
+
+                entity.Property(e => e.Telefono)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("telefono");
+            });
+
+            modelBuilder.Entity<Salone>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.CantidadPersona).HasColumnName("cantidadPersona");
+
+                entity.Property(e => e.Estado)
+                    .IsRequired()
+                    .HasColumnName("estado")
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.FechaEvento)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fechaEvento")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.IdMotivo).HasColumnName("idMotivo");
+
+                entity.Property(e => e.IdPersonaCliente).HasColumnName("idPersonaCliente");
+
+                entity.Property(e => e.Observacion)
+                    .IsRequired()
+                    .HasColumnName("observacion");
+            });
+
+            OnModelCreatingPartial(modelBuilder);
+        }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

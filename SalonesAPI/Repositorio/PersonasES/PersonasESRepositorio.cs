@@ -27,10 +27,6 @@ namespace SalonesAPI.Repositorio.PersonasES
         private readonly CultureInfo culture = new CultureInfo("is-IS");
         private readonly CultureInfo cultureFecha = new CultureInfo("en-US");
 
-        public Task<bool> ActualizarPersona(Personas entidad)
-        {
-            throw new NotImplementedException();
-        }
 
         public Task<bool> CrearPersona(Personas entidad)
         {
@@ -47,44 +43,44 @@ namespace SalonesAPI.Repositorio.PersonasES
             throw new NotImplementedException();
         }
 
-        //public async Task<bool> ActualizarPersona(Personas entidad)
-        //{
-        //    bool ok = false;
-        //    using (var DbTran = _context.Database.BeginTransaction())
-        //    {
-        //        try
-        //        {
-        //            Personas ActualizarRegistro = _context.Personas.Where(x => x.Id == entidad.id).FirstOrDefault();
+        public async Task<bool> ActualizarPersona(Personas entidad)
+        {
+            bool ok = false;
+            using (var DbTran = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    Persona ActualizarRegistro = _context.Personas.Where(x => x.Id == entidad.id).FirstOrDefault();
 
-        //            if (ActualizarRegistro != null)
-        //            {
-        //                ActualizarRegistro.primerNombre = entidad.primerNombre;
-        //                ActualizarRegistro.segundoNombre = entidad.segundoNombre;
-        //                ActualizarRegistro.primerApellido = entidad.primerApellido;
-        //                ActualizarRegistro.segundoApellido = entidad.segundoApellido;
-        //                ActualizarRegistro.telefono = entidad.telefono;
-        //                ActualizarRegistro.identificacion = entidad.identificacion;
-        //                ActualizarRegistro.correo = entidad.correo;
-        //                ActualizarRegistro.estado = entidad.estado;
+                    if (ActualizarRegistro != null)
+                    {
+                        ActualizarRegistro.PrimerApellido = entidad.primerNombre;
+                        ActualizarRegistro.segundoNombre = entidad.segundoNombre;
+                        ActualizarRegistro.primerApellido = entidad.primerApellido;
+                        ActualizarRegistro.segundoApellido = entidad.segundoApellido;
+                        ActualizarRegistro.telefono = entidad.telefono;
+                        ActualizarRegistro.identificacion = entidad.identificacion;
+                        ActualizarRegistro.correo = entidad.correo;
+                        ActualizarRegistro.estado = entidad.estado;
 
-        //                ActualizarRegistro.fechaActualizacion = DateTime.Now;
+                        ActualizarRegistro.fechaActualizacion = DateTime.Now;
 
-        //                _context.Entry(ActualizarRegistro).State = EntityState.Modified;
-        //                ok =await _context.SaveChangesAsync() > 0;
-        //            }
+                        _context.Entry(ActualizarRegistro).State = EntityState.Modified;
+                        ok = await _context.SaveChangesAsync() > 0;
+                    }
 
-        //            if (ok)
-        //            {
-        //                DbTran.Commit();
-        //            }
-        //        }
-        //        catch (Exception x)
-        //        {
-        //            DbTran.Rollback();
-        //        }
-        //    }
-        //    return await Task.Run(() => ok);
-        //}
+                    if (ok)
+                    {
+                        DbTran.Commit();
+                    }
+                }
+                catch (Exception x)
+                {
+                    DbTran.Rollback();
+                }
+            }
+            return await Task.Run(() => ok);
+        }
 
         //public async Task<bool> CrearPersona(Personas entidad)
         //{
