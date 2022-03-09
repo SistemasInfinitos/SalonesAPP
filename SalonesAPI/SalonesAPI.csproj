@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="ModelsDB\" />
     <Folder Include="Repositorio\PersonasES\" />
   </ItemGroup>
