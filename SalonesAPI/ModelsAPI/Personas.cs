@@ -24,6 +24,8 @@ namespace SalonesAPI.ModelsAPI
         [Required]
         public int edad { get; set; }
         public DateTime fechaCreacion { get; set; }
+
+        //[BsonRepresentation(BsonType.DateTime)]
         public DateTime? fechaActualizacion { get; set; }
         public bool estado { get; set; }
     }

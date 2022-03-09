@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using SalonesAPI.Configuration;
 using SalonesAPI.ModelsAPI;
+using SalonesAPI.ModelsAPI.DataTable;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +11,28 @@ namespace SalonesAPI.Repositorio.SalonesES
 {   
     public class SalonesESRepositorio:ISalonesESRepositorio
     {
-        private readonly JwtConfig _jwtConfig;
-        public SalonesESRepositorio(IOptionsMonitor<JwtConfig> optionsMonitor) 
+        private readonly JwtConfiguracion _jwtConfig;
+        public SalonesESRepositorio(IOptionsMonitor<JwtConfiguracion> optionsMonitor) 
         {
             _jwtConfig = optionsMonitor.CurrentValue;
         }
 
-        public Task<Salones> GetSalones(Salones entidad)
+        public Task<bool> ActualizarSalon(Salones entidad)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> CrearSalon(Salones entidad)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Salones> GetSalon(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<DataTableResponse> GetSalonesDataTable(DataTableParameter dtParameters)
         {
             throw new NotImplementedException();
         }

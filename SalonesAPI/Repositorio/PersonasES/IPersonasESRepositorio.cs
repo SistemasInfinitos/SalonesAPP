@@ -5,34 +5,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SalonesAPI.Repositorio.SalonesES
+namespace SalonesAPI.Repositorio.PersonasES
 {
-    public interface ISalonesESRepositorio
+    public interface IPersonasESRepositorio
     {
-        /// <summary>
-        /// Actualiza un Salon existente en la base de datos
-        /// </summary>
-        /// <param name="entidad"></param>
-        /// <returns></returns>
-        Task<bool> ActualizarSalon(Salones entidad);
-        /// <summary>
-        /// Crea un nuevo Salon en la base de datos
-        /// </summary>
-        /// <param name="entidad"></param>
-        /// <returns></returns>
-        Task<bool> CrearSalon(Salones entidad);
 
         /// <summary>
-        /// trae un Salon segun si id de la base de datos
+        /// Actualiza una persona existente en la base de datos
+        /// </summary>
+        /// <param name="entidad"></param>
+        /// <returns></returns>
+        Task<bool> ActualizarPersona(Personas entidad);
+        /// <summary>
+        /// Crea una nueva persona en la base de datos
+        /// </summary>
+        /// <param name="entidad"></param>
+        /// <returns></returns>
+        Task<bool> CrearPersona(Personas entidad);
+
+        /// <summary>
+        /// trae una persona segun si id de la base de datos
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task<Salones> GetSalon(int Id);
+        Task<Personas> GetPersona(int Id);
 
         /// <summary>
         /// Trae las personas de la base de datos,  segun el rango de paginado configurado
         /// </summary>
         /// <returns></returns>
-        Task<DataTableResponse> GetSalonesDataTable(DataTableParameter dtParameters);
+        Task<DataTableResponse> GetPersonasDataTable(DataTableParameter dtParameters);
     }
 }
