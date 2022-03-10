@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using SalonesAPI.Configuration;
 using SalonesAPI.ModelsAPI;
 using SalonesAPI.ModelsAPI.Comun;
@@ -10,6 +11,7 @@ using SalonesAPI.Repositorio.PersonasES;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http.Results;
 
@@ -90,7 +92,10 @@ namespace SalonesAPI.Controllers
         {
             DataTableResponse res = await Task.Run(() => _repositoryPersonas.GetPersonasDataTable(dtParms));
             res.draw = dtParms.draw??0;
-            return Ok(res);
+
+            var json = JsonConvert.SerializeObject(res);
+
+            return Ok(json);
         }
     }
 }
