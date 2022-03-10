@@ -107,11 +107,11 @@ namespace SalonesAPI.Controllers
 
         [Route("[action]", Name = "GetPersona")]
         [HttpGet]
-        public async Task<IActionResult> GetPersona(int Id)
+        public async Task<IActionResult> GetPersona(string buscar,int Id)
         {
             bool ok = false;
             string mensaje = "Sin Datos";
-            var data = await Task.Run(() => _repositoryPersonas.GetPersona(Id));
+            var data = await Task.Run(() => _repositoryPersonas.GetPersona(buscar,Id));
             if (data != null)
             {
                 mensaje = "ok";

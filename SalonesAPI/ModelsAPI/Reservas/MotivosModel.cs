@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SalonesAPI.ModelsAPI.Reservas
+﻿namespace SalonesAPI.ModelsAPI.Reservas
 {
     public class MotivosModel
     {
@@ -11,6 +6,6 @@ namespace SalonesAPI.ModelsAPI.Reservas
         public string motivo { get; set; }
         public string fechaCreacion { get; set; }
         public string fechaActualizacion { get; set; }
-        public bool estado { get; set; }    
+        public bool estado { get; set; }
     }
 }

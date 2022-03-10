@@ -113,7 +113,7 @@ namespace SalonesAPI.Repositorio.PersonasES
             return await Task.Run(() => ok);
         }
 
-        public async Task<PersonasModel> GetPersona(string buscar,int? Id)
+        public async Task<PersonasModel> GetPersona(string buscar, int? Id)
         {
             PersonasModel persona = new PersonasModel();
             try
@@ -131,9 +131,9 @@ namespace SalonesAPI.Repositorio.PersonasES
                     predicado2 = predicado2.Or(d => 1 == 1 && d.Correo.Contains(buscar));
                     predicado = predicado.And(predicado2);
                 }
-                if (Id!=null)
+                if (Id != null)
                 {
-                    predicado = predicado.And(x=>x.Id==Id);
+                    predicado = predicado.And(x => x.Id == Id);
                 }
                 var data = _context.Personas.Where(predicado).FirstOrDefault();
                 if (data != null)

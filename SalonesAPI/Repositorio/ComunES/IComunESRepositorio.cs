@@ -1,7 +1,5 @@
 ﻿using SalonesAPI.ModelsAPI.Comun;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SalonesAPI.Repositorio.ComunES
@@ -13,7 +11,7 @@ namespace SalonesAPI.Repositorio.ComunES
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task<List<PaisesModel>> GetPaises(string buscar,int? Id);
+        Task<List<PaisesModel>> GetPaises(string buscar, int? Id);
 
         /// <summary>
         /// trae uno o todos los departamentos de un pais

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SalonesAPI.ModelsAPI.Persona
+﻿namespace SalonesAPI.ModelsAPI.Persona
 {
     public class EdadesModel
     {
@@ -12,6 +7,6 @@ namespace SalonesAPI.ModelsAPI.Persona
         public string Descripcion { get; set; }
         public string fechaCreacion { get; set; }
         public string fechaActualizacion { get; set; }
-        public bool estado { get; set; }                  
+        public bool estado { get; set; }
     }
 }

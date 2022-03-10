@@ -26,7 +26,7 @@ namespace SalonesAPI.Repositorio.PersonasES
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task<PersonasModel> GetPersona(string buscar,int? Id);
+        Task<PersonasModel> GetPersona(string buscar, int? Id);
 
         /// <summary>
         /// Trae las personas de la base de datos,  segun el rango de paginado configurado

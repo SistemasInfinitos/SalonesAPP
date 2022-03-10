@@ -100,7 +100,7 @@ namespace SalonesAPI.Repositorio.ComunES
 
                     predicado = predicado.And(predicado2);
                 }
-                if (Id!=null)
+                if (Id != null)
                 {
                     predicado = predicado.And(d => d.Id == Id);
                 }

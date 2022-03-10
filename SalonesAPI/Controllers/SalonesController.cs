@@ -8,7 +8,6 @@ using SalonesAPI.ModelsAPI.Reservas;
 using SalonesAPI.ModelsDB;
 using SalonesAPI.Repositorio.SalonesES;
 using System;
-using System.Globalization;
 using System.Threading.Tasks;
 
 namespace SalonesAPI.Controllers
