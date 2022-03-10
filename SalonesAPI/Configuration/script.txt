@@ -1,4 +1,7 @@
-﻿--drop table Personas
+﻿Scaffold-DbContext "Server=WIN-DESARROLLO\DEVSQLSERVER;Database=pruebas;user=simplexwebuser;Password=Ic3b3rg2021**;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir ModelsDB -ContextDir ModelsDB -Context Context -f
+
+
+--drop table Personas
 CREATE TABLE Personas
 (
 	id int not null primary key identity(1,1),
@@ -28,4 +31,140 @@ CREATE TABLE Salones
   estado bit not null default 1
 )
 
-Scaffold-DbContext "Server=WIN-DESARROLLO\DEVSQLSERVER;Database=pruebas;user=simplexwebuser;Password=Ic3b3rg2021**;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir ModelsDB -ContextDir ModelsDB -Context Context -f
+USE salones
+GO
+
+/****** Object:  Table [dbo].[Paises]    Script Date: 9/03/2022 10:46:30 p. m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[Paises](
+	[PaisCodigo] [char](3) NOT NULL CONSTRAINT [DF__Pais__PaisCodigo__00200768]  DEFAULT (''),
+	[PaisNombre] [char](52) NOT NULL CONSTRAINT [DF__Pais__PaisNombre__01142BA1]  DEFAULT (''),
+	[PaisContinente] [varchar](50) NOT NULL CONSTRAINT [DF__Pais__PaisContin__02084FDA]  DEFAULT ('America del Sur'),
+	[Id] [int] NOT NULL,
+	[CodigoDian] [int] NULL,
+ CONSTRAINT [PK_Pais] PRIMARY KEY NONCLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+ CONSTRAINT [UK_Pais] UNIQUE NONCLUSTERED 
+(
+	[PaisCodigo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+
+USE salones
+
+/****** Object:  Table [dbo].[Departamentos]    Script Date: 9/03/2022 10:48:07 p. m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[Departamentos](
+	[Id] [int] NOT NULL,
+	[IdPais] [int] NOT NULL,
+	[DistritoDepartamento] [varchar](50) NULL,
+	[CodigoDian] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[Departamentos]  WITH CHECK ADD  CONSTRAINT [DepartamentosPais] FOREIGN KEY([IdPais])
+REFERENCES [dbo].[Paises] ([Id])
+GO
+
+ALTER TABLE [dbo].[Departamentos] CHECK CONSTRAINT [DepartamentosPais]
+GO
+
+USE salones
+GO
+
+/****** Object:  Table [dbo].[Ciudades]    Script Date: 9/03/2022 10:49:15 p. m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[Ciudades](
+	[Id] [int] NOT NULL,
+	[CiudadNombre] [char](35) NOT NULL DEFAULT (''),
+	[IdDepartamento] [int] NULL,
+	[CodigoDian] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[Ciudades]  WITH CHECK ADD  CONSTRAINT [CiudadesDepartamentos] FOREIGN KEY([IdDepartamento])
+REFERENCES [dbo].[Departamentos] ([Id])
+GO
+
+ALTER TABLE [dbo].[Ciudades] CHECK CONSTRAINT [CiudadesDepartamentos]
+GO
+
+
+CREATE TABLE Edades
+(
+	id int not null primary key identity(1,1),
+	edad int not null,
+	Descripcion varchar(20)not null,
+    fechaCreacion datetime not null default GETDATE(),
+	fechaActualizacion datetime null default GETDATE(),
+    estado bit not null default 1
+)
+
+ALTER TABLE Personas ADD  CONSTRAINT [UQ_PersonasIdentida] UNIQUE NONCLUSTERED(identificacion)
+ALTER TABLE Personas  WITH noCHECK ADD  CONSTRAINT [FK_Personas] FOREIGN KEY(idCiudad)REFERENCES Ciudades (id)
+
+ALTER TABLE Salones  WITH noCHECK ADD  CONSTRAINT [FK_Salones] FOREIGN KEY(idPersonaCliente)REFERENCES Personas (id)
+
+
+CREATE TABLE Motivos
+(
+	id int not null primary key identity(1,1),
+	edad int not null,
+	motivo nvarchar(60)not null,
+    fechaCreacion datetime not null default GETDATE(),
+	fechaActualizacion datetime null,
+    estado bit not null default 1
+)
+
+
+ALTER TABLE Salones  WITH noCHECK ADD  CONSTRAINT [FK_Motivos] FOREIGN KEY(idMotivo)REFERENCES Motivos (id)
+
