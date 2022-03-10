@@ -31,6 +31,7 @@ namespace SalonesAPI.Controllers
             _jwtConfig = optionsMonitor.CurrentValue;
             _repositoryPersonas = new PersonasESRepositorio(optionsMonitor, context);
         }
+
         [Route("[action]")]
         [HttpPost]
         public async Task<IActionResult> CreatePersona([FromBody] Personas entidad)
@@ -85,8 +86,12 @@ namespace SalonesAPI.Controllers
             return Ok(new { data, ok, mensaje });
         }
 
-
-        [HttpGet]
+        /// <summary>
+        /// Metodo post espesial para Datatable
+        /// </summary>
+        /// <param name="dtParms"></param>
+        /// <returns></returns>
+        [HttpPost]
         [Route("[action]")]
         public async Task<IActionResult> ListPersonas(DataTableParameter dtParms)
         {
