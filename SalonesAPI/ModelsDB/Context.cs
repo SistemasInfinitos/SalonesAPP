@@ -24,6 +24,7 @@ namespace SalonesAPI.ModelsDB
         public virtual DbSet<Paise> Paises { get; set; }
         public virtual DbSet<Persona> Personas { get; set; }
         public virtual DbSet<Salone> Salones { get; set; }
+        public virtual DbSet<ViewSolicitudesPorFecha> ViewSolicitudesPorFechas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -107,8 +108,6 @@ namespace SalonesAPI.ModelsDB
             modelBuilder.Entity<Motivo>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Edad).HasColumnName("edad");
 
                 entity.Property(e => e.Estado)
                     .IsRequired()
@@ -278,6 +277,98 @@ namespace SalonesAPI.ModelsDB
                     .HasForeignKey(d => d.IdPersonaCliente)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Salones");
+            });
+
+            modelBuilder.Entity<ViewSolicitudesPorFecha>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("ViewSolicitudesPorFecha");
+
+                entity.Property(e => e.CantidadPersona).HasColumnName("cantidadPersona");
+
+                entity.Property(e => e.CiudadNombre)
+                    .IsRequired()
+                    .HasMaxLength(35)
+                    .IsUnicode(false)
+                    .HasColumnName("ciudadNombre")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Correo)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnName("correo");
+
+                entity.Property(e => e.DistritoDepartamento)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Edad).HasColumnName("edad");
+
+                entity.Property(e => e.Estado).HasColumnName("estado");
+
+                entity.Property(e => e.FechaEvento)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fechaEvento");
+
+                entity.Property(e => e.FechaEventoTex)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("fechaEventoTex");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Identificacion)
+                    .IsRequired()
+                    .HasMaxLength(15)
+                    .IsUnicode(false)
+                    .HasColumnName("identificacion");
+
+                entity.Property(e => e.Motivo)
+                    .IsRequired()
+                    .HasMaxLength(60)
+                    .HasColumnName("motivo");
+
+                entity.Property(e => e.Observacion)
+                    .IsRequired()
+                    .HasColumnName("observacion");
+
+                entity.Property(e => e.PaisNombre)
+                    .IsRequired()
+                    .HasMaxLength(52)
+                    .IsUnicode(false)
+                    .HasColumnName("paisNombre")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.PrimerApellido)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("primerApellido");
+
+                entity.Property(e => e.PrimerNombre)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("primerNombre");
+
+                entity.Property(e => e.SegundoApellido)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("segundoApellido");
+
+                entity.Property(e => e.SegundoNombre)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("segundoNombre");
+
+                entity.Property(e => e.Telefono)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("telefono");
             });
 
             OnModelCreatingPartial(modelBuilder);
