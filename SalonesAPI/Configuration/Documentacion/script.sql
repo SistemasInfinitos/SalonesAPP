@@ -31,9 +31,9 @@ CREATE TABLE Salones
   observacion nvarchar(max)  not null,
   estado bit not null default 1
 )
-alter table Salones add fechaCreacion datetime not null default GETDATE() go
-alter table Salones add fechaActualizacion datetime null default GETDATE() go-- no puede ser obligatorio
-
+alter table Salones add fechaCreacion datetime not null default GETDATE() 
+alter table Salones add fechaActualizacion datetime null -- no puede ser obligatorio
+--DROP TABLE Paises
 CREATE TABLE [dbo].[Paises](
 	[paisCodigo] [char](3) NOT NULL CONSTRAINT [DF__Pais__PaisCodigo__00200768]  DEFAULT (''),
 	[paisNombre] [char](52) NOT NULL CONSTRAINT [DF__Pais__PaisNombre__01142BA1]  DEFAULT (''),
@@ -52,7 +52,7 @@ CREATE TABLE [dbo].[Paises](
 
 GO
 
-
+--DROP TABLE Departamentos
 CREATE TABLE [dbo].[Departamentos](
 	[Id] [int] NOT NULL,
 	[IdPais] [int] NOT NULL,
@@ -72,7 +72,7 @@ GO
 ALTER TABLE [dbo].[Departamentos] CHECK CONSTRAINT [DepartamentosPais]
 GO
 
-
+--DROP TABLE Ciudades
 CREATE TABLE [dbo].[Ciudades](
 	[id] [int] NOT NULL,
 	[ciudadNombre] [char](35) NOT NULL DEFAULT (''),
