@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using SalonesAPI.Configuration;
-using SalonesAPI.ModelsAPI;
 using SalonesAPI.ModelsAPI.Comun;
 using SalonesAPI.ModelsAPI.DataTable;
+using SalonesAPI.ModelsAPI.DataTable.Persona;
 using SalonesAPI.ModelsAPI.Persona;
 using SalonesAPI.ModelsDB;
 using System;
@@ -143,11 +143,11 @@ namespace SalonesAPI.Repositorio.PersonasES
             return await Task.Run(() => persona);
         }
 
-        public async Task<DataTableResponse> GetPersonasDataTable(DataTableParameter dtParameters)
+        public async Task<DataTableResponsePersona> GetPersonasDataTable(DataTableParameter dtParameters)
         {
             try
             {
-                DataTableResponse datos = new DataTableResponse();
+                DataTableResponsePersona datos = new DataTableResponsePersona();
                 string search = dtParameters.search?.value;
                 search = search?.Replace(" ", "");
                 List<string> sortcolumn2 = new List<string>();

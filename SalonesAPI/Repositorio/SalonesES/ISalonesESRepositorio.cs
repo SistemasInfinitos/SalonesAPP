@@ -1,5 +1,4 @@
-﻿using SalonesAPI.ModelsAPI;
-using SalonesAPI.ModelsAPI.DataTable;
+﻿using SalonesAPI.ModelsAPI.DataTable;
 using SalonesAPI.ModelsAPI.Reservas;
 using System.Threading.Tasks;
 
@@ -20,7 +19,7 @@ namespace SalonesAPI.Repositorio.SalonesES
         /// <param name="entidad"></param>
         /// <returns></returns>
         Task<bool> CrearSalon(Salones entidad);
-        
+
         /// <summary>
         /// Elimina una reserva o salon de la base de datos
         /// </summary>
@@ -39,6 +38,6 @@ namespace SalonesAPI.Repositorio.SalonesES
         /// Trae las personas de la base de datos,  segun el rango de paginado configurado
         /// </summary>
         /// <returns></returns>
-        Task<DataTableResponse> GetSalonesDataTable(DataTableParameter dtParameters);
+        Task<DataTableViewSolicitudesPorFechaModel> GetSalonesDataTable(DataTableParameter dtParameters);
     }
 }

@@ -1,5 +1,5 @@
-﻿using SalonesAPI.ModelsAPI;
-using SalonesAPI.ModelsAPI.DataTable;
+﻿using SalonesAPI.ModelsAPI.DataTable;
+using SalonesAPI.ModelsAPI.DataTable.Persona;
 using SalonesAPI.ModelsAPI.Persona;
 using System.Threading.Tasks;
 
@@ -32,6 +32,6 @@ namespace SalonesAPI.Repositorio.PersonasES
         /// Trae las personas de la base de datos,  segun el rango de paginado configurado
         /// </summary>
         /// <returns></returns>
-        Task<DataTableResponse> GetPersonasDataTable(DataTableParameter dtParameters);
+        Task<DataTableResponsePersona> GetPersonasDataTable(DataTableParameter dtParameters);
     }
 }

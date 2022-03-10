@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using SalonesAPI.Configuration;
-using SalonesAPI.ModelsAPI;
+using SalonesAPI.ModelsAPI.Comun;
 using SalonesAPI.ModelsAPI.DataTable;
 using SalonesAPI.ModelsAPI.Reservas;
 using SalonesAPI.ModelsDB;
@@ -38,12 +38,13 @@ namespace SalonesAPI.Repositorio.SalonesES
                 try
                 {
                     Salone actualizarRegistro = _context.Salones.Where(x => x.Id == entidad.id).FirstOrDefault();
+                    var convertir = DateTime.TryParseExact(entidad.fechaEvento, "yyyy-MM-dd HH:mm:ss", null, DateTimeStyles.None, out DateTime fecha);
 
-                    if (actualizarRegistro != null)
+                    if (actualizarRegistro != null && convertir)
                     {
                         actualizarRegistro.IdMotivo = entidad.idMotivo;
                         actualizarRegistro.IdPersonaCliente = entidad.idPersonaCliente;
-                        actualizarRegistro.FechaEvento = entidad.fechaEvento;
+                        actualizarRegistro.FechaEvento = fecha;
                         actualizarRegistro.CantidadPersona = entidad.cantidadPersona;
                         actualizarRegistro.Observacion = entidad.observacion;
                         actualizarRegistro.Estado = true;
@@ -67,7 +68,7 @@ namespace SalonesAPI.Repositorio.SalonesES
         }
 
         public async Task<bool> BorrarSalon(int id)
-        {           
+        {
             bool ok = false;
 
             try
@@ -76,7 +77,7 @@ namespace SalonesAPI.Repositorio.SalonesES
                 List<SqlParameter> parametros = new List<SqlParameter>();
                 parametros.Add(new SqlParameter() { ParameterName = "@id", Value = id, SqlDbType = SqlDbType.Int });
 
-                ok = await _context.Database.ExecuteSqlRawAsync(sp, parametros)>0;
+                ok = await _context.Database.ExecuteSqlRawAsync(sp, parametros) > 0;
             }
             catch (Exception e)
             {
@@ -94,13 +95,15 @@ namespace SalonesAPI.Repositorio.SalonesES
             {
                 try
                 {
+                    //var convertirA = DateTime.TryParse(entidad.fechaEvento, DateTimeStyles.None, cultureFecha, out DateTime fechaZZ);
+                    var convertir = DateTime.TryParseExact(entidad.fechaEvento, "yyyy-MM-dd HH:mm:ss", null, DateTimeStyles.None, out DateTime fecha);
                     Salone actualizarRegistro = _context.Salones.Where(x => x.Id == entidad.id).FirstOrDefault();
                     Salone registro = new Salone();
-                    if (actualizarRegistro != null)
+                    if (actualizarRegistro != null && convertir)
                     {
                         registro.IdMotivo = entidad.idMotivo;
                         registro.IdPersonaCliente = entidad.idPersonaCliente;
-                        registro.FechaEvento = entidad.fechaEvento;
+                        registro.FechaEvento = fecha;
                         registro.CantidadPersona = entidad.cantidadPersona;
                         registro.Observacion = entidad.observacion;
                         registro.Estado = true;
@@ -150,9 +153,119 @@ namespace SalonesAPI.Repositorio.SalonesES
             return await Task.Run(() => resevas);
         }
 
-        public Task<DataTableResponse> GetSalonesDataTable(DataTableParameter dtParameters)
+        public async Task<DataTableViewSolicitudesPorFechaModel> GetSalonesDataTable(DataTableParameter dtParameters)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DataTableViewSolicitudesPorFechaModel datos = new DataTableViewSolicitudesPorFechaModel();
+                string search = dtParameters.search?.value;
+                search = search?.Replace(" ", "");
+                List<string> sortcolumn2 = new List<string>();
+                string sortcolumn3 = "";
+
+                if (dtParameters != null && dtParameters.order != null && dtParameters.order.Count() > 0)
+                {
+                    foreach (var id in dtParameters?.order)
+                    {
+                        sortcolumn2.Add(dtParameters.columns[id.column.Value].name);
+                        sortcolumn3 += (dtParameters.columns[id.column.Value].name) + ",";
+                    }
+                }
+                string sortcolumn = dtParameters.columns != null && dtParameters.order != null && dtParameters.order[0].column != null ?
+                    dtParameters.columns[dtParameters.order[0].column.Value].name : "";
+                string sortcolumn1 = sortcolumn;
+                if (dtParameters.order != null && dtParameters.order.Count > 1)
+                {
+                    sortcolumn1 = dtParameters.columns[dtParameters.order[1].column.Value].name;
+                }
+
+                var predicado = PredicateBuilder.True<ViewSolicitudesPorFecha>();
+                var predicado2 = PredicateBuilder.False<ViewSolicitudesPorFecha>();
+                predicado = predicado.And(d => d.Estado == true);
+
+                if (!string.IsNullOrWhiteSpace(dtParameters.search?.value))
+                {
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.PrimerNombre.Contains(dtParameters.search.value));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.SegundoNombre.Contains(dtParameters.search.value));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.PrimerApellido.Contains(dtParameters.search.value));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.SegundoNombre.Contains(dtParameters.search.value));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.Correo.Contains(dtParameters.search.value));
+                    predicado = predicado.And(predicado2);
+                }
+
+                if (!string.IsNullOrWhiteSpace(dtParameters.fechaDesde))
+                {
+                    DateTime fechax = DateTime.Now;
+                    bool convertir = DateTime.TryParse(dtParameters.fechaDesde, out fechax);
+                    if (convertir)
+                    {
+                        predicado = predicado.And(d => d.FechaEvento >= fechax);
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(dtParameters.fechaHasta))
+                {
+                    DateTime fechax2 = DateTime.Now;
+                    bool convertir = DateTime.TryParse(dtParameters.fechaHasta, out fechax2);
+                    if (convertir)
+                    {
+                        fechax2 = fechax2.AddDays(1);
+                        predicado = predicado.And(d => d.FechaEvento <= fechax2);
+                    }
+                }
+
+                datos.recordsFiltered = _context.ViewSolicitudesPorFechas.Where(predicado).ToList().Count();
+                datos.recordsTotal = datos.recordsFiltered;
+                if (dtParameters.start == null)
+                {
+                    dtParameters.start = 0;
+                }
+                datos.draw = dtParameters.draw ?? 0;
+
+                if (dtParameters.length == -1)
+                {
+                    dtParameters.length = datos.recordsFiltered;
+                }
+                string order = "asc";
+
+                if (dtParameters.order?.Count > 1)
+                {
+                    order = dtParameters.order?[0].dir;
+                }
+                if (string.IsNullOrWhiteSpace(sortcolumn))
+                {
+                    sortcolumn = "PrimerNombre";
+                }
+                var datos2 = _context.ViewSolicitudesPorFechas.Where(predicado).OrderBy2(sortcolumn, order).Skip((dtParameters.start ?? 0)).Take((dtParameters.length ?? 1)).ToList();
+                datos.data = datos2.Select(x => new ViewSolicitudesPorFechaModel
+                {
+                    id = x.Id,
+                    fechaEvento = x.FechaEvento,
+                    fechaEventoTex = x.FechaEventoTex,
+                    estado = x.Estado,
+                    primerNombre = x.PrimerNombre,
+                    segundoNombre = x.SegundoApellido,
+                    primerApellido = x.PrimerApellido,
+                    segundoApellido = x.SegundoApellido,
+                    correo = x.Correo,
+                    edad = x.Edad,
+                    identificacion = x.Identificacion,
+                    telefono = x.Telefono,
+                    cantidadPersona = x.CantidadPersona,
+                    observacion = x.Observacion,
+                    motivo = x.Motivo,
+                    ciudadNombre = x.CiudadNombre,
+                    distritoDepartamento = x.DistritoDepartamento,
+                    paisNombre = x.PaisNombre
+
+                }).ToList();
+
+                return await Task.Run(() => datos);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            };
         }
     }
 }

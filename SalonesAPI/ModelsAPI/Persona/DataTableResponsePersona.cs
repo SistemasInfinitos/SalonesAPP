@@ -1,9 +1,9 @@
 ﻿using SalonesAPI.ModelsAPI.Persona;
 using System.Collections.Generic;
 
-namespace SalonesAPI.ModelsAPI.DataTable
+namespace SalonesAPI.ModelsAPI.DataTable.Persona
 {
-    public partial struct DataTableResponse
+    public partial struct DataTableResponsePersona
     {
         public int draw;
         public int recordsTotal;

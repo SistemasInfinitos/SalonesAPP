@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SalonesAPI.ModelsAPI.Reservas
+﻿namespace SalonesAPI.ModelsAPI.Reservas
 {
     public class Salones
     {

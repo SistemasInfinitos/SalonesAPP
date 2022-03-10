@@ -11,5 +11,8 @@ namespace SalonesAPI.ModelsAPI.DataTable
         public Search search { get; set; }
         public List<Order> order { get; set; }
 
+        public string fechaDesde { get; set; }
+        public string fechaHasta { get; set; }
+
     }
 }

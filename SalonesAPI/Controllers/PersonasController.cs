@@ -2,9 +2,9 @@
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SalonesAPI.Configuration;
-using SalonesAPI.ModelsAPI;
 using SalonesAPI.ModelsAPI.Comun;
 using SalonesAPI.ModelsAPI.DataTable;
+using SalonesAPI.ModelsAPI.DataTable.Persona;
 using SalonesAPI.ModelsAPI.Persona;
 using SalonesAPI.ModelsDB;
 using SalonesAPI.Repositorio.PersonasES;
@@ -67,7 +67,6 @@ namespace SalonesAPI.Controllers
             }
         }
 
-
         [Route("[action]", Name = "GetPersona")]
         [HttpGet]
         public async Task<IActionResult> GetPersona(int Id)
@@ -92,7 +91,7 @@ namespace SalonesAPI.Controllers
         [Route("[action]")]
         public async Task<IActionResult> ListPersonas(DataTableParameter dtParms)
         {
-            DataTableResponse res = await Task.Run(() => _repositoryPersonas.GetPersonasDataTable(dtParms));
+            DataTableResponsePersona res = await Task.Run(() => _repositoryPersonas.GetPersonasDataTable(dtParms));
             res.draw = dtParms.draw ?? 0;
 
             var json = JsonConvert.SerializeObject(res);
