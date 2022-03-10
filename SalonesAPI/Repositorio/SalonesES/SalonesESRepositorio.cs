@@ -29,7 +29,7 @@ namespace SalonesAPI.Repositorio.SalonesES
         private readonly CultureInfo culture = new CultureInfo("is-IS");
         private readonly CultureInfo cultureFecha = new CultureInfo("en-US");
 
-        public async Task<bool> ActualizarSalon(Salones entidad)
+        public async Task<bool> ActualizarSalon(SalonesModel entidad)
         {
             bool ok = false;
             // se usa transaccion por estandar, pero ya que es una sola tabla afectada no nesecita 
@@ -87,7 +87,7 @@ namespace SalonesAPI.Repositorio.SalonesES
             return await Task.Run(() => ok);
         }
 
-        public async Task<bool> CrearSalon(Salones entidad)
+        public async Task<bool> CrearSalon(SalonesModel entidad)
         {
             bool ok = false;
             // se usa transaccion por estandar y escalabilidad, pero ya que es una sola tabla afectada no se nesecita 
@@ -127,9 +127,9 @@ namespace SalonesAPI.Repositorio.SalonesES
             return await Task.Run(() => ok);
         }
 
-        public async Task<Salones> GetSalon(int Id)
+        public async Task<SalonesModel> GetSalon(int Id)
         {
-            Salones resevas = new Salones();
+            SalonesModel resevas = new SalonesModel();
             try
             {
                 var data = _context.Salones.Where(d => d.Id == Id).FirstOrDefault();
@@ -266,6 +266,36 @@ namespace SalonesAPI.Repositorio.SalonesES
             {
                 throw ex;
             };
+        }
+
+        public async Task<List<MotivosModel>> GetMotivos(string buscar)
+        {
+            List<MotivosModel> motivos = new List<MotivosModel>();
+            try
+            {
+                var predicado = PredicateBuilder.True<Motivo>();
+                var predicado2 = PredicateBuilder.False<Motivo>();
+                predicado = predicado.And(d => d.Estado == true);
+
+                if (!string.IsNullOrWhiteSpace(buscar))
+                {
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.Motivo1.Contains(buscar));
+
+                    predicado = predicado.And(predicado2);
+                }
+
+                var datos2 = _context.Motivos.Where(predicado).ToList();
+                motivos = datos2.Select(x => new MotivosModel
+                {
+                    id = x.Id,
+                    motivo = x.Motivo1,
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return await Task.Run(() => motivos);
         }
     }
 }

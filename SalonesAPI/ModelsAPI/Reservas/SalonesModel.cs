@@ -1,6 +1,6 @@
 ﻿namespace SalonesAPI.ModelsAPI.Reservas
 {
-    public class Salones
+    public class SalonesModel
     {
         public int id { get; set; }
         public int idPersonaCliente { get; set; }

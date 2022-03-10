@@ -28,7 +28,7 @@ namespace SalonesAPI.Repositorio.PersonasES
         private readonly CultureInfo culture = new CultureInfo("is-IS");
         private readonly CultureInfo cultureFecha = new CultureInfo("en-US");
 
-        public async Task<bool> ActualizarPersona(Personas entidad)
+        public async Task<bool> ActualizarPersona(PersonasModel entidad)
         {
             bool ok = false;
             using (var DbTran = _context.Database.BeginTransaction())
@@ -71,7 +71,7 @@ namespace SalonesAPI.Repositorio.PersonasES
             return await Task.Run(() => ok);
         }
 
-        public async Task<bool> CrearPersona(Personas entidad)
+        public async Task<bool> CrearPersona(PersonasModel entidad)
         {
             bool ok = false;
 
@@ -113,12 +113,29 @@ namespace SalonesAPI.Repositorio.PersonasES
             return await Task.Run(() => ok);
         }
 
-        public async Task<Personas> GetPersona(int Id)
+        public async Task<PersonasModel> GetPersona(string buscar,int? Id)
         {
-            Personas persona = new Personas();
+            PersonasModel persona = new PersonasModel();
             try
             {
-                var data = _context.Personas.Where(d => d.Id == Id).FirstOrDefault();
+                var predicado = PredicateBuilder.True<Persona>();
+                var predicado2 = PredicateBuilder.False<Persona>();
+                predicado = predicado.And(d => d.Estado == true);
+
+                if (!string.IsNullOrWhiteSpace(buscar))
+                {
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.PrimerNombre.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.SegundoNombre.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.PrimerApellido.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.SegundoNombre.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.Correo.Contains(buscar));
+                    predicado = predicado.And(predicado2);
+                }
+                if (Id!=null)
+                {
+                    predicado = predicado.And(x=>x.Id==Id);
+                }
+                var data = _context.Personas.Where(predicado).FirstOrDefault();
                 if (data != null)
                 {
                     persona.id = data.Id;
@@ -206,7 +223,7 @@ namespace SalonesAPI.Repositorio.PersonasES
                     sortcolumn = "PrimerNombre";
                 }
                 var datos2 = _context.Personas.Where(predicado).OrderBy2(sortcolumn, order).Skip((dtParameters.start ?? 0)).Take((dtParameters.length ?? 1)).ToList();
-                datos.data = datos2.Select(x => new Personas
+                datos.data = datos2.Select(x => new PersonasModel
                 {
                     primerNombre = x.PrimerNombre,
                     primerApellido = x.PrimerApellido,

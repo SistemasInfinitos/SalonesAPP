@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 namespace SalonesAPI.ModelsAPI.Persona
 {
-    public class Personas
+    public class PersonasModel
     {
         public int id { get; set; }
         [Required]

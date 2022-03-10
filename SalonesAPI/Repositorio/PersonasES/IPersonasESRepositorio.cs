@@ -13,20 +13,20 @@ namespace SalonesAPI.Repositorio.PersonasES
         /// </summary>
         /// <param name="entidad"></param>
         /// <returns></returns>
-        Task<bool> ActualizarPersona(Personas entidad);
+        Task<bool> ActualizarPersona(PersonasModel entidad);
         /// <summary>
         /// Crea una nueva persona en la base de datos
         /// </summary>
         /// <param name="entidad"></param>
         /// <returns></returns>
-        Task<bool> CrearPersona(Personas entidad);
+        Task<bool> CrearPersona(PersonasModel entidad);
 
         /// <summary>
         /// trae una persona segun si id de la base de datos
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task<Personas> GetPersona(int Id);
+        Task<PersonasModel> GetPersona(string buscar,int? Id);
 
         /// <summary>
         /// Trae las personas de la base de datos,  segun el rango de paginado configurado

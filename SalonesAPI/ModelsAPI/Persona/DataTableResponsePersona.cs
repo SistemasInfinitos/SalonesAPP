@@ -8,6 +8,6 @@ namespace SalonesAPI.ModelsAPI.DataTable.Persona
         public int draw;
         public int recordsTotal;
         public int recordsFiltered;
-        public List<Personas> data;
+        public List<PersonasModel> data;
     }
 }

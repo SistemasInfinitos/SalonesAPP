@@ -31,7 +31,7 @@ namespace SalonesAPI.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<IActionResult> CreatePersona([FromBody] Personas entidad)
+        public async Task<IActionResult> CreatePersona([FromBody] PersonasModel entidad)
         {
             ResponseApp data = new ResponseApp()
             {
@@ -43,6 +43,44 @@ namespace SalonesAPI.Controllers
                 if (ModelState.IsValid)
                 {
                     data.ok = await Task.Run(() => _repositoryPersonas.CrearPersona(entidad));
+                }
+                else
+                {
+                    foreach (var item in ModelState.Values)
+                    {
+                        if (item.Errors[0].ErrorMessage == "")
+                        {
+                            data.mensaje += item.Errors[0].Exception.Message + " ";
+                        }
+                        else
+                        {
+                            data.mensaje += item.Errors[0].ErrorMessage + " ";
+                        }
+                    }
+                }
+                return Ok(data);
+            }
+            catch (Exception x)
+            {
+                data.mensaje = "Ups!. Algo salio mal!. Error interno. " + x.HResult;
+                return BadRequest(data);
+            }
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<IActionResult> ActualizarPersona([FromBody] PersonasModel entidad)
+        {
+            ResponseApp data = new ResponseApp()
+            {
+                mensaje = "Ups!. Tu Solicitud No Pudo ser Procesada",
+                ok = false
+            };
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    data.ok = await Task.Run(() => _repositoryPersonas.ActualizarPersona(entidad));
                 }
                 else
                 {
