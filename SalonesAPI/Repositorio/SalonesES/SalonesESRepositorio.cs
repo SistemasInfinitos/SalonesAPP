@@ -39,7 +39,6 @@ namespace SalonesAPI.Repositorio.SalonesES
             try
             {
                 string sp = "SpDeleteReserva";
-                var date = new SqlParameter("@id", id);
                 List<SqlParameter> parametros = new List<SqlParameter>();
                 parametros.Add(new SqlParameter() { ParameterName = "@id", Value = id, SqlDbType = SqlDbType.Int });
 
