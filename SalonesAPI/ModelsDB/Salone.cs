@@ -14,6 +14,8 @@ namespace SalonesAPI.ModelsDB
         public int IdMotivo { get; set; }
         public string Observacion { get; set; }
         public bool? Estado { get; set; }
+        public DateTime FechaCreacion { get; set; }
+        public DateTime? FechaActualizacion { get; set; }
 
         public virtual Motivo IdMotivoNavigation { get; set; }
         public virtual Persona IdPersonaClienteNavigation { get; set; }

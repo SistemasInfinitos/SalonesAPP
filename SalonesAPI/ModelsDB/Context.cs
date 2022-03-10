@@ -251,6 +251,16 @@ namespace SalonesAPI.ModelsDB
                     .HasColumnName("estado")
                     .HasDefaultValueSql("((1))");
 
+                entity.Property(e => e.FechaActualizacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fechaActualizacion")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.FechaCreacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fechaCreacion")
+                    .HasDefaultValueSql("(getdate())");
+
                 entity.Property(e => e.FechaEvento)
                     .HasColumnType("datetime")
                     .HasColumnName("fechaEvento")

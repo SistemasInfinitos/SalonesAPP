@@ -1,4 +1,4 @@
-Scaffold-DbContext "Server=WIN-DESARROLLO\\DEVSQLSERVER;Database=pruebas;user=simplexwebuser;Password=Ic3b3rg2021**;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir ModelsDB -ContextDir ModelsDB -Context Context -f
+Scaffold-DbContext "Server=WIN-DESARROLLO\DEVSQLSERVER;Database=pruebas;user=simplexwebuser;Password=Ic3b3rg2021**;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir ModelsDB -ContextDir ModelsDB -Context Context -f
 
 --drop table Personas
 CREATE TABLE Personas
