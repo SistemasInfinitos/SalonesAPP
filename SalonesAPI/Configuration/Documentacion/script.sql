@@ -16,6 +16,8 @@ CREATE TABLE Personas
 	fechaActualizacion datetime null default GETDATE(),-- no puede ser obligatorio
     estado bit not null default 1
 )
+alter table Personas alter column segundoNombre  varchar(100)  null
+alter table Personas alter column segundoApellido  varchar(100)  null
 --drop table Salones
 CREATE TABLE Salones
 (

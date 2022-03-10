@@ -218,13 +218,11 @@ namespace SalonesAPI.ModelsDB
                     .HasColumnName("primerNombre");
 
                 entity.Property(e => e.SegundoApellido)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("segundoApellido");
 
                 entity.Property(e => e.SegundoNombre)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("segundoNombre");
