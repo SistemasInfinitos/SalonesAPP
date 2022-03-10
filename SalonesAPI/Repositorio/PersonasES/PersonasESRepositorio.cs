@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SalonesAPI.Repositorio.PersonasES
 {
-    public class PersonasESRepositorio: IPersonasESRepositorio
+    public class PersonasESRepositorio : IPersonasESRepositorio
     {
         private readonly JwtConfiguracion _jwtConfig;
         private readonly Context _context;
@@ -118,7 +118,7 @@ namespace SalonesAPI.Repositorio.PersonasES
             try
             {
                 var data = _context.Personas.Where(d => d.Id == Id).FirstOrDefault();
-                if (data!=null)
+                if (data != null)
                 {
                     persona.id = data.Id;
                     persona.primerNombre = data.PrimerNombre;
@@ -132,7 +132,7 @@ namespace SalonesAPI.Repositorio.PersonasES
                     persona.idCiudad = data.IdCiudad;
                     persona.estado = true;
                     persona.fechaCreacion = data.FechaCreacion.ToString("yyyy/MM/dd", cultureFecha);
-                    persona.fechaActualizacion = data.FechaActualizacion != null ? data.FechaActualizacion.Value.ToString("yyyy/MM/dd", cultureFecha) : "";                                       
+                    persona.fechaActualizacion = data.FechaActualizacion != null ? data.FechaActualizacion.Value.ToString("yyyy/MM/dd", cultureFecha) : "";
                 }
             }
             catch (Exception ex)
@@ -152,7 +152,7 @@ namespace SalonesAPI.Repositorio.PersonasES
                 List<string> sortcolumn2 = new List<string>();
                 string sortcolumn3 = "";
 
-                if ( dtParameters!=null && dtParameters.order!=null && dtParameters.order.Count()>0)
+                if (dtParameters != null && dtParameters.order != null && dtParameters.order.Count() > 0)
                 {
                     foreach (var id in dtParameters?.order)
                     {
@@ -160,10 +160,10 @@ namespace SalonesAPI.Repositorio.PersonasES
                         sortcolumn3 += (dtParameters.columns[id.column.Value].name) + ",";
                     }
                 }
-                string sortcolumn = dtParameters.columns!=null && dtParameters.order!=null && dtParameters.order[0].column!=null ?
-                    dtParameters.columns[dtParameters.order[0].column.Value].name:"";
+                string sortcolumn = dtParameters.columns != null && dtParameters.order != null && dtParameters.order[0].column != null ?
+                    dtParameters.columns[dtParameters.order[0].column.Value].name : "";
                 string sortcolumn1 = sortcolumn;
-                if (dtParameters.order!=null && dtParameters.order.Count > 1)
+                if (dtParameters.order != null && dtParameters.order.Count > 1)
                 {
                     sortcolumn1 = dtParameters.columns[dtParameters.order[1].column.Value].name;
                 }
@@ -184,18 +184,18 @@ namespace SalonesAPI.Repositorio.PersonasES
 
                 datos.recordsFiltered = _context.Personas.Where(predicado).ToList().Count();
                 datos.recordsTotal = datos.recordsFiltered;
-                if (dtParameters.start==null)
+                if (dtParameters.start == null)
                 {
                     dtParameters.start = 0;
                 }
-                datos.draw = dtParameters.draw??0;
+                datos.draw = dtParameters.draw ?? 0;
 
                 if (dtParameters.length == -1)
                 {
                     dtParameters.length = datos.recordsFiltered;
                 }
                 string order = "asc";
-                
+
                 if (dtParameters.order?.Count > 1)
                 {
                     order = dtParameters.order?[0].dir;

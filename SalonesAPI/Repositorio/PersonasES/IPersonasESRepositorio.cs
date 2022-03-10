@@ -1,8 +1,5 @@
 ﻿using SalonesAPI.ModelsAPI;
 using SalonesAPI.ModelsAPI.DataTable;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SalonesAPI.Repositorio.PersonasES

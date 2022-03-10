@@ -1,18 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Microsoft.EntityFrameworkCore;
-
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using SalonesAPI.ModelsDB;
 
 namespace SalonesAPI
@@ -31,9 +23,9 @@ namespace SalonesAPI
         {
             string connectionString = Configuration["JwtConfig:connectionString"];
             //string[] audience = Configuration["JwtConfig:Audience"].ToString().Split(",");
-            
+
             services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
-            
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
