@@ -1,3 +1,5 @@
+Scaffold-DbContext "Server=WIN-DESARROLLO\\DEVSQLSERVER;Database=pruebas;user=simplexwebuser;Password=Ic3b3rg2021**;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir ModelsDB -ContextDir ModelsDB -Context Context -f
+
 --drop table Personas
 CREATE TABLE Personas
 (
@@ -29,7 +31,8 @@ CREATE TABLE Salones
   observacion nvarchar(max)  not null,
   estado bit not null default 1
 )
-
+alter table Salones add fechaCreacion datetime not null default GETDATE() go
+alter table Salones add fechaActualizacion datetime null default GETDATE() go-- no puede ser obligatorio
 
 CREATE TABLE [dbo].[Paises](
 	[paisCodigo] [char](3) NOT NULL CONSTRAINT [DF__Pais__PaisCodigo__00200768]  DEFAULT (''),
@@ -60,7 +63,6 @@ PRIMARY KEY CLUSTERED
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-
 
 
 ALTER TABLE [dbo].[Departamentos]  WITH CHECK ADD  CONSTRAINT [DepartamentosPais] FOREIGN KEY([IdPais])

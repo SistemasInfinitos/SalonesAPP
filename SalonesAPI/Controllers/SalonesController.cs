@@ -18,7 +18,7 @@ namespace SalonesAPI.Controllers
         public SalonesController(IOptionsMonitor<JwtConfiguracion> optionsMonitor)
         {
             _jwtConfig = optionsMonitor.CurrentValue;
-            _repositorySalones = new SalonesESRepositorio(optionsMonitor);
+            //_repositorySalones = new SalonesESRepositorio(optionsMonitor);
         }
     }
 }

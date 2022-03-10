@@ -5,6 +5,7 @@ using SalonesAPI.Configuration;
 using SalonesAPI.ModelsAPI;
 using SalonesAPI.ModelsAPI.Comun;
 using SalonesAPI.ModelsAPI.DataTable;
+using SalonesAPI.ModelsAPI.Persona;
 using SalonesAPI.ModelsDB;
 using SalonesAPI.Repositorio.PersonasES;
 using System;

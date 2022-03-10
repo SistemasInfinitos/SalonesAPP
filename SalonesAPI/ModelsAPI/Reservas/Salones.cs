@@ -1,9 +1,10 @@
 ﻿using System;
 
-namespace SalonesAPI.ModelsAPI
+namespace SalonesAPI.ModelsAPI.Reservas
 {
     public class Salones
     {
+        public int id { get; set; }
         public int idPersonaCliente { get; set; }
         public DateTime fechaEvento { get; set; }
         public int cantidadPersona { get; set; }

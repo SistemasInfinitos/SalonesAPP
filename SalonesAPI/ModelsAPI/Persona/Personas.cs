@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace SalonesAPI.ModelsAPI
+namespace SalonesAPI.ModelsAPI.Persona
 {
     public class Personas
     {
