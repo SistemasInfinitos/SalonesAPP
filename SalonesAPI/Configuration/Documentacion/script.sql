@@ -1,7 +1,3 @@
-﻿Scaffold-DbContext "Server=WIN-DESARROLLO\DEVSQLSERVER;Database=pruebas;user=simplexwebuser;Password=Ic3b3rg2021**;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir ModelsDB -ContextDir ModelsDB -Context Context -f
-Scaffold-DbContext "Server=SISTEMASINFINIT\\SERVERDESARROLLO;Database=salones;user=sa;Password=YoSoyJovenDeCristo*;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir ModelsDB -ContextDir ModelsDB -Context Context -f
-Scaffold-DbContext "Server=SISTEMASINFINIT\SERVERDESARROLLO;Database=SalonesDB;user=sa;Password=YoSoyJovenDeCristo*;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir ModelsDB -ContextDir ModelsDB -Context Context -f
-
 --drop table Personas
 CREATE TABLE Personas
 (
@@ -32,18 +28,6 @@ CREATE TABLE Salones
   estado bit not null default 1
 )
 
-USE salones
-GO
-
-/****** Object:  Table [dbo].[Paises]    Script Date: 9/03/2022 10:46:30 p. m. ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
 
 CREATE TABLE [dbo].[Paises](
 	[paisCodigo] [char](3) NOT NULL CONSTRAINT [DF__Pais__PaisCodigo__00200768]  DEFAULT (''),
@@ -63,22 +47,6 @@ CREATE TABLE [dbo].[Paises](
 
 GO
 
-SET ANSI_PADDING OFF
-GO
-
-
-
-USE salones
-
-/****** Object:  Table [dbo].[Departamentos]    Script Date: 9/03/2022 10:48:07 p. m. ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
 
 CREATE TABLE [dbo].[Departamentos](
 	[Id] [int] NOT NULL,
@@ -91,10 +59,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
-GO
 
-SET ANSI_PADDING OFF
-GO
 
 ALTER TABLE [dbo].[Departamentos]  WITH CHECK ADD  CONSTRAINT [DepartamentosPais] FOREIGN KEY([IdPais])
 REFERENCES [dbo].[Paises] ([Id])
@@ -103,18 +68,6 @@ GO
 ALTER TABLE [dbo].[Departamentos] CHECK CONSTRAINT [DepartamentosPais]
 GO
 
-USE salones
-GO
-
-/****** Object:  Table [dbo].[Ciudades]    Script Date: 9/03/2022 10:49:15 p. m. ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
 
 CREATE TABLE [dbo].[Ciudades](
 	[id] [int] NOT NULL,
@@ -129,16 +82,12 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-SET ANSI_PADDING OFF
-GO
-
 ALTER TABLE [dbo].[Ciudades]  WITH CHECK ADD  CONSTRAINT [CiudadesDepartamentos] FOREIGN KEY([IdDepartamento])
 REFERENCES [dbo].[Departamentos] ([Id])
 GO
 
 ALTER TABLE [dbo].[Ciudades] CHECK CONSTRAINT [CiudadesDepartamentos]
 GO
-
 
 CREATE TABLE Edades
 (
@@ -168,4 +117,29 @@ CREATE TABLE Motivos
 
 
 ALTER TABLE Salones  WITH noCHECK ADD  CONSTRAINT [FK_Motivos] FOREIGN KEY(idMotivo)REFERENCES Motivos (id)
-
+--drop view ViewSolicitudesPorFecha
+CREATE VIEW  ViewSolicitudesPorFecha as
+select p.id
+,s.fechaEvento
+,fechaEventoTex =CONVERT(varchar,FORMAT(s.fechaEvento, 'yyyy/MM/dd HH:mm','en-US'))
+,s.estado
+,p.primerNombre
+,p.segundoNombre
+,p.primerApellido
+,p.segundoApellido
+,p.correo
+,p.edad
+,p.identificacion
+,p.telefono
+,s.cantidadPersona
+,s.observacion
+,m.motivo
+,c.ciudadNombre
+,d.DistritoDepartamento
+,pp.paisNombre
+from Salones s
+join Personas p on p.id=s.idPersonaCliente
+join Ciudades c on c.id =p.idCiudad
+join Departamentos d on d.Id=c.idDepartamento
+join Paises pp on pp.id=d.IdPais
+join Motivos m on m.id=s.idMotivo
