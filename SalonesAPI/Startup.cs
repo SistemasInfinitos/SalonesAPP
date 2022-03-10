@@ -30,10 +30,9 @@ namespace SalonesAPI
         public void ConfigureServices(IServiceCollection services)
         {
             string connectionString = Configuration["JwtConfig:connectionString"];
-            string[] audience = Configuration["JwtConfig:Audience"].ToString().Split(",");
+            //string[] audience = Configuration["JwtConfig:Audience"].ToString().Split(",");
             
-            services.AddDbContext<Context>(options => SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<Context>(), connectionString));
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<Context>();
+            services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
             
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -42,7 +41,6 @@ namespace SalonesAPI
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

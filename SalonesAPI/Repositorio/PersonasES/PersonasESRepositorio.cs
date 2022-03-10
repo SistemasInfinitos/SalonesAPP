@@ -18,10 +18,10 @@ namespace SalonesAPI.Repositorio.PersonasES
         private readonly JwtConfiguracion _jwtConfig;
         private readonly Context _context;
 
-        public PersonasESRepositorio(IOptionsMonitor<JwtConfiguracion> optionsMonitor, Context db)
+        public PersonasESRepositorio(IOptionsMonitor<JwtConfiguracion> optionsMonitor, Context context)
         {
             _jwtConfig = optionsMonitor.CurrentValue;
-            _context = db;
+            _context = context;
         }
 
         private readonly CultureInfo culture = new CultureInfo("is-IS");
@@ -112,34 +112,34 @@ namespace SalonesAPI.Repositorio.PersonasES
             return await Task.Run(() => ok);
         }
 
-
         public async Task<Personas> GetPersona(int Id)
         {
+            Personas persona = new Personas();
             try
             {
-                var x = _context.Personas.Where(d => d.Id == Id).FirstOrDefault();
-                var Persona = new Personas
+                var data = _context.Personas.Where(d => d.Id == Id).FirstOrDefault();
+                if (data!=null)
                 {
-                    id = x.Id,
-                    primerNombre = x.PrimerNombre,
-                    segundoNombre = x.SegundoNombre,
-                    primerApellido = x.PrimerApellido,
-                    segundoApellido = x.SegundoApellido,
-                    telefono = x.Telefono,
-                    identificacion = x.Identificacion,
-                    edad = x.Edad,
-                    correo = x.Correo,
-                    idCiudad = x.IdCiudad,
-                    estado = true,
-                    fechaCreacion = x.FechaCreacion.ToString("yyyy/MM/dd", cultureFecha),
-                    fechaActualizacion = x.FechaActualizacion!=null?x.FechaActualizacion.Value.ToString("yyyy/MM/dd", cultureFecha):"",
-                };
-                return await Task.Run(() => Persona);
+                    persona.id = data.Id;
+                    persona.primerNombre = data.PrimerNombre;
+                    persona.segundoNombre = data.SegundoNombre;
+                    persona.primerApellido = data.PrimerApellido;
+                    persona.segundoApellido = data.SegundoApellido;
+                    persona.telefono = data.Telefono;
+                    persona.identificacion = data.Identificacion;
+                    persona.edad = data.Edad;
+                    persona.correo = data.Correo;
+                    persona.idCiudad = data.IdCiudad;
+                    persona.estado = true;
+                    persona.fechaCreacion = data.FechaCreacion.ToString("yyyy/MM/dd", cultureFecha);
+                    persona.fechaActualizacion = data.FechaActualizacion != null ? data.FechaActualizacion.Value.ToString("yyyy/MM/dd", cultureFecha) : "";                                       
+                }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+            return await Task.Run(() => persona);
         }
 
         public async Task<DataTableResponse> GetPersonasDataTable(DataTableParameter dtParameters)
