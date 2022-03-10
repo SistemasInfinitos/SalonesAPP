@@ -143,3 +143,20 @@ join Ciudades c on c.id =p.idCiudad
 join Departamentos d on d.Id=c.idDepartamento
 join Paises pp on pp.id=d.IdPais
 join Motivos m on m.id=s.idMotivo
+
+
+--select * from Salones
+
+create procedure SpDeleteReserva
+@id int 
+as
+begin 
+--declare @id int =1--prueba 
+if EXISTS(select COUNT(id)cantidad from Salones where id=@id)
+	begin
+	delete Salones where id=@id 
+	select respuesta=@@ROWCOUNT; 
+	end
+else 
+	select respuesta=@@ROWCOUNT--respuesta= 'No hay registros!';
+end
