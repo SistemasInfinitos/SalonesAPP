@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 #nullable disable
 
@@ -6,6 +7,11 @@ namespace SalonesAPI.ModelsDB
 {
     public partial class Persona
     {
+        public Persona()
+        {
+            Salones = new HashSet<Salone>();
+        }
+
         public int Id { get; set; }
         public string Identificacion { get; set; }
         public string PrimerNombre { get; set; }
@@ -19,5 +25,8 @@ namespace SalonesAPI.ModelsDB
         public DateTime FechaCreacion { get; set; }
         public DateTime? FechaActualizacion { get; set; }
         public bool? Estado { get; set; }
+
+        public virtual Ciudade IdCiudadNavigation { get; set; }
+        public virtual ICollection<Salone> Salones { get; set; }
     }
 }
