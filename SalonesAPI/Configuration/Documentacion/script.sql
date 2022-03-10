@@ -4,16 +4,16 @@ CREATE TABLE Personas
 	id int not null primary key identity(1,1),
 	identificacion varchar(15) not null,
 	primerNombre varchar(100) not null,
-    segundoNombre  varchar(100) not null,
+    segundoNombre  varchar(100)  null,-- no puede ser obligatorio
     primerApellido varchar(100) not null,
-    segundoApellido varchar(100) not null,
+    segundoApellido varchar(100) null,-- no puede ser obligatorio
     telefono varchar(10) not null,
     correo nvarchar(100) not null,
     --idDepartamento int not null,
     idCiudad int not null,
     edad int not null,
     fechaCreacion datetime not null default GETDATE(),
-	fechaActualizacion datetime null default GETDATE(),
+	fechaActualizacion datetime null default GETDATE(),-- no puede ser obligatorio
     estado bit not null default 1
 )
 --drop table Salones
