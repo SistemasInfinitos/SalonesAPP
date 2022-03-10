@@ -32,32 +32,26 @@ namespace SalonesAPI.Repositorio.SalonesES
         public async Task<bool> ActualizarSalon(Salones entidad)
         {
             bool ok = false;
+            // se usa transaccion por estandar, pero ya que es una sola tabla afectada no nesecita 
             using (var DbTran = _context.Database.BeginTransaction())
             {
                 try
                 {
                     Salone actualizarRegistro = _context.Salones.Where(x => x.Id == entidad.id).FirstOrDefault();
 
-                    //if (actualizarRegistro != null)
-                    //{
-                    //    actualizarRegistro.IdMotivo = entidad.primerNombre;
-                    //    actualizarRegistro.IdPersonaCliente = entidad.segundoNombre;
-                    //    actualizarRegistro.FechaEvento = entidad.primerApellido;
-                    //    actualizarRegistro.SegundoApellido = entidad.segundoApellido;
-                    //    actualizarRegistro.Telefono = entidad.telefono;
-                    //    actualizarRegistro.Identificacion = entidad.identificacion;
-                    //    actualizarRegistro.Edad = entidad.edad;
-                    //    actualizarRegistro.Correo = entidad.correo;
-                    //    actualizarRegistro.IdCiudad = entidad.idCiudad;
-                    //    actualizarRegistro.Estado = true;
-                    //    actualizarRegistro.FechaCreacion = DateTime.Now;
-                    //    actualizarRegistro.FechaActualizacion = null;
+                    if (actualizarRegistro != null)
+                    {
+                        actualizarRegistro.IdMotivo = entidad.idMotivo;
+                        actualizarRegistro.IdPersonaCliente = entidad.idPersonaCliente;
+                        actualizarRegistro.FechaEvento = entidad.fechaEvento;
+                        actualizarRegistro.CantidadPersona = entidad.cantidadPersona;
+                        actualizarRegistro.Observacion = entidad.observacion;
+                        actualizarRegistro.Estado = true;
+                        actualizarRegistro.FechaActualizacion = DateTime.Now;
 
-                    //    actualizarRegistro.FechaActualizacion = DateTime.Now;
-
-                    //    _context.Entry(actualizarRegistro).State = EntityState.Modified;
-                    //    ok = await _context.SaveChangesAsync() > 0;
-                    //}
+                        _context.Entry(actualizarRegistro).State = EntityState.Modified;
+                        ok = await _context.SaveChangesAsync() > 0;
+                    }
 
                     if (ok)
                     {
@@ -92,14 +86,68 @@ namespace SalonesAPI.Repositorio.SalonesES
             return await Task.Run(() => ok);
         }
 
-        public Task<bool> CrearSalon(Salones entidad)
+        public async Task<bool> CrearSalon(Salones entidad)
         {
-            throw new NotImplementedException();
+            bool ok = false;
+            // se usa transaccion por estandar y escalabilidad, pero ya que es una sola tabla afectada no se nesecita 
+            using (var DbTran = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    Salone actualizarRegistro = _context.Salones.Where(x => x.Id == entidad.id).FirstOrDefault();
+                    Salone registro = new Salone();
+                    if (actualizarRegistro != null)
+                    {
+                        registro.IdMotivo = entidad.idMotivo;
+                        registro.IdPersonaCliente = entidad.idPersonaCliente;
+                        registro.FechaEvento = entidad.fechaEvento;
+                        registro.CantidadPersona = entidad.cantidadPersona;
+                        registro.Observacion = entidad.observacion;
+                        registro.Estado = true;
+                        registro.FechaCreacion = DateTime.Now;
+                        registro.FechaActualizacion = null;
+
+                        _context.Salones.Add(registro);
+                        ok = await _context.SaveChangesAsync() > 0;
+                    }
+
+                    if (ok)
+                    {
+                        DbTran.Commit();
+                    }
+                }
+                catch (Exception x)
+                {
+                    DbTran.Rollback();
+                }
+            }
+            return await Task.Run(() => ok);
         }
 
-        public Task<Salones> GetSalon(int Id)
+        public async Task<Salones> GetSalon(int Id)
         {
-            throw new NotImplementedException();
+            Salones resevas = new Salones();
+            try
+            {
+                var data = _context.Salones.Where(d => d.Id == Id).FirstOrDefault();
+                if (data != null)
+                {
+                    resevas.id = data.Id;
+                    resevas.idPersonaCliente = data.IdPersonaCliente;
+                    resevas.cantidadPersona = data.CantidadPersona;
+                    resevas.idMotivo = data.IdMotivo;
+                    resevas.observacion = data.Observacion;
+                    resevas.estado = true;
+                    resevas.fechaEvento = data.FechaEvento.ToString("yyyy/MM/dd", cultureFecha);
+                    resevas.fechaCreacion = data.FechaCreacion.ToString("yyyy/MM/dd", cultureFecha);
+                    resevas.fechaActualizacion = data.FechaActualizacion != null ? data.FechaActualizacion.Value.ToString("yyyy/MM/dd", cultureFecha) : "";
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return await Task.Run(() => resevas);
         }
 
         public Task<DataTableResponse> GetSalonesDataTable(DataTableParameter dtParameters)
