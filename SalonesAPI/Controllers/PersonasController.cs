@@ -1,14 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SalonesAPI.Configuration;
 using SalonesAPI.ModelsAPI;
 using SalonesAPI.ModelsAPI.Comun;
+using SalonesAPI.ModelsAPI.DataTable;
 using SalonesAPI.ModelsDB;
 using SalonesAPI.Repositorio.PersonasES;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
+using System.Web.Http.Results;
 
 namespace SalonesAPI.Controllers
 {
@@ -78,6 +81,16 @@ namespace SalonesAPI.Controllers
                 ok = true;
             }
             return Ok(new { data, ok, mensaje });
+        }
+
+
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> ListPersonas(DataTableParameter dtParms)
+        {
+            DataTableResponse res = await Task.Run(() => _repositoryPersonas.GetPersonasDataTable(dtParms));
+            res.draw = dtParms.draw??0;
+            return Ok(res);
         }
     }
 }

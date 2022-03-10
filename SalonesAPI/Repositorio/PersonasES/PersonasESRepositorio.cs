@@ -147,28 +147,32 @@ namespace SalonesAPI.Repositorio.PersonasES
             try
             {
                 DataTableResponse datos = new DataTableResponse();
-                string search = dtParameters.search.value;
-                search = search.Replace(" ", "");
+                string search = dtParameters.search?.value;
+                search = search?.Replace(" ", "");
                 List<string> sortcolumn2 = new List<string>();
                 string sortcolumn3 = "";
 
-                foreach (var id in dtParameters.order)
+                if ( dtParameters!=null && dtParameters.order!=null && dtParameters.order.Count()>0)
                 {
-                    sortcolumn2.Add(dtParameters.columns[id.column].name);
-                    sortcolumn3 += (dtParameters.columns[id.column].name) + ",";
+                    foreach (var id in dtParameters?.order)
+                    {
+                        sortcolumn2.Add(dtParameters.columns[id.column.Value].name);
+                        sortcolumn3 += (dtParameters.columns[id.column.Value].name) + ",";
+                    }
                 }
-                string sortcolumn = dtParameters.columns[dtParameters.order[0].column].name;
+                string sortcolumn = dtParameters.columns!=null && dtParameters.order!=null && dtParameters.order[0].column!=null ?
+                    dtParameters.columns[dtParameters.order[0].column.Value].name:"";
                 string sortcolumn1 = sortcolumn;
-                if (dtParameters.order.Count > 1)
+                if (dtParameters.order!=null && dtParameters.order.Count > 1)
                 {
-                    sortcolumn1 = dtParameters.columns[dtParameters.order[1].column].name;
+                    sortcolumn1 = dtParameters.columns[dtParameters.order[1].column.Value].name;
                 }
 
                 var predicado = PredicateBuilder.True<Persona>();
                 var predicado2 = PredicateBuilder.False<Persona>();
                 predicado = predicado.And(d => d.Estado == true);
 
-                if (!string.IsNullOrWhiteSpace(dtParameters.search.value))
+                if (!string.IsNullOrWhiteSpace(dtParameters.search?.value))
                 {
                     predicado2 = predicado2.Or(d => 1 == 1 && d.PrimerNombre.Contains(dtParameters.search.value));
                     predicado2 = predicado2.Or(d => 1 == 1 && d.SegundoNombre.Contains(dtParameters.search.value));
@@ -180,22 +184,27 @@ namespace SalonesAPI.Repositorio.PersonasES
 
                 datos.recordsFiltered = _context.Personas.Where(predicado).ToList().Count();
                 datos.recordsTotal = datos.recordsFiltered;
-                datos.draw = dtParameters.draw;
+                if (dtParameters.start==null)
+                {
+                    dtParameters.start = 0;
+                }
+                datos.draw = dtParameters.draw??0;
 
                 if (dtParameters.length == -1)
                 {
                     dtParameters.length = datos.recordsFiltered;
                 }
                 string order = "asc";
-                string order2 = "asc";
-
-                order = dtParameters.order[0].dir;
-                if (dtParameters.order.Count > 1)
+                
+                if (dtParameters.order?.Count > 1)
                 {
-                    order2 = dtParameters.order[1].dir;
+                    order = dtParameters.order?[0].dir;
                 }
-
-                var datos2 = _context.Personas.Where(predicado).OrderBy2(sortcolumn, order).ThenBy2(sortcolumn1, order2).Skip(dtParameters.start).Take(dtParameters.length).ToList();
+                if (string.IsNullOrWhiteSpace(sortcolumn))
+                {
+                    sortcolumn = "PrimerNombre";
+                }
+                var datos2 = _context.Personas.Where(predicado).OrderBy2(sortcolumn, order).Skip((dtParameters.start ?? 0)).Take((dtParameters.length ?? 1)).ToList();
                 datos.data = datos2.Select(x => new Personas
                 {
                     primerNombre = x.PrimerNombre,
