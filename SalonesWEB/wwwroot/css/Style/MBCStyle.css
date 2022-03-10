@@ -1,0 +1,84 @@
+﻿.transparente {
+    background-color: rgba(0,0,0,.0001) !important;
+}
+
+.displayNone {
+    display: none;
+}
+
+.colorTrSelect {
+    background-color: tomato;
+    color: white;
+}
+
+table thead tr{
+    background-color: #0094ff;
+}
+table tbody tr {
+    background-color: #d6d6d7;
+}
+
+table tr:hover {
+    background-color: #004bff;
+    cursor: pointer;
+}
+
+table td:hover {
+    background-color: #0094ff;
+    cursor: pointer;
+}
+
+table tr {
+    /*line-height: 5px;*/
+    margin: auto;
+    height: 8px;
+    border:hidden;
+}
+table > tr > td > i {
+    /*line-height: 5px;*/
+    margin: auto;
+    height: 8px;
+    border: hidden;
+}
+
+/*table td:nth-child(2) {
+    width: 100px;
+}*/
+table tfoot {
+    color: #4e73df;
+    background-color:#0094ff;
+}
+
+/*table {
+    empty-cells: hide;
+}*/
+/*.td {
+    display: flex;
+    width: 200px;
+    margin: auto;
+    background-color: coral;
+    height:-1px 3px;
+}*/
+
+/*table td:hover {
+    background-color: #9f9fa5;
+    cursor: pointer;
+}*/
+
+/*table > thead > tr > th:first-child {
+    display: flex;
+    width: 200px;
+}
+table > tbody > tr > td:first-child {
+    display: flex;
+    width: 200px;
+}
+table > thead > tr > th:nth-child(6) {
+    display: flex;
+    width: 300px;
+}
+
+table > tbody > tr > td:nth-child(6) {
+    display: flex;
+    width: 300px;
+}*/

@@ -1,43 +1,194 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <link rel="shortcut icon" href="~/css/Imagenes/logo.png">
+    <title>Eventos Deportivos - Sistemas Infinitos | Tu Solución de software</title>
+    @*<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />*@
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <meta property="og:url" content="https://sistemasinfinitos.com/" />
+    <meta property="fb:app_id" content="1481700018637177" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Sistemas Infinitos" />
+    <meta property="og:description" content="¡En Sistemas Infinitos" />
+    @*<meta property="og:image" content="~/css/Imagenes/.png" />*@
+
+    <link href="~/css/startbootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="~/css/sb-admin.css" rel="stylesheet" />
+    <!-- Bootstrap core CSS-->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/startbootstrap/css/sb-admin-2.min.css" rel="stylesheet" />
+
+    <link href="~/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Pluguin/jquery-ui-1.13.0/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/css/css/select2.css" rel="stylesheet" />
+    <link href="~/Pluguin/Select2.css" rel="stylesheet" />
+    <!-- Custom fonts for this template-->
+    <link href="~/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Page level plugin CSS-->
+    <link href="~/Pluguin/DataTables/datatables.css" rel="stylesheet" />
+    @*<link href="~/Pluguin/datetimepicker-master/build/jquery.datetimepicker.min.css" rel="stylesheet" />*@
+    <link href="~/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+
+    <!-- Animated css -->
+    <link href="~/css/toastr.css" rel="stylesheet" />
+    <link href="~/css/Site.css" rel="stylesheet" />
+
+    @RenderSection("scripts", required: false)
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Nombre de la aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                </ul>
-            </div>
+<body id="page-top">
+    <!-- ================== Header Componenr =============== -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top " id="mainNav" style="background-color:#4e73df;color:white;">
+        <a class="navbar-brand" href="#" id="Index">
+            <img src="~/css/Imagenes/logo.png" style="height: 60px;width: 120px;" />
+            <span id="Empresa"></span>
+        </a> <h6 style="color:white;" id="SesionExpire">&nbsp;<span id="ExpireTokenIndex1"></span></h6>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <span id="ExpireTokenAcces" hidden style="display:none"></span>
+            <!-- ============ SideBar Init =================== -->
+            @* Menu *@
+            <ul class="navbar-nav navbar-sidenav bg-gradient-primary sidebar-dark accordion text-white-50 ml-auto" id="exampleAccordion" style="background-color:#4e73df">
+                @* Portafolio *@
+
+                @* Fin Portafolio  *@
+                <!-- Nav Item - Pages Collapse Menu Aplicaciones Web -->
+                <li class="nav-item display compact" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Personas" data-parent="#exampleAccordion">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-link-text text-white-50">Deportistas</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse display compact" id="Personas" style="background-color:transparent;">
+                        <li class="display compact" style="margin:0.5px;padding:1px">
+                            <a class="list-group-item list-group-item-action fa fa-user display compact" style="color: black; padding: 8px" href="/Deportistas/GestionDeportistas" target="_blank">&nbsp;Gestión Deportistas</a>
+                            <a class="list-group-item list-group-item-action fa fa-user display compact" style="color: black; padding: 8px" href="/Deportistas/GetDeportistas" target="_blank">&nbsp;Deportistas</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#arbitro" data-parent="#exampleAccordion">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-link-text text-white-50">Árbitro</span>
+                    </a>
+
+                    <ul class="sidenav-second-level collapse" id="arbitro" style="background-color:transparent;">
+                        <li>
+                            <a class="list-group-item list-group-item-action fa fa-user display compact" style="color: black; padding: 8px" href="/Arbitros/GestionArbitros" target="_blank">&nbsp;Gestión Árbitro</a>
+                            <a class="list-group-item list-group-item-action fa fa-user display compact" style="color: black; padding: 8px" href="/Arbitros/GetArbitros" target="_blank">&nbsp;Árbitro</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Entrenadores" data-parent="#exampleAccordion">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-link-text text-white-50">Entrenadores</span>
+                    </a>
+
+                    <ul class="sidenav-second-level collapse" id="Entrenadores" style="background-color:transparent;">
+                        <li>
+                            <a class="list-group-item list-group-item-action fa fa-user display compact" style="color: black; padding: 8px" href="/Entrenadores/GestionEntrenadores" target="_blank">&nbsp;Gestión Entrenadores</a>
+                            <a class="list-group-item list-group-item-action fa fa-user display compact" style="color: black; padding: 8px" href="/Entrenadores/GetEntrenadores" target="_blank">&nbsp;Entrenadores</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Equipos" data-parent="#exampleAccordion">
+                        <i class="fa fa-users"></i>
+                        <span class="nav-link-text text-white-50">Equipos</span>
+                    </a>
+
+                    <ul class="sidenav-second-level collapse" id="Equipos" style="background-color:transparent;">
+                        <li>
+                            <a class="list-group-item list-group-item-action fa fa-users display compact" style="color: black; padding: 8px" href="/Equipos/GestionEquipos" target="_blank">&nbsp;Gestión Equipos</a>
+                            <a class="list-group-item list-group-item-action fa fa-users display compact" style="color: black; padding: 8px" href="/Equipos/GetEquipos" target="_blank">&nbsp;Equipos</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Temporadas" data-parent="#exampleAccordion">
+                        <i class="fa fa-calendar"></i>
+                        <span class="nav-link-text text-white-50">Temporadas</span>
+                    </a>
+
+                    <ul class="sidenav-second-level collapse" id="Temporadas" style="background-color:transparent;">
+                        <li>
+                            <a class="list-group-item list-group-item-action fa fa-calendar display compact" style="color: black; padding: 8px" href="/Temporadas/GestionTemporadas" target="_blank">&nbsp;Gestión Temporadas</a>
+                            <a class="list-group-item list-group-item-action fa fa-calendar display compact" style="color: black; padding: 8px" href="/Temporadas/GetTemporadas" target="_blank">&nbsp;Temporadas</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item display compact" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#EncuentrosDeportivos" data-parent="#exampleAccordion">
+                        <i class="fa fa-calendar-times-o"></i>
+                        <span class="nav-link-text text-white-50">EncuentrosDeportivos</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="EncuentrosDeportivos" style="background-color:transparent;">
+                        <li>
+                            <a class="list-group-item list-group-item-action fa fa-calendar-times-o display compact" style="color: black; padding: 8px" href="/EventoDeportivo/GestionEvento" target="_blank">&nbsp;Gestión Eventos</a>
+                            <a class="list-group-item list-group-item-action fa fa-calendar-times-o display compact" style="color: black; padding: 8px" href="/EventoDeportivo/GetEventos" target="_blank">&nbsp;Eventos Tabla De Posiciones</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Nav Item - Pages Collapse Menu Aplicaciones Web -->
+                @* fin del menu home*@
+            </ul>
+            @* Buoton acordeon *@
+            <ul class="navbar-nav sidenav-toggler" style="background-color:#4e83df">
+                <li class="nav-item">
+                    <a class="nav-link text-center" id="sidenavToggler">
+                        <i class="fa fa-arrow-circle-left"></i>
+                    </a>
+                </li>
+            </ul>
+            <!-- ============ SideBar Fin =================== -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown active">
+                    <a class="nav-link active" href="#" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-user"></i>
+                        <span class="indicator text-success d-none d-lg-block">
+                            <i class="fa fa-fw fa-circle" id="circuloEstado"></i>
+                        </span>
+                        &nbsp;<span style="font-weight:bold" id="Bienvenido">Bienvenido:&nbsp;</span><span id="spanUsername"></span>&nbsp;<i class="" data-toggle="tooltip" data-placement="right" title="Login" style="color:chartreuse" id="btnLogoff"></i>&nbsp;<i id="estadoIniciar"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- ================== Header Component Fin =============== -->
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Pluguin/jquery-3.6/jquery/jquery.min.js"></script>
+    <script src="~/Pluguin/jquery-ui-1.13.0/jquery-ui.min.js"></script>
+    @*<script src="~/Pluguin/datetimepicker-master/build/jquery.datetimepicker.full.js"></script>*@
+    <script src="~/css/startbootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/css/startbootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Custom scripts for all pages Nuevo-->
+    <script src="~/css/startbootstrap/js/sb-admin-2.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="~/js/sb-admin.min.js"></script>
+    <script src="~/js/select2.js"></script>
+
+    <script src="~/js/toastr.js"></script>
+    <script src="~/Pluguin/DataTables/datatables.js"></script>
+    <!--=================== Body Container ==================== -->
+    <div class="content-wrapper">
+        <div class="container body-content">
+
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; Copyright Sistemas Infinitos - Mauricio Bello- @DateTime.Now.Year </p>
+            </footer>
+
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
-        </footer>
-    </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <!--================= Fin Body Container ================ -->
 </body>
 </html>
