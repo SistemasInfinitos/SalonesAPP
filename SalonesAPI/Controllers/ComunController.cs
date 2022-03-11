@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -12,6 +14,8 @@ using System.Threading.Tasks;
 
 namespace SalonesAPI.Controllers
 {
+    [EnableCors("AudienciaPolicy")]
+    //[Authorize(Policy = "AudienciaPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class ComunController : ControllerBase
