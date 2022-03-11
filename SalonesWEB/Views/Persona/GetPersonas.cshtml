@@ -38,16 +38,16 @@
     });
     function GetPersonas() {
         debugger
-        $('#tableDinamica').find('tbody').empty();
-        //$('#tableDinamica').dataTable().fnClearTable();
-        $('#tableDinamica').dataTable().fnDestroy();
-        DataTablePaginada = "";
+        //$('#tableDinamica').find('tbody').empty();
+        ////$('#tableDinamica').dataTable().fnClearTable();
+        //$('#tableDinamica').dataTable().fnDestroy();
+        //DataTablePaginada = "";
 
-        if ($.fn.DataTable.isDataTable("#tableDinamica")) {
+        //if ($.fn.DataTable.isDataTable("#tableDinamica")) {
 
-            $('#tableDinamica').datatable.fnClearTable();
-            $('#tableDinamica').datatable.fnDestroy();
-        }
+        //    $('#tableDinamica').datatable.fnClearTable();
+        //    $('#tableDinamica').datatable.fnDestroy();
+        //}
         DataTablePaginada = $('#tableDinamica').DataTable({
             "processing": true,
             "serverSide": true,
@@ -59,36 +59,46 @@
             "ajax": {
                 "url": `${api}/api/Personas/ListPersonas`,
                 "type": "POST",
-                "datatype": "json",
-                "data": {
-                    fechaDesde: "",
-                    fechaHasta: "",
-                },
+                //"data": {
+                //    fechaDesde: "",
+                //    fechaHasta: "",
+                //},
+                //data: function (data) {
+                //    debugger
+                //    //delete data.columns;
+                //    data.fechaDesde="";
+                //    data.fechaHasta="";
+                //},
+                cache: false,
+                traditional: true,
+                async: true,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
                 dataFilter: function (response) {
                     var debug = JSON.parse(response)
                     return response;
                 },
             },
-            pagingType: "full_numbers",
-            language: {
-                "search": "Buscar",
-                "lengthMenu": "Mostrar _MENU_ Registros",
-                "infoFiltered": "(Filtrado de _MAX_ Registros Totales)",
-                "infoEmpty": "Encontrados 0 de _MAX_ Entradas",
-                "zeroRecords": "No se Encontraron Registros!",
-                "info": "Página _PAGE_ de _PAGES_",
-                "paginate": {
-                    "first": "Primera",
-                    "last": "Ultima",
-                    "next": "Siguiente",
-                    "previous": "Anterior"
-                },
-            },
-            "createdRow": function (row, data, index) {
-                if (data.estado == false) {
-                    $(row).addClass('btn-danger');
-                }
-            },
+            //pagingType: "full_numbers",
+            //language: {
+            //    "search": "Buscar",
+            //    "lengthMenu": "Mostrar _MENU_ Registros",
+            //    "infoFiltered": "(Filtrado de _MAX_ Registros Totales)",
+            //    "infoEmpty": "Encontrados 0 de _MAX_ Entradas",
+            //    "zeroRecords": "No se Encontraron Registros!",
+            //    "info": "Página _PAGE_ de _PAGES_",
+            //    "paginate": {
+            //        "first": "Primera",
+            //        "last": "Ultima",
+            //        "next": "Siguiente",
+            //        "previous": "Anterior"
+            //    },
+            //},
+            //"createdRow": function (row, data, index) {
+            //    if (data.estado == false) {
+            //        $(row).addClass('btn-danger');
+            //    }
+            //},
             "columns": [
                 {
                     "mData": null,
@@ -125,7 +135,7 @@
             ],
             buttons: [
             ],
-            "order": [[4, "desc"]]
+            "order": [[1, "desc"]]
         });
         //$.ajax({
         //    url: `${api}/api/Personas/ListPersonas`,
