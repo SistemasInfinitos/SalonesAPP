@@ -21,9 +21,15 @@ namespace SalonesAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string[] audience = Configuration["JwtConfig:Audience"].ToString().Split(",");
             string connectionString = Configuration["JwtConfig:connectionString"];
-            //string[] audience = Configuration["JwtConfig:Audience"].ToString().Split(",");
-
+            
+            //services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "AudienciaPolicy",
+                    builder => { builder.WithOrigins(audience).AllowAnyHeader().AllowAnyMethod(); });
+            });
             services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
 
             services.AddControllers();
@@ -35,13 +41,15 @@ namespace SalonesAPI
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //string[] audience = Configuration["JwtConfig:Audience"].ToString().Split(",");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SalonesAPI v1"));
             }
-
+            //app.UseCors(options => options.WithOrigins(audience).AllowAnyMethod().AllowAnyHeader());
+            app.UseCors();
             app.UseHttpsRedirection();
 
             app.UseRouting();

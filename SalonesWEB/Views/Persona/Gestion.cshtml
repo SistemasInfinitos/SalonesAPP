@@ -183,7 +183,7 @@
     });
 
     function getPersona() {
-
+        debugger
         id= '@ViewBag.idString';
         if (id != "" && id != undefined && id != NaN) {
             var uri = `${api}/api/Personas/GetPersona`;
@@ -234,6 +234,7 @@
     };
 
     function DropListPais() {
+        debugger
         $.ajax({
             url: `${api}/api/Comun/GetDropListPaises`,
             data: {},
