@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using SalonesWEB.Configuration;
+using SalonesWEB.Models.Persona;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,21 +17,29 @@ namespace SalonesWEB.Controllers.Persona
     [Route("web/per")]
     public class PersonaController : Controller
     {
-        
-        [Route("[action]")]
-        public ActionResult Gestion()
+        private readonly JwtConfiguracion _jwtConfig;
+        public PersonaController(IOptionsMonitor<JwtConfiguracion> optionsMonitor) 
         {
+            this._jwtConfig = optionsMonitor.CurrentValue;
+        }
+
+        [Route("[action]")]
+        public async Task<ActionResult> Gestion()
+        {
+            PersonasModel model = new PersonasModel();
             var httpClient = new HttpClient();
-            //string url = ConfigurationManager.AppSettings.Get("Service");
-            string url = "";
-            //var json = JsonConvert.SerializeObject(Object);
-            //var data = new StringContent(json, Encoding.UTF8, "application/json");
-            //var response =  httpClient.PostAsync(url, data);
-            if (/*response.IsSuccessStatusCode*/ true)
+            string api = _jwtConfig.api;
+            string endpoint = "Personas/GetPersona";
+            string parmetro = "";
+            string uri = api + "/" + endpoint+ parmetro;
+
+            var data = new StringContent("objt_json", Encoding.UTF8, "application/json");
+            var response =await  httpClient.PostAsync(uri, data);
+            if (response.IsSuccessStatusCode)
             {
-                //var dataObjects = response.Content.ReadAsAsync<object>().Result;
+                 model = JsonConvert.DeserializeObject<PersonasModel>(await response.Content.ReadAsStringAsync());
             }
-                return View();
+            return View(model);
         }
     }
 }

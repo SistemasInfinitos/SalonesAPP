@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SalonesWEB.Configuration;
 
 namespace SalonesWEB
 {
@@ -19,6 +20,10 @@ namespace SalonesWEB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddOptions();
+            //services.Configure<JwtConfiguracion>(Configuration);
+            services.Configure<JwtConfiguracion>(Configuration.GetSection($"JwtConfiguracion"));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
