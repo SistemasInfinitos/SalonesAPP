@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SalonesAPI.ModelsDB;
+using System;
 
 namespace SalonesAPI
 {
@@ -27,8 +28,9 @@ namespace SalonesAPI
             //services.AddCors();
             services.AddCors(options =>
             {
-                options.AddPolicy(name: "AudienciaPolicy",
-                    builder => { builder.WithOrigins(audience).AllowAnyHeader().AllowAnyMethod(); });
+                //options.AddPolicy(name: "AudienciaPolicy", builder => { builder.WithOrigins(audience).AllowAnyHeader().AllowAnyMethod(); });//produccion
+                options.AddPolicy(name: "AudienciaPolicy", builder => { builder.SetIsOriginAllowed(origen => new Uri(origen).Host == "localhost").AllowAnyHeader().AllowAnyMethod(); });
+                
             });
             services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
 
