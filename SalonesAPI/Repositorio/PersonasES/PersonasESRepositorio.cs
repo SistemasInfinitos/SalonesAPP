@@ -242,5 +242,9 @@ namespace SalonesAPI.Repositorio.PersonasES
             }
         }
 
+        public Task<bool> DeletePersona(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

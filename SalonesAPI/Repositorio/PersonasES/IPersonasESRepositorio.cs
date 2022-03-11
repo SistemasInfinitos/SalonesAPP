@@ -7,6 +7,12 @@ namespace SalonesAPI.Repositorio.PersonasES
 {
     public interface IPersonasESRepositorio
     {
+        /// <summary>
+        /// Borra una persona de la base de datos
+        /// </summary>
+        /// <param name="entidad"></param>
+        /// <returns></returns>
+        Task<bool> DeletePersona(int id);
 
         /// <summary>
         /// Actualiza una persona existente en la base de datos
@@ -14,6 +20,7 @@ namespace SalonesAPI.Repositorio.PersonasES
         /// <param name="entidad"></param>
         /// <returns></returns>
         Task<bool> ActualizarPersona(PersonasModel entidad);
+
         /// <summary>
         /// Crea una nueva persona en la base de datos
         /// </summary>

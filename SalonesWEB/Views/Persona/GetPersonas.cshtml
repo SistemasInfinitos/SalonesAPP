@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewData["Title"] = "GetPersonas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card mb-3" style="margin-top:57px;">
+
+    <div class="card-header">
+        <i class="fa fa-table"></i> @ViewData["Title"] &emsp;
+    </div>
+    <div class="card-body">
+        <div class="panel-body-busqueda">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover display compact dataTable" id="tableDinamica">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center">Editar</th>
+                            <th style="text-align:center">Nombre</th>
+                            <th style="text-align:center">Número</th>
+                            <th style="text-align:center">Posición</th>
+                            <th style="text-align:center">Documento</th>
+                            <th style="text-align:center">Fecha</th>
+                            <th style="text-align:center">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var api = localStorage.getItem("api");
+    $(document).ready(function () {
+        GetPersonas();
+    });
+    function GetPersonas() {
+
+        $.ajax({
+            url: `${api}/api/Personas/ListPersonas`,
+            method: 'post',//se usa pos porque el metodo era para Dtatable nativa
+            data: {},//no se usan parametros por tiempos de entrega
+            traditional: true,
+            async: true,
+            dataType: "json",
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")//en caso de requerir token de acceso
+            },
+            success: function (response) {
+                debugger
+                $('#tableDinamica').DataTable().clear();
+                $('#tableDinamica').DataTable().destroy();
+                $('#tableDinamica').find('tbody').empty();
+                if (response.ok) {
+                    toastr.success(response.mensaje, "Atención!");
+                    for (var i = 0; i < response.deportistas.length; i++) {
+                        $('#tableDinamica').find('tbody').append(
+                            `<tr id="">
+                                <td align="right">
+                                    <button type="button" class="btn btn-success btn-xs" onclick="Gestion('${response.deportistas[i].id}')">
+                                        <i class="fa fa-pencil-square"></i>&nbsp;Editar&nbsp;&nbsp;
+                                    </button>
+                                </td>
+                                <td align="right">${ response.deportistas[i].nombre}</td>
+                                <td align="right">${ response.deportistas[i].numero}</td>
+                                <td align="right">${ response.deportistas[i].posicion}</td>
+                                <td align="right">${ response.deportistas[i].documento}</td>
+                                <td align="right">${ response.deportistas[i].fechaTex}</td>
+                                <td align="right">
+                                    <button type="button" class="btn btn-warning btn-xs" onclick="BorrarPersona('${response.deportistas[i].id}')">
+                                        <i class="fa fa-trash"></i>&nbsp;Borrar&nbsp;&nbsp;
+                                    </button>
+                                </td>
+                            </tr >`);
+                    }
+                } else {
+                    toastr.error(response.mensaje, "Error");
+                };
+            },
+            error: function (jQXHR) {
+                toastr.error('No pudimos procesar su Solicitud!')
+            },
+            complete: function () {
+                $('#tableDinamica').DataTable({
+                    dom: "<''<'col-md-6'l><'col-md-6'f>>t<'col-md-4'i><'col-md-8 text-right'pB>",
+                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                    buttons: []
+                });
+            }
+        });
+    }
+
+    function Gestion(id) {
+
+        if (id != "" && id != undefined && id != NaN) {
+            var url = '?' + $.param({ "id": id });
+            window.location.href = "/Persona/Gestion/" + id;
+        }
+    };
+
+    function BorrarPersona(id) {
+
+        if (id != "" && id != undefined && id != NaN) {
+            var uri = `${api}/api/Personas/`;
+            var url = uri + '?' + $.param({ "idString": id });
+            $.ajax({
+                url: `${api}/api/Personas/BorrarPersona`,
+                type: 'DELETE',
+                success: function (response) {
+                    if (response.ok) {
+                        toastr.success(response.mensaje);
+                    } else {
+                        toastr.warning(response.mensaje);
+                    };
+                    GetPersonas();
+                },
+                error: function (jQXHR) {
+                    toastr.error('error, No pudimos procesar su Solicitud!');
+                }
+            });
+        }
+    };
+
+</script>
+

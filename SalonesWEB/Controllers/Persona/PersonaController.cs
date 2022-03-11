@@ -24,22 +24,44 @@ namespace SalonesWEB.Controllers.Persona
         }
 
         [Route("[action]")]
-        public async Task<ActionResult> Gestion()
+        [HttpGet]
+        public async Task<ActionResult> Gestion(string id)
         {
             PersonasModel model = new PersonasModel();
-            var httpClient = new HttpClient();
-            string api = _jwtConfig.api;
-            string endpoint = "Personas/GetPersona";
-            string parmetro = "";
-            string uri = api + "/" + endpoint+ parmetro;
-
-            var data = new StringContent("objt_json", Encoding.UTF8, "application/json");
-            var response =await  httpClient.PostAsync(uri, data);
-            if (response.IsSuccessStatusCode)
+            ViewBag.idString = "";
+            if (!string.IsNullOrWhiteSpace(id))
             {
-                 model = JsonConvert.DeserializeObject<PersonasModel>(await response.Content.ReadAsStringAsync());
+                ViewBag.idString = id;
+                var httpClient = new HttpClient();
+                string api = _jwtConfig.api;
+                string endpoint = "api/Personas/GetPersona";
+                string parmetro = "";
+                string uri = api + "/" + endpoint + parmetro;
+
+                //var data = new StringContent("objt_json", Encoding.UTF8, "application/json");
+                //var response =await  httpClient.PostAsync(uri, data);
+                try
+                {
+                    var response = await httpClient.GetAsync(uri);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        model = JsonConvert.DeserializeObject<PersonasModel>(await response.Content.ReadAsStringAsync());
+                    }
+                }
+                catch (Exception X)
+                {
+                    string mensaje = X.Message;
+                    throw;
+                }
             }
             return View(model);
+        }
+
+        [Route("[action]")]
+        [HttpGet]
+        public async Task<ActionResult> GetPersonas() 
+        {
+            return View();
         }
     }
 }

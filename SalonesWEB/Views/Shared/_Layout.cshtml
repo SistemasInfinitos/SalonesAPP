@@ -65,7 +65,7 @@
                     <ul class="sidenav-second-level collapse display compact" id="Personas" style="background-color:transparent;">
                         <li class="display compact" style="margin:0.5px;padding:1px">
                             <a class="list-group-item list-group-item-action fa fa-user display compact" style="color: black; padding: 8px" href="/web/per/Gestion" target="_blank">&nbsp;Gestión Clientes</a>
-                            <a class="list-group-item list-group-item-action fa fa-user display compact" style="color: black; padding: 8px" href="/Persona/Gestion" target="_blank">&nbsp;Gestión Clientes</a>
+                            <a class="list-group-item list-group-item-action fa fa-list display compact" style="color: black; padding: 8px" href="/web/per/GetPersonas" target="_blank">&nbsp;List Clientes</a>
                         </li>
                     </ul>
                 </li>
@@ -110,6 +110,36 @@
 
     <script src="~/js/toastr.js"></script>
     <script src="~/Pluguin/DataTables/datatables.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Test();
+        });
+
+        function Test() {
+            $.ajax({
+                //url: '/Home/GetService',
+                url: "@Url.Action("GetService", "Home")",
+                type: 'get',
+                traditional: true,
+                async: true,
+                dataType: "json",
+                success: function (response) {
+                    debugger
+                    if (response.ok) {
+                        toastr.success(response.mensaje);
+                        localStorage.setItem("api", response.api);
+                    } else {
+                        toastr.warning(response.mensaje);
+                    };
+                },
+                error: function (jQXHR) {
+                    debugger
+                    toastr.error('error, No pudimos procesar su Solicitud!');
+                }
+            });
+        };
+    </script>
     <!--=================== Body Container ==================== -->
     <div class="content-wrapper">
         <div class="container body-content">

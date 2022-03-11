@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SalonesWEB.Models.Persona.PersonasModel>
+﻿@model SalonesWEB.Models.Persona.PersonasModel
 
 @{
     ViewData["Title"] = "Gestion";
@@ -7,108 +7,223 @@
 
 <h1>Gestion</h1>
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.identificacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.primerNombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.segundoNombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.primerApellido)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.segundoApellido)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.telefono)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.correo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.idCiudad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.edad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.fechaCreacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.fechaActualizacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.estado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.idDepartamento)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@*@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.identificacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.primerNombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.segundoNombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.primerApellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.segundoApellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.correo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.idCiudad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.edad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fechaCreacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fechaActualizacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.estado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.idDepartamento)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}*@
-    </tbody>
-</table>
+</p>*@
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light" style="margin-top:67px;">
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a data-toggle="tab" class="nav-link" href="#home1">Gestión Clientes</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+<div class="card o-hidden border-0 shadow-lg my-n2">
+    <div class="tab-content">
+        <br />
+        @* Persona *@
+        <div class="tab-pane active" id="home1">
+            <form class="user" style="margin:2%">
+                <div class="form-group row">
+                    <div class="col-sm-3 mb-3 mb-sm-3" hidden>
+                        <input type="number" class="form-control" id="id" name="id" placeholder="Id" required readonly>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="Nombre"><span style="color:red">*</span>Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="numero">Número</label>
+                        <input type="text" class="form-control" id="numero" name="numero" placeholder="Número Jugador" required>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="posicion">Posición</label>
+                        <input type="text" class="form-control" id="posicion" name="posicion" placeholder="Posición" required>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="documento">Documento Identidad</label>
+                        <input type="text" class="form-control" id="documento" name="documento" placeholder="Documento Identidad" required>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="idEquipo">Equipo</label>
+                        <select id="idEquipo" name="idEquipo" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                            <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Equipo </option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="btnCrear">.</label>
+                        <button type="button" class="form-control btn-secondary" id="btnCrear" placeholder="Guardar" style="background: #4e73df;font-size:15px;color:white;">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var update = false;
+    var id = "";
+    var idEquipo = "";
+
+    $(document).ready(function () {
+        $("#idEquipo").select2();
+        getPersona();
+        DropList();
+    });
+
+    $("#btnCrear").click(function () {
+        var idEquipo = $("#idEquipo").val();
+        debugger
+        var data = {
+            id: id,
+            nombre: $("#nombre").val(),
+            numero: $("#numero").val(),
+            posicion: $("#posicion").val(),
+            documento: $("#documento").val(),
+            idEquipo: idEquipo
+        }
+        var entidad = JSON.stringify(data);
+        if (update == false) {
+            $.ajax({
+                url: 'https://localhost:44331/api/Clientes/CreatePersona',
+                //method: 'Post',
+                'type': 'POST',
+                data: entidad,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                traditional: true,
+                async: true,
+                dataType: "JSON",
+                success: function (ok) {
+
+                    if (ok) {
+                        toastr.success("success");
+                    } else {
+                        toastr.warning(ok.mensaje);
+                    }
+                },
+                complete: function () {
+
+                },
+                error: function (data) {
+                   toastr.error("No pudimos completar tu solicitud!");
+                }
+            });
+        }
+        else if (id != "" && id != undefined && id != NaN) {
+            $.ajax({
+                url: 'https://localhost:44331/api/Clientes/UpdatePersona',
+                'type': 'PUT',
+                data: entidad,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                traditional: true,
+                async: true,
+                dataType: "JSON",
+                success: function (ok) {
+
+                    if (ok) {
+                        toastr.success("success");
+                    } else {
+                        toastr.warning(ok.mensaje);
+                    }
+                },
+                complete: function () {
+
+                },
+                error: function (data) {
+                    toastr.error("No pudimos completar tu solicitud!");
+                }
+            });
+        }
+        else {
+            toastr.warning("selecciona una accion!");
+        }
+    });
+
+    function getPersona() {
+
+        id= '@ViewBag.idString';
+        if (id != "" && id != undefined && id != NaN) {
+            var uri = 'https://localhost:44331/api/Clientes/GetUnPersonaById';
+            var url = uri + '?' + $.param({ "id": id });
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function (data) {
+
+                    $("#id").val("");
+                    $("#nombre").val("");
+                    $("#numero").val("");
+                    $("#posicion").val("");
+                    $("#documento").val("");
+                    $("#idEquipo").val("");
+
+                    if (data.response.ok) {
+                        toastr.success(data.response.message);
+                        update = true;
+
+                        id=data.deportista.id;
+                        $("#id").val(data.deportista.id);
+                        $("#nombre").val(data.deportista.nombre);
+                        $("#numero").val(data.deportista.numero);
+                        $("#posicion").val(data.deportista.posicion);
+                        $("#documento").val(data.deportista.documento);
+                        idEquipo=data.deportista.idEquipo;
+                        $("#idEquipo").val(data.deportista.idEquipo);
+
+                    } else {
+                        toastr.warning("No pudimos procesar su Solicitud!");
+                    };
+                },
+                error: function (jQXHR) {
+                   toastr.error('error, No pudimos procesar su Solicitud!');
+                }
+            });
+        }
+    };
+
+    function DropList() {
+        $.ajax({
+            url: 'https://localhost:44331/api/Equipos/GetAllListEquipos',
+            method: 'get',
+            traditional: true,
+            async: true,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            headers: {
+                'Authorization': 'Bearer '
+                    + localStorage.getItem("accessToken")
+            },
+            success: function (data) {
+                $('#idEquipo').empty();
+                debugger
+                if (data.ok) {
+                    $(data.equipos).each(function (i) {
+                        debugger
+                        $('#idEquipo').append($('<option>', {
+                            value: data.equipos[i].id,
+                            text: data.equipos[i].nombreEquipo,
+                        }));
+                    });
+                    if (idEquipo!="") {
+                        $("#idEquipo").val(idEquipo).trigger('change.select2');
+                    }
+                } else {
+                    toastr.warning(data.mensaje);
+                }
+            },
+            error: function (data) {
+                toastr.error("error");
+            }
+        });
+    }
+
+</script>

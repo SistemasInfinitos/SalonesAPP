@@ -105,19 +105,45 @@ namespace SalonesAPI.Controllers
             }
         }
 
+
+        [Route("[action]")]
+        [HttpDelete]
+        public async Task<IActionResult> BorrarPersona(int?id)
+        {
+            ResponseApp data = new ResponseApp()
+            {
+                mensaje = "Ups!. Tu Solicitud No Pudo ser Procesada",
+                ok = false
+            };
+   
+            if (id!=null)
+            {
+                try
+                {
+                    data.ok = await Task.Run(() => _repositoryPersonas.DeletePersona(id.Value));
+                    return Ok(data);
+                }
+                catch (Exception x)
+                {
+                    data.mensaje = "Ups!. Algo salio mal!. Error interno. " + x.HResult;
+                }
+            }
+            return BadRequest(data);
+        }
+
         [Route("[action]", Name = "GetPersona")]
         [HttpGet]
-        public async Task<IActionResult> GetPersona(string buscar,int Id)
+        public async Task<IActionResult> GetPersona(string buscar,int? Id)
         {
             bool ok = false;
             string mensaje = "Sin Datos";
             var data = await Task.Run(() => _repositoryPersonas.GetPersona(buscar,Id));
-            if (data != null)
+            if (data != null && data.id>0)
             {
                 mensaje = "ok";
                 ok = true;
             }
-            return Ok(new { data, ok, mensaje });
+            return Ok(data);
         }
 
         /// <summary>
