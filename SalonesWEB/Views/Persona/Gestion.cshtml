@@ -32,30 +32,59 @@
                         <input type="number" class="form-control" id="id" name="id" placeholder="Id" required readonly>
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="Nombre"><span style="color:red">*</span>Nombre</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
+                        <label class="col-form-label" for="primerNombre"><span style="color:red">*</span>Primer Nombre</label>
+                        <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Nombre">
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="numero">Número</label>
-                        <input type="text" class="form-control" id="numero" name="numero" placeholder="Número Jugador" required>
+                        <label class="col-form-label" for="segundoNombre"><span style="color:red">*</span>Segundo Nombre</label>
+                        <input type="text" class="form-control" id="segundoNombre" name="segundoNombre" placeholder="Nombre">
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="posicion">Posición</label>
-                        <input type="text" class="form-control" id="posicion" name="posicion" placeholder="Posición" required>
+                        <label class="col-form-label" for="primerApellido"><span style="color:red">*</span>Primer Apellido</label>
+                        <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Nombre">
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="documento">Documento Identidad</label>
-                        <input type="text" class="form-control" id="documento" name="documento" placeholder="Documento Identidad" required>
+                        <label class="col-form-label" for="segundoApellido"><span style="color:red">*</span>Segundo Apellido</label>
+                        <input type="text" class="form-control" id="segundoApellido" name="segundoApellido" placeholder="Nombre">
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="idEquipo">Equipo</label>
+                        <label class="col-form-label" for="identificacion">Número Identidad</label>
+                        <input type="text" class="form-control" id="identificacion" name="identificacion" placeholder="Número Identificacion" required>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" for="telefono">Telefono</label>
+                        <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Posición" required>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" for="idCiudad">Correo</label>
+                        <input type="email" class="form-control" id="correo" name="correo" placeholder="Mail" required>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" for="idEquipo">Edad</label>
                         <select id="idEquipo" name="idEquipo" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
-                            <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Equipo </option>
+                            <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione Edad</option>
                         </select>
                     </div>
-
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="btnCrear">.</label>
+                        <label class="col-form-label" for="idEquipo">Pais</label>
+                        <select id="idEquipo" name="idEquipo" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                            <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Pais </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" for="idEquipo">Departamento</label>
+                        <select id="idEquipo" name="idEquipo" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                            <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Departamento </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" for="idEquipo">Ciudad</label>
+                        <select id="idCiudad" name="idCiudad" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                            <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Ciudad</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" for="btnCrear">.</label>
                         <button type="button" class="form-control btn-secondary" id="btnCrear" placeholder="Guardar" style="background: #4e73df;font-size:15px;color:white;">Guardar</button>
                     </div>
                 </div>
@@ -64,6 +93,7 @@
     </div>
 </div>
 <script>
+    var api = localStorage.getItem("api");
     var update = false;
     var id = "";
     var idEquipo = "";
@@ -88,7 +118,7 @@
         var entidad = JSON.stringify(data);
         if (update == false) {
             $.ajax({
-                url: 'https://localhost:44331/api/Clientes/CreatePersona',
+                url: `${api}/api/Personas/ListPersonas`,
                 //method: 'Post',
                 'type': 'POST',
                 data: entidad,
@@ -107,9 +137,6 @@
                         toastr.warning(ok.mensaje);
                     }
                 },
-                complete: function () {
-
-                },
                 error: function (data) {
                    toastr.error("No pudimos completar tu solicitud!");
                 }
@@ -117,7 +144,7 @@
         }
         else if (id != "" && id != undefined && id != NaN) {
             $.ajax({
-                url: 'https://localhost:44331/api/Clientes/UpdatePersona',
+                url: `${api}/api/Personas/ListPersonas`,
                 'type': 'PUT',
                 data: entidad,
                 headers: {
@@ -152,7 +179,7 @@
 
         id= '@ViewBag.idString';
         if (id != "" && id != undefined && id != NaN) {
-            var uri = 'https://localhost:44331/api/Clientes/GetUnPersonaById';
+            var uri = `${api}/api/Personas/ListPersonas`;
             var url = uri + '?' + $.param({ "id": id });
             $.ajax({
                 url: url,
@@ -192,7 +219,7 @@
 
     function DropList() {
         $.ajax({
-            url: 'https://localhost:44331/api/Equipos/GetAllListEquipos',
+            url: `${api}/api/Personas/ListPersonas`,
             method: 'get',
             traditional: true,
             async: true,
