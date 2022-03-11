@@ -33,19 +33,19 @@
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" for="primerNombre"><span style="color:red">*</span>Primer Nombre</label>
-                        <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Nombre">
+                        <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Primer Nombre">
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" for="segundoNombre"><span style="color:red">*</span>Segundo Nombre</label>
-                        <input type="text" class="form-control" id="segundoNombre" name="segundoNombre" placeholder="Nombre">
+                        <input type="text" class="form-control" id="segundoNombre" name="segundoNombre" placeholder="Segundo Nombr">
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" for="primerApellido"><span style="color:red">*</span>Primer Apellido</label>
-                        <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Nombre">
+                        <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Primer Apellido">
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" for="segundoApellido"><span style="color:red">*</span>Segundo Apellido</label>
-                        <input type="text" class="form-control" id="segundoApellido" name="segundoApellido" placeholder="Nombre">
+                        <input type="text" class="form-control" id="segundoApellido" name="segundoApellido" placeholder="Segundo Apellido">
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" for="identificacion">Número Identidad</label>
@@ -53,32 +53,32 @@
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" for="telefono">Telefono</label>
-                        <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Posición" required>
+                        <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Telefono-Celular" required>
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" for="idCiudad">Correo</label>
+                        <label class="col-form-label" for="correo">Correo</label>
                         <input type="email" class="form-control" id="correo" name="correo" placeholder="Mail" required>
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" for="idEquipo">Edad</label>
-                        <select id="idEquipo" name="idEquipo" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                        <label class="col-form-label" for="edad">Edad</label>
+                        <select id="edad" name="edad" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione Edad</option>
                         </select>
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" for="idEquipo">Pais</label>
-                        <select id="idEquipo" name="idEquipo" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                        <label class="col-form-label" for="pais">Pais</label>
+                        <select id="pais" name="pais" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Pais </option>
                         </select>
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" for="idEquipo">Departamento</label>
-                        <select id="idEquipo" name="idEquipo" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                        <label class="col-form-label" for="departamento">Departamento</label>
+                        <select id="departamento" name="departamento" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Departamento </option>
                         </select>
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" for="idEquipo">Ciudad</label>
+                        <label class="col-form-label" for="idCiudad">Ciudad</label>
                         <select id="idCiudad" name="idCiudad" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Ciudad</option>
                         </select>
@@ -96,29 +96,36 @@
     var api = localStorage.getItem("api");
     var update = false;
     var id = "";
-    var idEquipo = "";
+    var pais = "";
+    var departamento = "";
+    var idCiudad = "";
+    var edad = "";
 
     $(document).ready(function () {
-        $("#idEquipo").select2();
+        $(".collapse-inner").select2();
         getPersona();
-        DropList();
+        DropListPais();
     });
 
     $("#btnCrear").click(function () {
-        var idEquipo = $("#idEquipo").val();
+        idCiudad = $("#idCiudad").val();
         debugger
         var data = {
             id: id,
-            nombre: $("#nombre").val(),
-            numero: $("#numero").val(),
-            posicion: $("#posicion").val(),
-            documento: $("#documento").val(),
-            idEquipo: idEquipo
+            primerNombre: $("#primerNombre").val(),
+            segundoNombre: $("#segundoNombre").val(),
+            primerApellido: $("#primerApellido").val(),
+            segundoApellido: $("#segundoApellido").val(),
+            identificacion: $("#identificacion").val(),
+            telefono: $("#telefono").val(),
+            correo: $("#correo").val(),
+            edad: $("#edad").val(),
+            idCiudad: idCiudad
         }
         var entidad = JSON.stringify(data);
         if (update == false) {
             $.ajax({
-                url: `${api}/api/Personas/ListPersonas`,
+                url: `${api}/api/Personas/CreatePersona`,
                 //method: 'Post',
                 'type': 'POST',
                 data: entidad,
@@ -129,12 +136,12 @@
                 traditional: true,
                 async: true,
                 dataType: "JSON",
-                success: function (ok) {
-
-                    if (ok) {
-                        toastr.success("success");
+                success: function (response) {
+                    debugger
+                    if (response.ok) {
+                        toastr.success(response.mensaje);
                     } else {
-                        toastr.warning(ok.mensaje);
+                        toastr.warning(response.mensaje);
                     }
                 },
                 error: function (data) {
@@ -144,7 +151,7 @@
         }
         else if (id != "" && id != undefined && id != NaN) {
             $.ajax({
-                url: `${api}/api/Personas/ListPersonas`,
+                url: `${api}/api/Personas/ActualizarPersona`,
                 'type': 'PUT',
                 data: entidad,
                 headers: {
@@ -179,32 +186,41 @@
 
         id= '@ViewBag.idString';
         if (id != "" && id != undefined && id != NaN) {
-            var uri = `${api}/api/Personas/ListPersonas`;
-            var url = uri + '?' + $.param({ "id": id });
+            var uri = `${api}/api/Personas/GetPersona`;
+            var url = uri + '?' + $.param({ "buscar": "","id": id });
             $.ajax({
                 url: url,
                 type: 'get',
-                success: function (data) {
-
+                success: function (response) {
+                    debugger
                     $("#id").val("");
-                    $("#nombre").val("");
-                    $("#numero").val("");
-                    $("#posicion").val("");
-                    $("#documento").val("");
-                    $("#idEquipo").val("");
+                    id = "";
+                    $("#primerNombre").val();
+                    $("#segundoNombre").val();
+                    $("#primerApellido").val();
+                    $("#segundoApellido").val();
+                    $("#identificacion").val();
+                    $("#telefono").val();
+                    $("#correo").val();
+                    $("#edad").val();
+                    idCiudad = "";
 
-                    if (data.response.ok) {
+                    if (response.data.ok) {
                         toastr.success(data.response.message);
                         update = true;
 
-                        id=data.deportista.id;
+                        id = response.data.persona.id;
                         $("#id").val(data.deportista.id);
-                        $("#nombre").val(data.deportista.nombre);
-                        $("#numero").val(data.deportista.numero);
-                        $("#posicion").val(data.deportista.posicion);
-                        $("#documento").val(data.deportista.documento);
-                        idEquipo=data.deportista.idEquipo;
-                        $("#idEquipo").val(data.deportista.idEquipo);
+                        $("#primerNombre").val(response.data.persona.primerNombre);
+                        $("#segundoNombre").val(response.data.persona.segundoNombre);
+                        $("#primerApellido").val(response.data.persona.primerApellido);
+                        $("#segundoApellido").val(response.data.persona.segundoApellido);
+                        $("#identificacion").val(response.data.persona.identificacion);
+                        $("#telefono").val(response.data.persona.telefono);
+                        $("#correo").val(response.data.persona.correo);
+                        $("#edad").val(response.data.persona.edad);
+                        $("#idCiudad").val(response.data.persona.idCiudad);
+                        idCiudad = response.data.persona.idCiudad;
 
                     } else {
                         toastr.warning("No pudimos procesar su Solicitud!");
@@ -217,9 +233,10 @@
         }
     };
 
-    function DropList() {
+    function DropListPais() {
         $.ajax({
-            url: `${api}/api/Personas/ListPersonas`,
+            url: `${api}/api/Comun/GetDropListPaises`,
+            data: {},
             method: 'get',
             traditional: true,
             async: true,
@@ -230,27 +247,70 @@
                     + localStorage.getItem("accessToken")
             },
             success: function (data) {
-                $('#idEquipo').empty();
+                $('#pais').empty();
                 debugger
                 if (data.ok) {
-                    $(data.equipos).each(function (i) {
+                    $(data.paises).each(function (i) {
                         debugger
-                        $('#idEquipo').append($('<option>', {
-                            value: data.equipos[i].id,
-                            text: data.equipos[i].nombreEquipo,
+                        $('#pais').append($('<option>', {
+                            value: data.paises[i].id,
+                            text: data.paises[i].paisNombre,
                         }));
                     });
-                    if (idEquipo!="") {
-                        $("#idEquipo").val(idEquipo).trigger('change.select2');
+                    if (pais!="") {
+                        $("#pais").val(pais).trigger('change.select2');
                     }
                 } else {
                     toastr.warning(data.mensaje);
                 }
             },
             error: function (data) {
-                toastr.error("error");
+                toastr.error("error!");
             }
         });
+    }
+
+    function DropListDepartamentos() {
+        if (pais != "" && pais != undefined) {
+            $.ajax({
+                url: `${api}/api/Comun/GetDropListDepartamentos`,
+                data:
+                {
+                    buscar: "",
+                    idPais: pais
+                },
+                method: 'get',
+                traditional: true,
+                async: true,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                headers: {
+                    'Authorization': 'Bearer '
+                        + localStorage.getItem("accessToken")
+                },
+                success: function (data) {
+                    $('#departamento').empty();
+                    debugger
+                    if (data.ok) {
+                        $(data.dapartamentos).each(function (i) {
+                            debugger
+                            $('#departamento').append($('<option>', {
+                                value: data.dapartamentos[i].id,
+                                text: data.dapartamentos[i].DistritoDepartamento,
+                            }));
+                        });
+                        if (departamento != "") {
+                            $("#departamento").val(departamento).trigger('change.select2');
+                        }
+                    } else {
+                        toastr.warning(data.mensaje);
+                    }
+                },
+                error: function (data) {
+                    toastr.error("error!");
+                }
+            });
+        }
     }
 
 </script>

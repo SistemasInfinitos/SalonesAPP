@@ -68,7 +68,7 @@ namespace SalonesAPI.Controllers
         }
 
         [Route("[action]")]
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> ActualizarPersona([FromBody] PersonasModel entidad)
         {
             ResponseApp data = new ResponseApp()
@@ -105,7 +105,6 @@ namespace SalonesAPI.Controllers
             }
         }
 
-
         [Route("[action]")]
         [HttpDelete]
         public async Task<IActionResult> BorrarPersona(int?id)
@@ -133,16 +132,17 @@ namespace SalonesAPI.Controllers
 
         [Route("[action]", Name = "GetPersona")]
         [HttpGet]
-        public async Task<IActionResult> GetPersona(string buscar,int? Id)
+        public async Task<IActionResult> GetPersona(string buscar,int? id)
         {
             bool ok = false;
             string mensaje = "Sin Datos";
-            var data = await Task.Run(() => _repositoryPersonas.GetPersona(buscar,Id));
-            if (data != null && data.id>0)
+            var persona = await Task.Run(() => _repositoryPersonas.GetPersona(buscar,id));
+            if (persona != null && persona.id>0)
             {
                 mensaje = "ok";
                 ok = true;
             }
+            var data = new { persona, mensaje, ok };
             return Ok(data);
         }
 
