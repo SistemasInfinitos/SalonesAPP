@@ -125,7 +125,6 @@
                 async: false,
                 dataType: "json",
                 success: function (response) {
-                    debugger
                     if (response.ok) {
                         toastr.success(response.mensaje);
                         localStorage.setItem("api", response.api);
@@ -134,7 +133,6 @@
                     };
                 },
                 error: function (jQXHR) {
-                    debugger
                     toastr.error('error, No pudimos procesar su Solicitud!');
                 }
             });

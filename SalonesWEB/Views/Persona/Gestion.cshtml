@@ -234,7 +234,6 @@
     };
 
     function DropListPais() {
-        debugger
         $.ajax({
             url: `${api}/api/Comun/GetDropListPaises`,
             data: {},
@@ -249,17 +248,17 @@
             },
             success: function (data) {
                 $('#pais').empty();
-                debugger
                 if (data.ok) {
                     $(data.paises).each(function (i) {
-                        debugger
                         $('#pais').append($('<option>', {
                             value: data.paises[i].id,
                             text: data.paises[i].paisNombre,
                         }));
                     });
-                    if (pais!="") {
-                        $("#pais").val(pais).trigger('change.select2');
+                    if (pais != "" || data.paises.length == 1) {
+                        $("#pais").val(data.paises[0].id).trigger('change.select2');
+                        pais = data.paises[0].id;
+                        DropListDepartamentos();
                     }
                 } else {
                     toastr.warning(data.mensaje);
@@ -271,7 +270,17 @@
         });
     }
 
+    $("#pais").change(function ()
+    {
+        DropListDepartamentos()
+    });
+    $("#departamento").change(function ()
+    {
+        DropListCiudades()
+    });
+
     function DropListDepartamentos() {
+        debugger
         if (pais != "" && pais != undefined) {
             $.ajax({
                 url: `${api}/api/Comun/GetDropListDepartamentos`,
@@ -294,14 +303,61 @@
                     debugger
                     if (data.ok) {
                         $(data.dapartamentos).each(function (i) {
-                            debugger
                             $('#departamento').append($('<option>', {
                                 value: data.dapartamentos[i].id,
-                                text: data.dapartamentos[i].DistritoDepartamento,
+                                text: data.dapartamentos[i].distritoDepartamento,
                             }));
                         });
-                        if (departamento != "") {
-                            $("#departamento").val(departamento).trigger('change.select2');
+                        debugger
+                        if (data.dapartamentos.length ==1) {
+                            $("#departamento").val(data.dapartamentos[0].id).trigger('change.select2');
+                            departamento = data.dapartamentos[0].id;
+                            DropListCiudades();
+                        }
+                    } else {
+                        toastr.warning(data.mensaje);
+                    }
+                },
+                error: function (data) {
+                    toastr.error("error!");
+                }
+            });
+        }
+    }
+
+    function DropListCiudades() {
+        debugger
+        if (departamento != "" && departamento != undefined) {
+            $.ajax({
+                url: `${api}/api/Comun/GetDropListCiudades`,
+                data:
+                {
+                    buscar: "",
+                    idDepartamento: departamento
+                },
+                method: 'get',
+                traditional: true,
+                async: true,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                headers: {
+                    'Authorization': 'Bearer '
+                        + localStorage.getItem("accessToken")
+                },
+                success: function (data) {
+                    $('#idCiudad').empty();
+                    debugger
+                    if (data.ok) {
+                        $(data.ciudades).each(function (i) {
+                            debugger
+                            $('#idCiudad').append($('<option>', {
+                                value: data.ciudades[i].id,
+                                text: data.ciudades[i].ciudadNombre,
+                            }));
+                        });
+                        if (data.ciudades.length == 1) {
+                            $("#idCiudad").val(data.ciudades[0].id).trigger('change.select2');
+                            idCiudad = data.ciudades[0].id;
                         }
                     } else {
                         toastr.warning(data.mensaje);
