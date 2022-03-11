@@ -49,7 +49,7 @@ namespace SalonesAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SalonesAPI v1"));
             }
             //app.UseCors(options => options.WithOrigins(audience).AllowAnyMethod().AllowAnyHeader());
-            app.UseCors();
+            app.UseCors("AudienciaPolicy");
             app.UseHttpsRedirection();
 
             app.UseRouting();
