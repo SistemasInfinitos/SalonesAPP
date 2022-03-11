@@ -32,6 +32,8 @@ namespace SalonesAPI.Controllers
             return  Ok(mensaje);
         }
 
+        [Route("[action]", Name = "GetDropListPaises")]
+        [HttpGet]
         public async Task<IActionResult> GetDropListPaises(string buscar,int? id) 
         {
             bool ok = false;
@@ -47,6 +49,8 @@ namespace SalonesAPI.Controllers
             return Ok(json);
         }
 
+        [Route("[action]", Name = "GetDropListDepartamentos")]
+        [HttpGet]
         public async Task<IActionResult> GetDropListDepartamentos(string buscar, int? idPais)
         {
             bool ok = false;
@@ -62,6 +66,9 @@ namespace SalonesAPI.Controllers
             return Ok(json);
         }
 
+
+        [Route("[action]", Name = "GetDropListCiudades")]
+        [HttpGet]
         public async Task<IActionResult> GetDropListCiudades(string buscar, int? idDepartamento)
         {
             bool ok = false;
