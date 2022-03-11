@@ -29,7 +29,8 @@ namespace SalonesAPI
             services.AddCors(options =>
             {
                 //options.AddPolicy(name: "AudienciaPolicy", builder => { builder.WithOrigins(audience).AllowAnyHeader().AllowAnyMethod(); });//produccion
-                options.AddPolicy(name: "AudienciaPolicy", builder => { builder.SetIsOriginAllowed(origen => new Uri(origen).Host == "localhost").AllowAnyHeader().AllowAnyMethod(); });
+                //options.AddPolicy(name: "AudienciaPolicy", builder => { builder.SetIsOriginAllowed(origen => new Uri(origen).Host == "http://localhost:47676").AllowAnyHeader().AllowAnyMethod(); });
+                options.AddPolicy(name: "AudienciaPolicy", builder => { builder.SetIsOriginAllowed(origen => new Uri(origen).Host == "https://localhost:44371").AllowAnyHeader().AllowAnyMethod(); });
                 
             });
             services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
