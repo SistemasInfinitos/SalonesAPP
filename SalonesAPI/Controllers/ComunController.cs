@@ -14,8 +14,8 @@ using System.Threading.Tasks;
 
 namespace SalonesAPI.Controllers
 {
-    [EnableCors("AudienciaPolicy")]
-    [Authorize(Policy = "AudienciaPolicy")]
+    //[EnableCors("AudienciaPolicy")]
+    //[Authorize(Policy = "AudienciaPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class ComunController : ControllerBase
@@ -37,8 +37,8 @@ namespace SalonesAPI.Controllers
         }
 
 
-        [EnableCors("AudienciaPolicy")]
-        [Authorize(Policy = "AudienciaPolicy")]
+        //[EnableCors("AudienciaPolicy")]
+        //[Authorize(Policy = "AudienciaPolicy")]
         [Route("[action]", Name = "GetDropListPaises")]
         [HttpGet]
         public async Task<IActionResult> GetDropListPaises(string buscar,int? id) 

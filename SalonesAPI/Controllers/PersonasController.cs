@@ -16,8 +16,8 @@ using System.Threading.Tasks;
 
 namespace SalonesAPI.Controllers
 {
-    [EnableCors("AudienciaPolicy")]
-    [Authorize(Policy = "AudienciaPolicy")]
+    //[EnableCors("AudienciaPolicy")]
+    //[Authorize(Policy = "AudienciaPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class PersonasController : ControllerBase
