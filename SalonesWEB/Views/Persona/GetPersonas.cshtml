@@ -12,15 +12,15 @@
     <div class="card-body">
         <div class="panel-body-busqueda">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover display compact dataTable" id="tableDinamica">
+                <table class="table table-striped table-bordered table-hover display compact dataTable " id="tableDinamica">
                     <thead>
                         <tr>
                             <th style="text-align:center">Editar</th>
                             <th style="text-align:center">Nombre</th>
                             <th style="text-align:center">Número</th>
-                            <th style="text-align:center">Posición</th>
-                            <th style="text-align:center">Documento</th>
-                            <th style="text-align:center">Fecha</th>
+                            <th style="text-align:center">Tel-Cel</th>
+                            <th style="text-align:center">Correo</th>
+                            <th style="text-align:center">Edad</th>
                             <th style="text-align:center">Acción</th>
                         </tr>
                     </thead>
@@ -31,64 +31,168 @@
     </div>
 </div>
 <script type="text/javascript">
+    DataTablePaginada = "";
     var api = localStorage.getItem("api");
     $(document).ready(function () {
         GetPersonas();
     });
     function GetPersonas() {
+        debugger
+        $('#tableDinamica').find('tbody').empty();
+        //$('#tableDinamica').dataTable().fnClearTable();
+        $('#tableDinamica').dataTable().fnDestroy();
+        DataTablePaginada = "";
 
-        $.ajax({
-            url: `${api}/api/Personas/ListPersonas`,
-            method: 'post',//se usa pos porque el metodo era para Dtatable nativa
-            data: {},//no se usan parametros por tiempos de entrega
-            traditional: true,
-            async: true,
-            dataType: "json",
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")//en caso de requerir token de acceso
+        if ($.fn.DataTable.isDataTable("#tableDinamica")) {
+
+            $('#tableDinamica').datatable.fnClearTable();
+            $('#tableDinamica').datatable.fnDestroy();
+        }
+        DataTablePaginada = $('#tableDinamica').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "filter": true,
+            "orderMulti": false,
+            "searching": false,
+            dom: "<''<'col-sm-4'><'col-sm-4 text-center'B><'col-sm-4'f>>t<'col-sm-4'li>p",
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "ajax": {
+                "url": `${api}/api/Personas/ListPersonas`,
+                "type": "POST",
+                "datatype": "json",
+                "data": {
+                    fechaDesde: "",
+                    fechaHasta: "",
+                },
+                dataFilter: function (response) {
+                    var debug = JSON.parse(response)
+                    return response;
+                },
             },
-            success: function (response) {
-                debugger
-                $('#tableDinamica').DataTable().clear();
-                $('#tableDinamica').DataTable().destroy();
-                $('#tableDinamica').find('tbody').empty();
-                if (response.ok) {
-                    toastr.success(response.mensaje, "Atención!");
-                    for (var i = 0; i < response.deportistas.length; i++) {
-                        $('#tableDinamica').find('tbody').append(
-                            `<tr id="">
-                                <td align="right">
-                                    <button type="button" class="btn btn-success btn-xs" onclick="Gestion('${response.deportistas[i].id}')">
-                                        <i class="fa fa-pencil-square"></i>&nbsp;Editar&nbsp;&nbsp;
-                                    </button>
-                                </td>
-                                <td align="right">${ response.deportistas[i].nombre}</td>
-                                <td align="right">${ response.deportistas[i].numero}</td>
-                                <td align="right">${ response.deportistas[i].posicion}</td>
-                                <td align="right">${ response.deportistas[i].documento}</td>
-                                <td align="right">${ response.deportistas[i].fechaTex}</td>
-                                <td align="right">
-                                    <button type="button" class="btn btn-warning btn-xs" onclick="BorrarPersona('${response.deportistas[i].id}')">
-                                        <i class="fa fa-trash"></i>&nbsp;Borrar&nbsp;&nbsp;
-                                    </button>
-                                </td>
-                            </tr >`);
+            pagingType: "full_numbers",
+            language: {
+                "search": "Buscar",
+                "lengthMenu": "Mostrar _MENU_ Registros",
+                "infoFiltered": "(Filtrado de _MAX_ Registros Totales)",
+                "infoEmpty": "Encontrados 0 de _MAX_ Entradas",
+                "zeroRecords": "No se Encontraron Registros!",
+                "info": "Página _PAGE_ de _PAGES_",
+                "paginate": {
+                    "first": "Primera",
+                    "last": "Ultima",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+            },
+            "createdRow": function (row, data, index) {
+                if (data.estado == false) {
+                    $(row).addClass('btn-danger');
+                }
+            },
+            "columns": [
+                {
+                    "mData": null,
+                    "bSortable": false,
+                    "mRender": function (o) {
+                        var boton = ``;
+                        boton = `<button type="button" class="btn btn-warning btn-xs" onclick="Gestion(${o.id})" />`
+                        return boton;
                     }
-                } else {
-                    toastr.error(response.mensaje, "Error");
-                };
-            },
-            error: function (jQXHR) {
-                toastr.error('No pudimos procesar su Solicitud!')
-            },
-            complete: function () {
-                $('#tableDinamica').DataTable({
-                    dom: "<''<'col-md-6'l><'col-md-6'f>>t<'col-md-4'i><'col-md-8 text-right'pB>",
-                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-                    buttons: []
-                });
-            }
+                },
+                { "data": "identificacion", "name": "identificacion", "autoWidth": true, className: "align-right" },
+                {
+                    "mData": null,
+                    "bSortable": false,
+                    "mRender": function (o) {
+                        var boton = ``;
+                        boton = `<input  onclick="funcion" type="text" class="form-control"
+                                    value="${o.primerNombre} ${o.segundoNombre} ${o.primerApellido} ${o.segundoNombre}" />`
+                        return boton;
+                    }
+                },
+                { "data": "telefono", "name": "telefono", className: "align-right" },
+                { "data": "correo", "name": "correo", className: "align-right" },
+                { "data": "edad", "name": "edad", className: "align-right" },
+                {
+                    "mData": null,
+                    "bSortable": false,
+                    "mRender": function (o) {
+                        var boton = ``;
+                        boton = `<button type="button" class="btn btn-warning btn-xs" onclick="BorrarPersona(${o.id})"><i class="fa fa-trash"></i>&nbsp;Borrar&nbsp;&nbsp;</button>`
+                        return boton;
+                    }
+                }
+            ],
+            buttons: [
+            ],
+            "order": [[4, "desc"]]
         });
+        //$.ajax({
+        //    url: `${api}/api/Personas/ListPersonas`,
+        //    "type": "POST",
+        //    data: function (dtParms) {
+        //        debugger
+        //        return JSON.stringify(dtParms);
+        //    },
+        //    cache: false,
+        //    traditional: true,
+        //    async: true,
+        //    dataType: "json",
+        //    contentType: "application/json; charset=utf-8",
+        //    headers: {
+        //        'Authorization': 'Bearer '
+        //            + localStorage.getItem("accessToken")
+        //    },
+        //    error: function (x, y) {
+        //        console.log(x);
+        //    },
+        //    success: function (response) {
+        //        debugger
+        //        $('#tableDinamica').DataTable().clear();
+        //        $('#tableDinamica').DataTable().destroy();
+        //        $('#tableDinamica').find('tbody').empty();
+        //        if (response.ok) {
+        //            toastr.success(response.mensaje, "Atención!");
+        //            for (var i = 0; i < response.deportistas.length; i++) {
+        //                $('#tableDinamica').find('tbody').append(
+        //                    `<tr id="">
+        //                        <td align="right">
+        //                            <button type="button" class="btn btn-success btn-xs" onclick="Gestion('${response.deportistas[i].id}')">
+        //                                <i class="fa fa-pencil-square"></i>&nbsp;Editar&nbsp;&nbsp;
+        //                            </button>
+        //                        </td>
+        //                        <td align="right">${ response.deportistas[i].identificacion}</td>
+        //                        <td align="right">
+        //                                        ${response.deportistas[i].primerNombre}
+        //                                        ${response.deportistas[i].segundoNombre}
+        //                                        ${response.deportistas[i].primerApellido}
+        //                                        ${response.deportistas[i].segundoNombre}
+        //                        </td>
+        //                        <td align="right">${ response.deportistas[i].telefono}</td>
+        //                        <td align="right">${ response.deportistas[i].correo}</td>
+        //                        <td align="right">${ response.deportistas[i].edad}</td>
+        //                        <td align="right">
+        //                            <button type="button" class="btn btn-warning btn-xs" onclick="BorrarPersona('${response.deportistas[i].id}')">
+        //                                <i class="fa fa-trash"></i>&nbsp;Borrar&nbsp;&nbsp;
+        //                            </button>
+        //                        </td>
+        //                    </tr >`);
+        //            }
+        //        } else {
+        //            toastr.error(response.mensaje, "Error");
+        //        };
+        //    },
+        //    error: function (jQXHR) {
+        //        toastr.error('No pudimos procesar su Solicitud!')
+        //    },
+        //    complete: function () {
+        //        $('#tableDinamica').DataTable({
+        //            dom: "<''<'col-md-6'l><'col-md-6'f>>t<'col-md-4'i><'col-md-8 text-right'pB>",
+        //            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        //            buttons: []
+        //        });
+        //    }
+        //});
     }
 
     function Gestion(id) {
