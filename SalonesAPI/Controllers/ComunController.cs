@@ -99,14 +99,14 @@ namespace SalonesAPI.Controllers
 
             // como no se define claramente si se requiere la lista de posible edad de una persona -- considero que deberia ser una lista de rango de edades
             //esto podria almacener en base de datros igual que las ciudades pero por temas de tiempo lo realizo desde aqui
-            edades.Add(new Edades { id=1,rangoEdades="1-15" });
-            edades.Add(new Edades { id=1,rangoEdades="16-17" });
-            edades.Add(new Edades { id=1,rangoEdades="18-24" });
-            edades.Add(new Edades { id=1,rangoEdades="25-30" });
-            edades.Add(new Edades { id=1,rangoEdades="31-40" });
+            edades.Add(new Edades { id = 1, rangoEdades = "1-15" });
+            edades.Add(new Edades { id = 1, rangoEdades = "16-17" });
+            edades.Add(new Edades { id = 1, rangoEdades = "18-24" });
+            edades.Add(new Edades { id = 1, rangoEdades = "25-30" });
+            edades.Add(new Edades { id = 1, rangoEdades = "31-40" });
 
             var listEdades = await Task.Run(() => edades);
-  
+
             var data = new { listEdades, mensaje, ok };
             var json = JsonConvert.SerializeObject(data);
             return Ok(json);

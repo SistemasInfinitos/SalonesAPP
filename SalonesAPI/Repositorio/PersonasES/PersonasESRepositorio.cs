@@ -212,22 +212,22 @@ namespace SalonesAPI.Repositorio.PersonasES
                     sortcolumn = "PrimerNombre";
                 }
                 List<Persona> datos2 = new List<Persona>();
-                if (datos.recordsFiltered>0)
+                if (datos.recordsFiltered > 0)
                 {
                     datos2 = _context.Personas.Where(predicado).OrderBy2(sortcolumn, order).Skip(dtParameters.start).Take(dtParameters.length).ToList();
                     datos.data = datos2.Select(x => new PersonasModel
                     {
-                        id=x.Id,
+                        id = x.Id,
                         primerNombre = x.PrimerNombre,
                         primerApellido = x.PrimerApellido,
                         segundoNombre = x.SegundoNombre,
                         segundoApellido = x.SegundoApellido,
-                        telefono=x.Telefono,
-                        correo=x.Correo,
-                        edad=x.Edad,
-                        estado=x.Estado.Value,
-                        identificacion=x.Identificacion,
-                        idCiudad=x.IdCiudad,
+                        telefono = x.Telefono,
+                        correo = x.Correo,
+                        edad = x.Edad,
+                        estado = x.Estado.Value,
+                        identificacion = x.Identificacion,
+                        idCiudad = x.IdCiudad,
                         fechaActualizacion = x.FechaActualizacion != null ? x.FechaActualizacion.Value.ToString("yyyy/MM/dd", culture) : "",
                         fechaCreacion = x.FechaCreacion.ToString("yyyy/MM/dd", culture),
 

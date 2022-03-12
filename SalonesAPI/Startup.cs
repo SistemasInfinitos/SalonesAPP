@@ -18,23 +18,17 @@ namespace SalonesAPI
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             string[] audience = Configuration["JwtConfig:Audience"].ToString().Split(",");
             string connectionString = Configuration["JwtConfig:connectionString"];
 
-            //services.AddCors();
             services.AddCors(options =>
             {
                 options.AddPolicy(name: "AudienciaPolicy", builder =>
                 {
                     builder.WithOrigins(audience).AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed((host) => true).AllowCredentials();
                 });
-                //otras formas si la anterior no funciona ya que esto depende de muchos fsctores de seguridad
-                //options.AddPolicy(name: "AudienciaPolicy", builder => { builder.WithOrigins(audience).AllowAnyHeader().AllowAnyMethod(); });//produccion
-                //options.AddPolicy(name: "AudienciaPolicy", builder => { builder.SetIsOriginAllowed(origen => new Uri(origen).Host == "http://localhost:47676").AllowAnyHeader().AllowAnyMethod(); });
-                //options.AddPolicy(name: "AudienciaPolicy", builder => { builder.SetIsOriginAllowed(origen => new Uri(origen).Host == "localhost").AllowAnyHeader().AllowAnyMethod(); });               
             });
             services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
 
@@ -48,14 +42,12 @@ namespace SalonesAPI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors("AudienciaPolicy");
-            //string[] audience = Configuration["JwtConfig:Audience"].ToString().Split(",");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SalonesAPI v1"));
             }
-            //app.UseCors(options => options.WithOrigins(audience).AllowAnyMethod().AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
