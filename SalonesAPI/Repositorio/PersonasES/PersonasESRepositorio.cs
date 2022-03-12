@@ -243,9 +243,31 @@ namespace SalonesAPI.Repositorio.PersonasES
             }
         }
 
-        public Task<bool> DeletePersona(int id)
+        public async Task<bool> DeletePersona(int id)
         {
-            throw new NotImplementedException();
+            bool ok = false;
+            using (var DbTran = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    Persona delete = _context.Personas.Where(x => x.Id == id).FirstOrDefault();
+
+                    if (delete != null)
+                    {
+                        _context.Entry(delete).State = EntityState.Detached;
+                        ok = await _context.SaveChangesAsync() > 0;
+                    }
+                    if (ok)
+                    {
+                        DbTran.Commit();
+                    }
+                }
+                catch (Exception x)
+                {
+                    DbTran.Rollback();
+                }
+            }
+            return await Task.Run(() => ok);
         }
     }
 }
