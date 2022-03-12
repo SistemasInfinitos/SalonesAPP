@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace SalonesAPI.ModelsAPI.Comun
 {
@@ -115,9 +116,20 @@ namespace SalonesAPI.ModelsAPI.Comun
             }
             try
             {
+
                 string command = desc ? "OrderByDescending" : "OrderBy";
+
                 var type = typeof(TEntity);
-                var property = type.GetProperty(orderByProperty);
+
+                //var type = typeof(TEntity).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).OrderBy(x => x.MetadataToken);
+                var type2 = typeof(TEntity).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+
+                var property = type2.Where(x => orderByProperty.ToUpper().Contains(x.Name.ToUpper())).FirstOrDefault();
+
+
+
+                //var property = type.GetProperty(orderByProperty);
                 var parameter = Expression.Parameter(type, "p");
                 var propertyAccess = Expression.MakeMemberAccess(parameter, property);
                 var orderByExpression = Expression.Lambda(propertyAccess, parameter);
