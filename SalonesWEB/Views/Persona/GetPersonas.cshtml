@@ -56,7 +56,6 @@
         GetPersonas();
     });
     function GetPersonas() {
-        debugger
         //$('#tableDinamica').find('tbody').empty();
         ////$('#tableDinamica').dataTable().fnClearTable();
         //$('#tableDinamica').dataTable().fnDestroy();
@@ -83,10 +82,10 @@
                 cache: false,
                 traditional: true,
                 async: true,
-                data: function (dtParms)
+                data: function (datatParms)
                 {
                     debugger
-                    return JSON.stringify({ datatParms: dtParms });
+                    return JSON.stringify(datatParms);
                 },
                 header: {
                     'Accept': 'application/json',
