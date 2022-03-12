@@ -34,6 +34,7 @@ namespace SalonesWEB.Controllers.Persona
             List<CiudadesModel> modelCiudades = new List<CiudadesModel>();
             List<DepartamentoModel> modelDeparamentos = new List<DepartamentoModel>();
             List<PaisesModel> modelPaises = new List<PaisesModel>();
+            int? selectDepartamento = 0;
             ViewBag.idString = "";
 
             if (!string.IsNullOrWhiteSpace(id))
@@ -77,12 +78,15 @@ namespace SalonesWEB.Controllers.Persona
             // traer todos las ciudades de todos los deparatamentos y de todos los paises en un dropList no es una buena idea
             // sin embargo este mismo metodo-enpoint permite realizar consultas personalizables
             ViewBag.idCiudad = new SelectList(modelCiudades, "id", "ciudadNombre");
-            string uriCiudades = api + "/api/Comun/GetDropListCiudades";
-            var ciudades = await httpClient.GetAsync(uriCiudades);
-            if (ciudades.IsSuccessStatusCode)
+            if (model.idCiudad>0)
             {
-                modelCiudades = JsonConvert.DeserializeObject<List<CiudadesModel>>(await ciudades.Content.ReadAsStringAsync());
-                ViewBag.idCiudad = new SelectList(modelCiudades, "id", "ciudadNombre", model.idCiudad);
+                string uriCiudades = api + "/api/Comun/GetDropListCiudades";
+                var ciudades = await httpClient.GetAsync(uriCiudades);
+                if (ciudades.IsSuccessStatusCode)
+                {
+                    modelCiudades = JsonConvert.DeserializeObject<List<CiudadesModel>>(await ciudades.Content.ReadAsStringAsync());
+                    ViewBag.idCiudad = new SelectList(modelCiudades, "id", "ciudadNombre", model.idCiudad);
+                }
             }
             #endregion
 
@@ -92,15 +96,15 @@ namespace SalonesWEB.Controllers.Persona
             // sin embargo este mismo metodo-enpoint permite realizar consultas personalizables
             ViewBag.departamento = new SelectList(modelDeparamentos, "id", "distritoDepartamento");
             
-            if (model.idCiudad>0)//esto garantiza que no se carguen todos los departamentos en todos los casos
+            if (model.idCiudad>0)
             {
                 string uriDepartamentos = api + "/api/Comun/GetDropListDepartamentos";
                 var deparamentos = await httpClient.GetAsync(uriDepartamentos);
                 if (deparamentos.IsSuccessStatusCode)
                 {
                     modelDeparamentos = JsonConvert.DeserializeObject<List<DepartamentoModel>>(await deparamentos.Content.ReadAsStringAsync());
-                    var select = modelCiudades.Where(x => x.id == model.idCiudad).Select(x => x.idDepartamento).First();
-                    ViewBag.departamento = new SelectList(modelDeparamentos, "id", "distritoDepartamento", select);
+                    selectDepartamento = modelCiudades.Where(x => x.id == model.idCiudad).Select(x => x.idDepartamento).First();
+                    ViewBag.departamento = new SelectList(modelDeparamentos, "id", "distritoDepartamento", selectDepartamento);
                 }
             }
             #endregion
@@ -112,14 +116,14 @@ namespace SalonesWEB.Controllers.Persona
             // sin embargo este mismo metodo-enpoint permite realizar consultas personalizables
             ViewBag.pais = new SelectList(modelPaises, "id", "paisNombre");
 
-            if (true)
+            if (model.idCiudad>0 && selectDepartamento>0)
             {
                 string uriPaises = api + "/api/Comun/GetDropListPaises";
                 var paises = await httpClient.GetAsync(uriPaises);
                 if (paises.IsSuccessStatusCode)
                 {
                     modelPaises = JsonConvert.DeserializeObject<List<PaisesModel>>(await paises.Content.ReadAsStringAsync());
-                    var select = modelDeparamentos.Where(x => x.id == modelCiudades.Where(s => s.id == model.idCiudad).Select(n => n.id).First()).Select(z => z.idPais).First();
+                    var select = modelDeparamentos.Where(x => x.id == selectDepartamento).Select(z => z.idPais).First();
                     ViewBag.pais = new SelectList(modelPaises, "id", "paisNombre", select); 
                 }
             }

@@ -106,7 +106,11 @@
 <script>
     var api = localStorage.getItem("api");
     var update = false;
-    var id = "";
+    var id = '@ViewBag.idString';
+    debugger
+    if (id!="") {
+        update = true;
+    }
     var pais = "";
     var departamento = "";
     var idCiudad = "";
@@ -196,7 +200,7 @@
         }
     });
 
-    function getPersona() {       
+    function getPersona() {
         id= '@ViewBag.idString';
         if (id != "" && id != undefined && id != NaN) {
             var uri = `${api}/api/Personas/GetPersona`;
@@ -274,7 +278,7 @@
                             text: data.paises[i].paisNombre,
                         }));
                     });
-                    
+
                     if (pais != "" || data.paises.length == 1) {
                         $("#pais").val(data.paises[0].id).trigger('change.select2');
                         pais = data.paises[0].id;
@@ -298,13 +302,13 @@
     });
 
     $("#departamento").change(function ()
-    {        
+    {
         departamento = $("#departamento").val();
         DropListCiudades()
     });
 
     function DropListDepartamentos() {
-        
+
         if (pais != "" && pais != undefined) {
             $.ajax({
                 url: `${api}/api/Comun/GetDropListDepartamentos`,
@@ -324,7 +328,7 @@
                 },
                 success: function (data) {
                     $('#departamento').empty();
-                    
+
                     if (data.ok) {
                         $('#departamento').append($('<option>', {
                             value: "",
@@ -336,7 +340,7 @@
                                 text: data.dapartamentos[i].distritoDepartamento,
                             }));
                         });
-                        
+
                         if (data.dapartamentos.length ==1) {
                             $("#departamento").val(data.dapartamentos[0].id).trigger('change.select2');
                             departamento = data.dapartamentos[0].id;
@@ -355,7 +359,7 @@
 
 
     function DropListCiudades() {
-        
+
         if (departamento != "" && departamento != undefined) {
             $.ajax({
                 url: `${api}/api/Comun/GetDropListCiudades`,
@@ -375,14 +379,14 @@
                 },
                 success: function (data) {
                     $('#idCiudad').empty();
-                    
+
                     $('#idCiudad').append($('<option>', {
                         value: "",
                         text: "Seleccione la Ciuda",
                     }));
                     if (data.ok) {
                         $(data.ciudades).each(function (i) {
-                            
+
                             $('#idCiudad').append($('<option>', {
                                 value: data.ciudades[i].id,
                                 text: data.ciudades[i].ciudadNombre,
@@ -418,7 +422,7 @@
                 'Authorization': 'Bearer '
                     + localStorage.getItem("accessToken")
             },
-            success: function (data) {            
+            success: function (data) {
                 $('#edad').empty();
 
                 $('#edad').append($('<option>', {
