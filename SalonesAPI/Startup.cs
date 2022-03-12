@@ -30,7 +30,7 @@ namespace SalonesAPI
             {
                 options.AddPolicy(name: "AudienciaPolicy", builder => { 
                     builder.WithOrigins(audience).AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed((host) => true).AllowCredentials();});
-                //otras formas si la anterior no funciona
+                //otras formas si la anterior no funciona ya que esto depende de muchos fsctores de seguridad
                 //options.AddPolicy(name: "AudienciaPolicy", builder => { builder.WithOrigins(audience).AllowAnyHeader().AllowAnyMethod(); });//produccion
                 //options.AddPolicy(name: "AudienciaPolicy", builder => { builder.SetIsOriginAllowed(origen => new Uri(origen).Host == "http://localhost:47676").AllowAnyHeader().AllowAnyMethod(); });
                 //options.AddPolicy(name: "AudienciaPolicy", builder => { builder.SetIsOriginAllowed(origen => new Uri(origen).Host == "localhost").AllowAnyHeader().AllowAnyMethod(); });               
