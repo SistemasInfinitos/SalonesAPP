@@ -43,6 +43,7 @@ namespace SalonesAPI.Controllers
                 if (ModelState.IsValid)
                 {
                     data.ok = await Task.Run(() => _repositoryPersonas.CrearPersona(entidad));
+                    data.mensaje = "Transaccion exitosa!";
                 }
                 else
                 {
@@ -81,6 +82,7 @@ namespace SalonesAPI.Controllers
                 if (ModelState.IsValid)
                 {
                     data.ok = await Task.Run(() => _repositoryPersonas.ActualizarPersona(entidad));
+                    data.mensaje = "Transaccion exitosa!";
                 }
                 else
                 {
