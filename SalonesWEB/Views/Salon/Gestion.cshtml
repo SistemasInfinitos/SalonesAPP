@@ -24,7 +24,7 @@
                     @Html.EditorFor(Model => Model.idPersonaCliente, new { htmlAttributes = new { @class = "form-control", @placeholder = "Cliente" } })
                 </div>
                 <div class="col-sm-3 mb-3 mb-sm-3">
-                    <label class="col-form-label" for="segundoNombre">Fecha Evento</label>
+                    <label class="col-form-label" for="segundoNombre"><span style="color:red">*</span>Fecha Evento</label>
                     @Html.EditorFor(Model => Model.fechaEvento, new { htmlAttributes = new { @class = "form-control", @placeholder = "Fecha Evento" } })
                 </div>
                 <div class="col-sm-3 mb-3 mb-sm-3">
@@ -37,7 +37,7 @@
                     @Html.DropDownList("idMotivo", null, "Seleccione Motivo", htmlAttributes: new { @class = "form-control collapse-inner", @required = "required" })
                 </div>
                 <div class="col-sm-3 mb-3 mb-sm-3">
-                    <label class="col-form-label" for="Observación">Observacion</label>
+                    <label class="col-form-label" for="Observación"><span style="color:red">*</span>Observación</label>
                     @Html.TextAreaFor(Model => Model.observacion, new {  @class = "form-control", @placeholder = "Observación", @row="4",@columns="10", @required = "required" })
                 </div>
                 <div class="col-sm-3 mb-3 mb-sm-3">
