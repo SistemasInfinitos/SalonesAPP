@@ -1,0 +1,71 @@
+﻿@model SalonesWEB.Models.Reservas.SalonesModel
+
+@{
+    ViewData["Title"] = "Gestion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Gestion</h1>
+
+<h4>SalonesModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Gestion">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="id" class="control-label"></label>
+                <input asp-for="id" class="form-control" />
+                <span asp-validation-for="id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="idPersonaCliente" class="control-label"></label>
+                <input asp-for="idPersonaCliente" class="form-control" />
+                <span asp-validation-for="idPersonaCliente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fechaEvento" class="control-label"></label>
+                <input asp-for="fechaEvento" class="form-control" />
+                <span asp-validation-for="fechaEvento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="cantidadPersona" class="control-label"></label>
+                <input asp-for="cantidadPersona" class="form-control" />
+                <span asp-validation-for="cantidadPersona" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="idMotivo" class="control-label"></label>
+                <input asp-for="idMotivo" class="form-control" />
+                <span asp-validation-for="idMotivo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="observacion" class="control-label"></label>
+                <input asp-for="observacion" class="form-control" />
+                <span asp-validation-for="observacion" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="estado" /> @Html.DisplayNameFor(model => model.estado)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="fechaCreacion" class="control-label"></label>
+                <input asp-for="fechaCreacion" class="form-control" />
+                <span asp-validation-for="fechaCreacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fechaActualizacion" class="control-label"></label>
+                <input asp-for="fechaActualizacion" class="form-control" />
+                <span asp-validation-for="fechaActualizacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="GetSalones">Back to List</a>
+</div>
+

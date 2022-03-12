@@ -76,7 +76,7 @@ namespace SalonesAPI.Repositorio.ComunES
                 {
                     id = x.Id,
                     distritoDepartamento = x.DistritoDepartamento,
-                    idPais=x.IdPais
+                    idPais = x.IdPais
                 }).ToList();
             }
             catch (Exception ex)
