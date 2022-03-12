@@ -3,7 +3,7 @@ namespace SalonesAPI.ModelsAPI.Persona
 {
     public class PersonasModel
     {
-        public int id { get; set; }
+        public int? id { get; set; }
         [Required]
         public string identificacion { get; set; }
         [Required]
@@ -23,7 +23,7 @@ namespace SalonesAPI.ModelsAPI.Persona
         public int edad { get; set; }
         public string fechaCreacion { get; set; }
         public string fechaActualizacion { get; set; }
-        public bool estado { get; set; }
+        public bool? estado { get; set; }
 
         //public virtual int idDepartamento { get; set; }
     }

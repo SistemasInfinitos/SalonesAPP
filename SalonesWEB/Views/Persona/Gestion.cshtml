@@ -110,8 +110,8 @@
 
     $("#btnCrear").click(function () {
         idCiudad = $("#idCiudad").val();
-        
-        var data = {
+        debugger
+        var entidad = {
             id: id,
             primerNombre: $("#primerNombre").val(),
             segundoNombre: $("#segundoNombre").val(),
@@ -123,22 +123,26 @@
             edad: $("#edad").val(),
             idCiudad: idCiudad
         }
-        var entidad = JSON.stringify(data);
+        debugger
         if (update == false) {
             $.ajax({
                 url: `${api}/api/Personas/CreatePersona`,
-                //method: 'Post',
-                'type': 'POST',
-                data: entidad,
-                headers: {
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'JSON',
+                cache: false,
+                traditional: true,
+                async: true,
+                data: function (entidad) {
+                    debugger
+                    return JSON.stringify(entidad);
+                },
+                header: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                traditional: true,
-                async: true,
-                dataType: "JSON",
                 success: function (response) {
-                    
+                    debugger
                     if (response.ok) {
                         toastr.success(response.mensaje);
                     } else {
@@ -146,6 +150,7 @@
                     }
                 },
                 error: function (data) {
+                    debugger
                    toastr.error("No pudimos completar tu solicitud!");
                 }
             });
@@ -278,6 +283,7 @@
         });
     }
 
+
     $("#pais").change(function ()
     {
         pais = $("#pais").val();
@@ -340,6 +346,7 @@
         }
     }
 
+
     function DropListCiudades() {
         
         if (departamento != "" && departamento != undefined) {
@@ -389,6 +396,7 @@
         }
     }
 
+
     function DropListEdades() {
 
         $.ajax({
@@ -403,7 +411,7 @@
                 'Authorization': 'Bearer '
                     + localStorage.getItem("accessToken")
             },
-            success: function (data) {            debugger
+            success: function (data) {            
                 $('#edad').empty();
 
                 $('#edad').append($('<option>', {
