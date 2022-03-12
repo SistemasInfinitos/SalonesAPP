@@ -27,61 +27,72 @@
         @* Persona *@
         <div class="tab-pane active" id="home1">
             <form class="user" style="margin:2%">
+                @using (Html.BeginForm())
+                {                   
+                    @**@
+                }
                 <div class="form-group row">
+
                     <div class="col-sm-3 mb-3 mb-sm-3" hidden>
-                        <input type="number" class="form-control" id="id" name="id" placeholder="Id" required readonly>
+                        @Html.Hidden("id")
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" for="primerNombre"><span style="color:red">*</span>Primer Nombre</label>
-                        <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Primer Nombre">
+                        @Html.EditorFor(Model => Model.primerNombre, new { htmlAttributes = new { @class = "form-control", @placeholder = "Primer Nombre", @required = "required" } })
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" for="segundoNombre"><span style="color:red">*</span>Segundo Nombre</label>
-                        <input type="text" class="form-control" id="segundoNombre" name="segundoNombre" placeholder="Segundo Nombr">
+                        <label class="col-form-label" for="segundoNombre">Segundo Nombre</label>
+                        @Html.EditorFor(Model => Model.segundoNombre, new { htmlAttributes = new { @class = "form-control", @placeholder = "Segundo Nombre" } })
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" for="primerApellido"><span style="color:red">*</span>Primer Apellido</label>
-                        <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Primer Apellido">
+                        @Html.Editor("primerApellido", new { htmlAttributes = new { @class = "form-control", @placeholder = "Primer Apellido", @required = "required" } })
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" for="segundoApellido"><span style="color:red">*</span>Segundo Apellido</label>
-                        <input type="text" class="form-control" id="segundoApellido" name="segundoApellido" placeholder="Segundo Apellido">
+                        <label class="col-form-label" for="segundoApellido">Segundo Apellido</label>
+                        @Html.Editor("segundoApellido", new { htmlAttributes = new { @class = "form-control", @placeholder = "Segundo Apellido" } })
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" for="identificacion">Número Identidad</label>
-                        <input type="text" class="form-control" id="identificacion" name="identificacion" placeholder="Número Identificacion" required>
+                        <label class="col-form-label" for="identificacion"><span style="color:red">*</span>Número Identificacion</label>
+                        @Html.Editor("identificacion", new { htmlAttributes = new { @class = "form-control", @placeholder = "Número Identificacion", @required= "required" } })
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" for="telefono">Telefono</label>
-                        <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Telefono-Celular" required>
+                        <label class="col-form-label" for="telefono"><span style="color:red">*</span>Telefono</label>
+                        @Html.Editor("telefono", new { htmlAttributes = new { @class = "form-control", @placeholder = "Telefono-Celular", @required = "required" } })
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" for="correo">Correo</label>
-                        <input type="email" class="form-control" id="correo" name="correo" placeholder="Mail" required>
+                        <label class="col-form-label" for="correo"><span style="color:red">*</span>Correo</label>
+                        @Html.Editor("correo", new { htmlAttributes = new { @class = "form-control", @placeholder = "Mail", @required = "required" } })
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" for="edad">Edad</label>
-                        <select id="edad" name="edad" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                        <label class="col-form-label" for="edad"><span style="color:red">*</span>Edad</label>
+                        @Html.DropDownList("edad",null, "Seleccione rango de Edad", htmlAttributes: new { @class = "form-control", @required = "required" } )
+                        @*<select id="edad" name="edad" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione Edad</option>
-                        </select>
+                        </select>*@
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" for="pais">Pais</label>
-                        <select id="pais" name="pais" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                        @Html.DropDownList("pais", null, "Seleccione el Pais", htmlAttributes: new { @class = "form-control" })
+                        @*<select id="pais" name="pais" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Pais </option>
-                        </select>
+                        </select>*@
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" for="departamento">Departamento</label>
-                        <select id="departamento" name="departamento" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                        @Html.DropDownList("departamento", null, "Seleccione el Departamento", htmlAttributes: new { @class = "form-control" })
+
+                        @*<select id="departamento" name="departamento" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Departamento </option>
-                        </select>
+                        </select>*@
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" for="idCiudad">Ciudad</label>
-                        <select id="idCiudad" name="idCiudad" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                        <label class="col-form-label" for="idCiudad"><span style="color:red">*</span>Ciudad</label>
+                        @Html.DropDownList("idCiudad", null, "Seleccione la Ciudad", htmlAttributes: new { @class = "form-control", @required = "required" })
+
+                        @*<select id="idCiudad" name="idCiudad" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Ciudad</option>
-                        </select>
+                        </select>*@
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" for="btnCrear">.</label>
@@ -103,9 +114,9 @@
 
     $(document).ready(function () {
         $(".collapse-inner").select2();
-        getPersona();
-        DropListEdades();
-        DropListPais();
+        //getPersona(); se comenta para usarlo con el patron MVC en la carga inicial
+        //DropListEdades();
+        //DropListPais();
     });
 
     $("#btnCrear").click(function () {
@@ -185,8 +196,7 @@
         }
     });
 
-    function getPersona() {
-        
+    function getPersona() {       
         id= '@ViewBag.idString';
         if (id != "" && id != undefined && id != NaN) {
             var uri = `${api}/api/Personas/GetPersona`;
@@ -195,7 +205,7 @@
                 url: url,
                 type: 'get',
                 success: function (response) {
-                    
+                    debugger
                     $("#id").val("");
                     id = "";
                     $("#primerNombre").val();
@@ -208,22 +218,22 @@
                     $("#edad").val();
                     idCiudad = "";
 
-                    if (response.data.ok) {
-                        toastr.success(data.response.message);
+                    if (response.ok) {
+                        toastr.success(response.message);
                         update = true;
 
-                        id = response.data.persona.id;
-                        $("#id").val(data.deportista.id);
-                        $("#primerNombre").val(response.data.persona.primerNombre);
-                        $("#segundoNombre").val(response.data.persona.segundoNombre);
-                        $("#primerApellido").val(response.data.persona.primerApellido);
-                        $("#segundoApellido").val(response.data.persona.segundoApellido);
-                        $("#identificacion").val(response.data.persona.identificacion);
-                        $("#telefono").val(response.data.persona.telefono);
-                        $("#correo").val(response.data.persona.correo);
-                        $("#edad").val(response.data.persona.edad);
-                        $("#idCiudad").val(response.data.persona.idCiudad);
-                        idCiudad = response.data.persona.idCiudad;
+                        id = response.persona.id;
+                        $("#id").val(response.persona.id);
+                        $("#primerNombre").val(response.persona.primerNombre);
+                        $("#segundoNombre").val(response.persona.segundoNombre);
+                        $("#primerApellido").val(response.persona.primerApellido);
+                        $("#segundoApellido").val(response.persona.segundoApellido);
+                        $("#identificacion").val(response.persona.identificacion);
+                        $("#telefono").val(response.persona.telefono);
+                        $("#correo").val(response.persona.correo);
+                        $("#edad").val(response.persona.edad);
+                        $("#idCiudad").val(response.persona.idCiudad);
+                        idCiudad = response.persona.idCiudad;
 
                     } else {
                         toastr.warning("No pudimos procesar su Solicitud!");

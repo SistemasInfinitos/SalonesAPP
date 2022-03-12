@@ -48,8 +48,8 @@ namespace SalonesAPI.Controllers
                 mensaje = "ok";
                 ok = true;
             }
-            var data = new { paises, mensaje, ok };
-            var json = JsonConvert.SerializeObject(data);
+            //var data = new { paises, mensaje, ok };
+            var json = JsonConvert.SerializeObject(paises);
             return Ok(json);
         }
 
@@ -65,8 +65,8 @@ namespace SalonesAPI.Controllers
                 mensaje = "ok";
                 ok = true;
             }
-            var data = new { dapartamentos, mensaje, ok };
-            var json = JsonConvert.SerializeObject(data);
+            //var data = new { dapartamentos, mensaje, ok };
+            var json = JsonConvert.SerializeObject(dapartamentos);
             return Ok(json);
         }
 
@@ -83,8 +83,8 @@ namespace SalonesAPI.Controllers
                 mensaje = "ok";
                 ok = true;
             }
-            var data = new { ciudades, mensaje, ok };
-            var json = JsonConvert.SerializeObject(data);
+            //var data = new { ciudades, mensaje, ok };// si lo hago asi complicaria mas la deserializacion si se consume desde un controller mvc
+            var json = JsonConvert.SerializeObject(ciudades);
             return Ok(json);
         }
 
@@ -95,20 +95,20 @@ namespace SalonesAPI.Controllers
         {
             bool ok = true;
             string mensaje = "ok";
-            List<Edades> edades = new List<Edades>();
+            List<EdadesModel> edades = new List<EdadesModel>();
 
             // como no se define claramente si se requiere la lista de posible edad de una persona -- considero que deberia ser una lista de rango de edades
             //esto podria almacener en base de datros igual que las ciudades pero por temas de tiempo lo realizo desde aqui
-            edades.Add(new Edades { id = 1, rangoEdades = "1-15" });
-            edades.Add(new Edades { id = 1, rangoEdades = "16-17" });
-            edades.Add(new Edades { id = 1, rangoEdades = "18-24" });
-            edades.Add(new Edades { id = 1, rangoEdades = "25-30" });
-            edades.Add(new Edades { id = 1, rangoEdades = "31-40" });
+            edades.Add(new EdadesModel { id = 1, rangoEdades = "1-15" });
+            edades.Add(new EdadesModel { id = 2, rangoEdades = "16-17" });
+            edades.Add(new EdadesModel { id = 3, rangoEdades = "18-24" });
+            edades.Add(new EdadesModel { id = 4, rangoEdades = "25-30" });
+            edades.Add(new EdadesModel { id = 5, rangoEdades = "31-40" });
 
             var listEdades = await Task.Run(() => edades);
 
-            var data = new { listEdades, mensaje, ok };
-            var json = JsonConvert.SerializeObject(data);
+            //var data = new { listEdades, mensaje, ok };// si lo hago asi complicaria mas la deserializacion si se consume desde un controller mvc
+            var json = JsonConvert.SerializeObject(listEdades);
             return Ok(json);
         }
     }

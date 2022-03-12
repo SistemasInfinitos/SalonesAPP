@@ -144,8 +144,9 @@ namespace SalonesAPI.Controllers
                 mensaje = "ok";
                 ok = true;
             }
-            var data = new { persona, mensaje, ok };
-            return Ok(data);
+            //var data = new { persona, mensaje, ok };
+            var json = JsonConvert.SerializeObject(persona);
+            return Ok(json);
         }
 
         /// <summary>

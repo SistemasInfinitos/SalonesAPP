@@ -65,8 +65,7 @@
                 traditional: true,
                 async: true,
                 data: function (datatParms)
-                {
-                    
+                {                    
                     return JSON.stringify(datatParms);
                 },
                 header: {
@@ -79,8 +78,9 @@
                     "mData": null,
                     "bSortable": false,
                     "mRender": function (o) {
-                        var boton = ``;
-                        boton = `<button type="button" class="btn btn-warning btn-xs" onclick="Gestion(${o.id})" />`
+                        var boton = `<button type="button" class="btn btn-success btn-xs" onclick="Gestion('${o.id}')">
+                                        <i class="fa fa-pencil-square"></i>&nbsp;Editar&nbsp;&nbsp;
+                                    </button>`;
                         return boton;
                     }
                 },
@@ -118,7 +118,7 @@
 
         if (id != "" && id != undefined && id != NaN) {
             var url = '?' + $.param({ "id": id });
-            window.location.href = "/Persona/Gestion/" + id;
+            window.location.href = "/web/per/Gestion" + url;
         }
     };
 
