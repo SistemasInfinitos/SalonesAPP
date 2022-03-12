@@ -126,7 +126,7 @@ namespace SalonesAPI.ModelsAPI.Comun
                 return source.Provider.CreateQuery<TEntity>(resultExpression);
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return source.Provider.CreateQuery<TEntity>(null);
             }
