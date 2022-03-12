@@ -1,14 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SalonesAPI.Configuration;
 using SalonesAPI.ModelsDB;
 using SalonesAPI.Repositorio.ComunES;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,10 +25,10 @@ namespace SalonesAPI.Controllers
 
         [Route("[action]", Name = "GetTest")]
         [HttpGet]
-        public  IActionResult GetTest()
+        public IActionResult GetTest()
         {
-            string mensaje =  "Api en linea!";
-            return  Ok(mensaje);
+            string mensaje = "Api en linea!";
+            return Ok(mensaje);
         }
 
 
@@ -41,7 +36,7 @@ namespace SalonesAPI.Controllers
         //[Authorize(Policy = "AudienciaPolicy")]
         [Route("[action]", Name = "GetDropListPaises")]
         [HttpGet]
-        public async Task<IActionResult> GetDropListPaises(string buscar,int? id) 
+        public async Task<IActionResult> GetDropListPaises(string buscar, int? id)
         {
             bool ok = false;
             string mensaje = "Sin Datos";

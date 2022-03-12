@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SalonesAPI.ModelsDB;
-using System;
 
 namespace SalonesAPI
 {
@@ -24,12 +23,14 @@ namespace SalonesAPI
         {
             string[] audience = Configuration["JwtConfig:Audience"].ToString().Split(",");
             string connectionString = Configuration["JwtConfig:connectionString"];
-            
+
             //services.AddCors();
             services.AddCors(options =>
             {
-                options.AddPolicy(name: "AudienciaPolicy", builder => { 
-                    builder.WithOrigins(audience).AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed((host) => true).AllowCredentials();});
+                options.AddPolicy(name: "AudienciaPolicy", builder =>
+                {
+                    builder.WithOrigins(audience).AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed((host) => true).AllowCredentials();
+                });
                 //otras formas si la anterior no funciona ya que esto depende de muchos fsctores de seguridad
                 //options.AddPolicy(name: "AudienciaPolicy", builder => { builder.WithOrigins(audience).AllowAnyHeader().AllowAnyMethod(); });//produccion
                 //options.AddPolicy(name: "AudienciaPolicy", builder => { builder.SetIsOriginAllowed(origen => new Uri(origen).Host == "http://localhost:47676").AllowAnyHeader().AllowAnyMethod(); });
@@ -55,7 +56,7 @@ namespace SalonesAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SalonesAPI v1"));
             }
             //app.UseCors(options => options.WithOrigins(audience).AllowAnyMethod().AllowAnyHeader());
-            
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

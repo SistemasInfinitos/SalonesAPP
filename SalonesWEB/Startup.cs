@@ -19,10 +19,14 @@ namespace SalonesWEB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddControllersWithViews(o = >{
+            //    o.UseGeneralRoutePrefix("api/v{version:apiVersion}");
+            //});
             services.AddControllersWithViews();
             services.AddOptions();
             //services.Configure<JwtConfiguracion>(Configuration);
             services.Configure<JwtConfiguracion>(Configuration.GetSection($"JwtConfiguracion"));
+
 
         }
 
@@ -48,10 +52,13 @@ namespace SalonesWEB
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
+                //endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
         }
     }
 }

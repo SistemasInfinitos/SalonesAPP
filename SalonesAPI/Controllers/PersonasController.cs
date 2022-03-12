@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SalonesAPI.Configuration;
@@ -111,15 +109,15 @@ namespace SalonesAPI.Controllers
 
         [Route("[action]")]
         [HttpDelete]
-        public async Task<IActionResult> BorrarPersona(int?id)
+        public async Task<IActionResult> BorrarPersona(int? id)
         {
             ResponseApp data = new ResponseApp()
             {
                 mensaje = "Ups!. Tu Solicitud No Pudo ser Procesada",
                 ok = false
             };
-   
-            if (id!=null)
+
+            if (id != null)
             {
                 try
                 {
@@ -136,12 +134,12 @@ namespace SalonesAPI.Controllers
 
         [Route("[action]", Name = "GetPersona")]
         [HttpGet]
-        public async Task<IActionResult> GetPersona(string buscar,int? id)
+        public async Task<IActionResult> GetPersona(string buscar, int? id)
         {
             bool ok = false;
             string mensaje = "Sin Datos";
-            var persona = await Task.Run(() => _repositoryPersonas.GetPersona(buscar,id));
-            if (persona != null && persona.id>0)
+            var persona = await Task.Run(() => _repositoryPersonas.GetPersona(buscar, id));
+            if (persona != null && persona.id > 0)
             {
                 mensaje = "ok";
                 ok = true;
@@ -157,10 +155,10 @@ namespace SalonesAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> ListPersonas(DataTableParameter dtParms)
+        public async Task<IActionResult> ListPersonas([FromBody] DataTableParameter datatParms)
         {
-            DataTableResponsePersona res = await Task.Run(() => _repositoryPersonas.GetPersonasDataTable(dtParms));
-            res.draw = dtParms.draw ?? 0;
+            DataTableResponsePersona res = await Task.Run(() => _repositoryPersonas.GetPersonasDataTable(datatParms));
+            res.draw = datatParms.draw;
 
             var json = JsonConvert.SerializeObject(res);
 

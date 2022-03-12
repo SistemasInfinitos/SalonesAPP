@@ -167,16 +167,16 @@ namespace SalonesAPI.Repositorio.SalonesES
                 {
                     foreach (var id in dtParameters?.order)
                     {
-                        sortcolumn2.Add(dtParameters.columns[id.column.Value].name);
-                        sortcolumn3 += (dtParameters.columns[id.column.Value].name) + ",";
+                        sortcolumn2.Add(dtParameters.columns[id.column].name);
+                        sortcolumn3 += (dtParameters.columns[id.column].name) + ",";
                     }
                 }
                 string sortcolumn = dtParameters.columns != null && dtParameters.order != null && dtParameters.order[0].column != null ?
-                    dtParameters.columns[dtParameters.order[0].column.Value].name : "";
+                    dtParameters.columns[dtParameters.order[0].column].name : "";
                 string sortcolumn1 = sortcolumn;
                 if (dtParameters.order != null && dtParameters.order.Count > 1)
                 {
-                    sortcolumn1 = dtParameters.columns[dtParameters.order[1].column.Value].name;
+                    sortcolumn1 = dtParameters.columns[dtParameters.order[1].column].name;
                 }
 
                 var predicado = PredicateBuilder.True<ViewSolicitudesPorFecha>();
@@ -193,26 +193,26 @@ namespace SalonesAPI.Repositorio.SalonesES
                     predicado = predicado.And(predicado2);
                 }
 
-                if (!string.IsNullOrWhiteSpace(dtParameters.fechaDesde))
-                {
-                    DateTime fechax = DateTime.Now;
-                    bool convertir = DateTime.TryParse(dtParameters.fechaDesde, out fechax);
-                    if (convertir)
-                    {
-                        predicado = predicado.And(d => d.FechaEvento >= fechax);
-                    }
-                }
+                //if (!string.IsNullOrWhiteSpace(dtParameters.fechaDesde))
+                //{
+                //    DateTime fechax = DateTime.Now;
+                //    bool convertir = DateTime.TryParse(dtParameters.fechaDesde, out fechax);
+                //    if (convertir)
+                //    {
+                //        predicado = predicado.And(d => d.FechaEvento >= fechax);
+                //    }
+                //}
 
-                if (!string.IsNullOrWhiteSpace(dtParameters.fechaHasta))
-                {
-                    DateTime fechax2 = DateTime.Now;
-                    bool convertir = DateTime.TryParse(dtParameters.fechaHasta, out fechax2);
-                    if (convertir)
-                    {
-                        fechax2 = fechax2.AddDays(1);
-                        predicado = predicado.And(d => d.FechaEvento <= fechax2);
-                    }
-                }
+                //if (!string.IsNullOrWhiteSpace(dtParameters.fechaHasta))
+                //{
+                //    DateTime fechax2 = DateTime.Now;
+                //    bool convertir = DateTime.TryParse(dtParameters.fechaHasta, out fechax2);
+                //    if (convertir)
+                //    {
+                //        fechax2 = fechax2.AddDays(1);
+                //        predicado = predicado.And(d => d.FechaEvento <= fechax2);
+                //    }
+                //}
 
                 datos.recordsFiltered = _context.ViewSolicitudesPorFechas.Where(predicado).ToList().Count();
                 datos.recordsTotal = datos.recordsFiltered;
@@ -220,7 +220,7 @@ namespace SalonesAPI.Repositorio.SalonesES
                 {
                     dtParameters.start = 0;
                 }
-                datos.draw = dtParameters.draw ?? 0;
+                datos.draw = dtParameters.draw;
 
                 if (dtParameters.length == -1)
                 {
@@ -236,7 +236,7 @@ namespace SalonesAPI.Repositorio.SalonesES
                 {
                     sortcolumn = "PrimerNombre";
                 }
-                var datos2 = _context.ViewSolicitudesPorFechas.Where(predicado).OrderBy2(sortcolumn, order).Skip((dtParameters.start ?? 0)).Take((dtParameters.length ?? 1)).ToList();
+                var datos2 = _context.ViewSolicitudesPorFechas.Where(predicado).OrderBy2(sortcolumn, order).Skip((dtParameters.start)).Take((dtParameters.length)).ToList();
                 datos.data = datos2.Select(x => new ViewSolicitudesPorFechaModel
                 {
                     id = x.Id,

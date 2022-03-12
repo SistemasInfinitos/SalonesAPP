@@ -174,16 +174,16 @@ namespace SalonesAPI.Repositorio.PersonasES
                 {
                     foreach (var id in dtParameters?.order)
                     {
-                        sortcolumn2.Add(dtParameters.columns[id.column.Value].name);
-                        sortcolumn3 += (dtParameters.columns[id.column.Value].name) + ",";
+                        sortcolumn2.Add(dtParameters.columns[id.column].name);
+                        sortcolumn3 += (dtParameters.columns[id.column].name) + ",";
                     }
                 }
                 string sortcolumn = dtParameters.columns != null && dtParameters.order != null && dtParameters.order[0].column != null ?
-                    dtParameters.columns[dtParameters.order[0].column.Value].name : "";
+                    dtParameters.columns[dtParameters.order[0].column].name : "";
                 string sortcolumn1 = sortcolumn;
                 if (dtParameters.order != null && dtParameters.order.Count > 1)
                 {
-                    sortcolumn1 = dtParameters.columns[dtParameters.order[1].column.Value].name;
+                    sortcolumn1 = dtParameters.columns[dtParameters.order[1].column].name;
                 }
 
                 var predicado = PredicateBuilder.True<Persona>();
@@ -206,7 +206,7 @@ namespace SalonesAPI.Repositorio.PersonasES
                 {
                     dtParameters.start = 0;
                 }
-                datos.draw = dtParameters.draw ?? 0;
+                datos.draw = dtParameters.draw;
 
                 if (dtParameters.length == -1)
                 {
@@ -222,7 +222,7 @@ namespace SalonesAPI.Repositorio.PersonasES
                 {
                     sortcolumn = "PrimerNombre";
                 }
-                var datos2 = _context.Personas.Where(predicado).OrderBy2(sortcolumn, order).Skip((dtParameters.start ?? 0)).Take((dtParameters.length ?? 1)).ToList();
+                var datos2 = _context.Personas.Where(predicado).OrderBy2(sortcolumn, order).Skip((dtParameters.start)).Take((dtParameters.length)).ToList();
                 datos.data = datos2.Select(x => new PersonasModel
                 {
                     primerNombre = x.PrimerNombre,

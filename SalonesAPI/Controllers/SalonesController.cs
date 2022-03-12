@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SalonesAPI.Configuration;
@@ -142,7 +140,7 @@ namespace SalonesAPI.Controllers
         public async Task<IActionResult> ListPersonas(DataTableParameter dtParms)
         {
             DataTableViewSolicitudesPorFechaModel res = await Task.Run(() => _repositorySaloness.GetSalonesDataTable(dtParms));
-            res.draw = dtParms.draw ?? 0;
+            res.draw = dtParms.draw;
 
             var json = JsonConvert.SerializeObject(res);
 
