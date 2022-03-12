@@ -27,10 +27,6 @@
         @* Persona *@
         <div class="tab-pane active" id="home1">
             <form class="user" style="margin:2%">
-                @using (Html.BeginForm())
-                {                   
-                    @**@
-                }
                 <div class="form-group row">
 
                     <div class="col-sm-3 mb-3 mb-sm-3" hidden>
@@ -66,21 +62,21 @@
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" for="edad"><span style="color:red">*</span>Edad</label>
-                        @Html.DropDownList("edad",null, "Seleccione rango de Edad", htmlAttributes: new { @class = "form-control", @required = "required" } )
+                        @Html.DropDownList("edad",null, "Seleccione rango de Edad", htmlAttributes: new { @class = "form-control collapse-inner", @required = "required" } )
                         @*<select id="edad" name="edad" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione Edad</option>
                         </select>*@
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" for="pais">Pais</label>
-                        @Html.DropDownList("pais", null, "Seleccione el Pais", htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownList("pais", null, "Seleccione el Pais", htmlAttributes: new { @class = "form-control collapse-inner" })
                         @*<select id="pais" name="pais" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Pais </option>
                         </select>*@
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" for="departamento">Departamento</label>
-                        @Html.DropDownList("departamento", null, "Seleccione el Departamento", htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownList("departamento", null, "Seleccione el Departamento", htmlAttributes: new { @class = "form-control collapse-inner" })
 
                         @*<select id="departamento" name="departamento" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Departamento </option>
@@ -88,7 +84,7 @@
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" for="idCiudad"><span style="color:red">*</span>Ciudad</label>
-                        @Html.DropDownList("idCiudad", null, "Seleccione la Ciudad", htmlAttributes: new { @class = "form-control", @required = "required" })
+                        @Html.DropDownList("idCiudad", null, "Seleccione la Ciudad", htmlAttributes: new { @class = "form-control collapse-inner", @required = "required" })
 
                         @*<select id="idCiudad" name="idCiudad" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Ciudad</option>

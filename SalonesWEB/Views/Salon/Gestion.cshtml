@@ -4,68 +4,154 @@
     ViewData["Title"] = "Gestion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<h1>@ViewData["Title"]</h1>
 
-<h1>Gestion</h1>
-
-<h4>SalonesModel</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Gestion">
+<div class="card o-hidden border-0 shadow-lg my-n2">
+    <div class="tab-content">
+        <br />
+        @* Persona *@
+    <div class="tab-pane active" id="home1">
+        <form asp-action="Gestion" class="row">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="id" class="control-label"></label>
-                <input asp-for="id" class="form-control" />
-                <span asp-validation-for="id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="idPersonaCliente" class="control-label"></label>
-                <input asp-for="idPersonaCliente" class="form-control" />
-                <span asp-validation-for="idPersonaCliente" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="fechaEvento" class="control-label"></label>
-                <input asp-for="fechaEvento" class="form-control" />
-                <span asp-validation-for="fechaEvento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="cantidadPersona" class="control-label"></label>
-                <input asp-for="cantidadPersona" class="form-control" />
-                <span asp-validation-for="cantidadPersona" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="idMotivo" class="control-label"></label>
-                <input asp-for="idMotivo" class="form-control" />
-                <span asp-validation-for="idMotivo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="observacion" class="control-label"></label>
-                <input asp-for="observacion" class="form-control" />
-                <span asp-validation-for="observacion" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="estado" /> @Html.DisplayNameFor(model => model.estado)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="fechaCreacion" class="control-label"></label>
-                <input asp-for="fechaCreacion" class="form-control" />
-                <span asp-validation-for="fechaCreacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="fechaActualizacion" class="control-label"></label>
-                <input asp-for="fechaActualizacion" class="form-control" />
-                <span asp-validation-for="fechaActualizacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group row" style="padding:15px;margin: 5px">
+
+                <div class="col-sm-3 mb-3 mb-sm-3" hidden>
+                    @Html.Hidden("id")
+                </div>
+                <div class="col-sm-3 mb-3 mb-sm-3">
+                    <label class="col-form-label" for="idPersonaCliente"><span style="color:red">*</span>Cliente</label>
+                    @Html.EditorFor(Model => Model.idPersonaCliente, new { htmlAttributes = new { @class = "form-control", @placeholder = "Cliente" } })
+                </div>
+                <div class="col-sm-3 mb-3 mb-sm-3">
+                    <label class="col-form-label" for="segundoNombre">Fecha Evento</label>
+                    @Html.EditorFor(Model => Model.fechaEvento, new { htmlAttributes = new { @class = "form-control", @placeholder = "Fecha Evento" } })
+                </div>
+                <div class="col-sm-3 mb-3 mb-sm-3">
+                    <label class="col-form-label" for="primerApellido"><span style="color:red">*</span>Cantidad Persona</label>
+                    @Html.EditorFor(Model => Model.cantidadPersona, new { htmlAttributes = new { @class = "form-control", @placeholder = "Cantidad Persona", @required = "required" } })
+                </div>
+
+                <div class="col-sm-3 mb-3 mb-sm-3">
+                    <label class="col-form-label" for="idMotivo"><span style="color:red">*</span>Motivo</label>
+                    @Html.DropDownList("idMotivo", null, "Seleccione Motivo", htmlAttributes: new { @class = "form-control collapse-inner", @required = "required" })
+                </div>
+                <div class="col-sm-3 mb-3 mb-sm-3">
+                    <label class="col-form-label" for="Observación">Observacion</label>
+                    @Html.TextAreaFor(Model => Model.observacion, new {  @class = "form-control", @placeholder = "Observación", @row="4",@columns="10", @required = "required" })
+                </div>
+                <div class="col-sm-3 mb-3 mb-sm-3">
+                    <label class="col-form-label" for="btnCrear">.</label>
+                    <button type="button" class="form-control btn-secondary" id="btnCrear" placeholder="Guardar" style="background: #4e73df;font-size:15px;color:white;">Guardar</button>
+                </div>
             </div>
         </form>
+    </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        
     </div>
 </div>
 
 <div>
     <a asp-action="GetSalones">Back to List</a>
 </div>
+<script>
+    var api = localStorage.getItem("api");
+    var update = false;
+    var id = '@ViewBag.idString';
+    var pais = "";
+    var departamento = "";
+    var idCiudad = "";
+    var edad = "";
 
+    $(document).ready(function () {
+        $(".collapse-inner").select2();
+
+        if (id != "") {
+            update = true;
+        }
+        else {
+            DropListPais();
+        }
+    });
+
+    $("#btnCrear").click(function () {
+        idCiudad = $("#idCiudad").val();
+
+        var entidad = {
+            id: parseInt(id),
+            primerNombre: $("#primerNombre").val(),
+            segundoNombre: $("#segundoNombre").val(),
+            primerApellido: $("#primerApellido").val(),
+            segundoApellido: $("#segundoApellido").val(),
+            identificacion: $("#identificacion").val(),
+            telefono: $("#telefono").val(),
+            correo: $("#correo").val(),
+            edad: parseInt($("#edad").val()),
+            idCiudad: parseInt(idCiudad)
+        }
+
+        if (update == false) {
+            $.ajax({
+                url: `${api}/api/Personas/CreatePersona`,
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'JSON',
+                cache: false,
+                traditional: true,
+                async: true,
+                data: JSON.stringify(entidad),
+                header: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                success: function (response) {
+
+                    if (response.ok) {
+                        toastr.success(response.mensaje);
+                    } else {
+                        toastr.warning(response.mensaje);
+                    }
+                },
+                error: function (data) {
+
+                   toastr.error("No pudimos completar tu solicitud!");
+                }
+            });
+        }
+        else if (id != "" && id != undefined && id != NaN) {
+            $.ajax({
+                url: `${api}/api/Personas/ActualizarPersona`,
+                type: 'PUT',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'JSON',
+                cache: false,
+                traditional: true,
+                async: true,
+                data: JSON.stringify(entidad),
+                header: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                success: function (ok) {
+
+                    if (ok) {
+                        toastr.success("success");
+                    } else {
+                        toastr.warning(ok.mensaje);
+                    }
+                },
+                error: function (data) {
+                    toastr.error("No pudimos completar tu solicitud!");
+                }
+            });
+        }
+        else {
+            toastr.warning("selecciona una accion!");
+        }
+    });
+
+</script>

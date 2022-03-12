@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SalonesWEB.Configuration;
 using SalonesWEB.Models.Reservas;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -25,6 +27,7 @@ namespace SalonesWEB.Controllers.Reservas
             var httpClient = new HttpClient();
             string api = _jwtConfig.api; // esto garantiza la migracion a produccion ya que la url siempre cambia
             SalonesModel model = new SalonesModel();
+            List<MotivosModel> modelMotivos = new List<MotivosModel>();
 
             ViewBag.idString = "";
 
@@ -51,6 +54,16 @@ namespace SalonesWEB.Controllers.Reservas
             }
             //si entra en el anterio bloque SelectList seleccionara el actual
             #region DropDownList
+            #region Motivo
+            ViewBag.idMotivo = new SelectList(modelMotivos, "id", "rangoEdades");
+            string uriMotivos = api + "/api/Salones/GetMotivosReserva";
+            var edades = await httpClient.GetAsync(uriMotivos);
+            if (edades.IsSuccessStatusCode)
+            {
+                modelMotivos = JsonConvert.DeserializeObject<List<MotivosModel>>(await edades.Content.ReadAsStringAsync());
+                ViewBag.idMotivo = new SelectList(modelMotivos, "id", "motivo");
+            }
+            #endregion
             #endregion
             return View(model);
         }

@@ -127,7 +127,8 @@ namespace SalonesAPI.Controllers
                 mensaje = "ok";
                 ok = true;
             }
-            return Ok(new { data, ok, mensaje });
+            //return Ok(new { data, ok, mensaje });
+            return Ok(data);
         }
 
         /// <summary>
