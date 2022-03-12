@@ -109,7 +109,7 @@
 
     $("#btnCrear").click(function () {
         idCiudad = $("#idCiudad").val();
-        debugger
+        
         var data = {
             id: id,
             primerNombre: $("#primerNombre").val(),
@@ -137,7 +137,7 @@
                 async: true,
                 dataType: "JSON",
                 success: function (response) {
-                    debugger
+                    
                     if (response.ok) {
                         toastr.success(response.mensaje);
                     } else {
@@ -183,7 +183,7 @@
     });
 
     function getPersona() {
-        debugger
+        
         id= '@ViewBag.idString';
         if (id != "" && id != undefined && id != NaN) {
             var uri = `${api}/api/Personas/GetPersona`;
@@ -192,7 +192,7 @@
                 url: url,
                 type: 'get',
                 success: function (response) {
-                    debugger
+                    
                     $("#id").val("");
                     id = "";
                     $("#primerNombre").val();
@@ -249,12 +249,19 @@
             success: function (data) {
                 $('#pais').empty();
                 if (data.ok) {
+
+                    $('#pais').append($('<option>', {
+                        value: "",
+                        text: "Seleccione el Pais",
+                    }));
+
                     $(data.paises).each(function (i) {
                         $('#pais').append($('<option>', {
                             value: data.paises[i].id,
                             text: data.paises[i].paisNombre,
                         }));
                     });
+                    
                     if (pais != "" || data.paises.length == 1) {
                         $("#pais").val(data.paises[0].id).trigger('change.select2');
                         pais = data.paises[0].id;
@@ -272,16 +279,18 @@
 
     $("#pais").change(function ()
     {
+        pais = $("#pais").val();
         DropListDepartamentos()
     });
 
     $("#departamento").change(function ()
-    {
+    {        
+        departamento = $("#departamento").val();
         DropListCiudades()
     });
 
     function DropListDepartamentos() {
-        debugger
+        
         if (pais != "" && pais != undefined) {
             $.ajax({
                 url: `${api}/api/Comun/GetDropListDepartamentos`,
@@ -301,15 +310,19 @@
                 },
                 success: function (data) {
                     $('#departamento').empty();
-                    debugger
+                    
                     if (data.ok) {
+                        $('#departamento').append($('<option>', {
+                            value: "",
+                            text: "Seleccione el Departamento",
+                        }));
                         $(data.dapartamentos).each(function (i) {
                             $('#departamento').append($('<option>', {
                                 value: data.dapartamentos[i].id,
                                 text: data.dapartamentos[i].distritoDepartamento,
                             }));
                         });
-                        debugger
+                        
                         if (data.dapartamentos.length ==1) {
                             $("#departamento").val(data.dapartamentos[0].id).trigger('change.select2');
                             departamento = data.dapartamentos[0].id;
@@ -327,7 +340,7 @@
     }
 
     function DropListCiudades() {
-        debugger
+        
         if (departamento != "" && departamento != undefined) {
             $.ajax({
                 url: `${api}/api/Comun/GetDropListCiudades`,
@@ -347,10 +360,14 @@
                 },
                 success: function (data) {
                     $('#idCiudad').empty();
-                    debugger
+                    
+                    $('#idCiudad').append($('<option>', {
+                        value: "",
+                        text: "Seleccione la Ciuda",
+                    }));
                     if (data.ok) {
                         $(data.ciudades).each(function (i) {
-                            debugger
+                            
                             $('#idCiudad').append($('<option>', {
                                 value: data.ciudades[i].id,
                                 text: data.ciudades[i].ciudadNombre,
