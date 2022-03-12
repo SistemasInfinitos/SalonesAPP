@@ -121,13 +121,10 @@ namespace SalonesAPI.ModelsAPI.Comun
 
                 var type = typeof(TEntity);
 
-                //var type = typeof(TEntity).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).OrderBy(x => x.MetadataToken);
+                //var type3 = typeof(TEntity).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).ToList();
                 var type2 = typeof(TEntity).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
-
                 var property = type2.Where(x => orderByProperty.ToUpper().Contains(x.Name.ToUpper())).FirstOrDefault();
-
-
 
                 //var property = type.GetProperty(orderByProperty);
                 var parameter = Expression.Parameter(type, "p");
