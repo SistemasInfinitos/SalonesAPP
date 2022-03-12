@@ -43,6 +43,7 @@ namespace SalonesAPI.Repositorio.ComunES
                 {
                     id = x.Id,
                     ciudadNombre = x.CiudadNombre,
+                    idDepartamento = x.IdDepartamento,
                 }).ToList();
             }
             catch (Exception ex)
@@ -75,6 +76,7 @@ namespace SalonesAPI.Repositorio.ComunES
                 {
                     id = x.Id,
                     distritoDepartamento = x.DistritoDepartamento,
+                    idPais=x.IdPais
                 }).ToList();
             }
             catch (Exception ex)
@@ -109,6 +111,8 @@ namespace SalonesAPI.Repositorio.ComunES
                 {
                     id = x.Id,
                     paisNombre = x.PaisNombre,
+                    paisCodigo = x.PaisCodigo,
+                    paisContinente = x.PaisContinente,
                 }).ToList();
             }
             catch (Exception ex)
