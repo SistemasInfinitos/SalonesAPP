@@ -170,15 +170,17 @@
         else if (id != "" && id != undefined && id != NaN) {
             $.ajax({
                 url: `${api}/api/Personas/ActualizarPersona`,
-                'type': 'PUT',
-                data: entidad,
-                headers: {
+                type: 'PUT',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'JSON',
+                cache: false,
+                traditional: true,
+                async: true,
+                data: JSON.stringify(entidad),
+                header: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                traditional: true,
-                async: true,
-                dataType: "JSON",
                 success: function (ok) {
 
                     if (ok) {
@@ -186,9 +188,6 @@
                     } else {
                         toastr.warning(ok.mensaje);
                     }
-                },
-                complete: function () {
-
                 },
                 error: function (data) {
                     toastr.error("No pudimos completar tu solicitud!");
@@ -356,7 +355,6 @@
         }
     }
 
-
     function DropListCiudades() {
 
         if (departamento != "" && departamento != undefined) {
@@ -405,7 +403,6 @@
             });
         }
     }
-
 
     function DropListEdades() {
 
