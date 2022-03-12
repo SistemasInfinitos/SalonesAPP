@@ -18,9 +18,9 @@ namespace SalonesAPI.ModelsAPI.Persona
         public string correo { get; set; }
 
         [Required]
-        public int idCiudad { get; set; }
+        public int? idCiudad { get; set; }
         [Required]
-        public int edad { get; set; }
+        public int? edad { get; set; }
         public string fechaCreacion { get; set; }
         public string fechaActualizacion { get; set; }
         public bool? estado { get; set; }

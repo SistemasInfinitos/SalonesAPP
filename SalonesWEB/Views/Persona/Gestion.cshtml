@@ -112,7 +112,7 @@
         idCiudad = $("#idCiudad").val();
         debugger
         var entidad = {
-            id: id,
+            id: parseInt(id),
             primerNombre: $("#primerNombre").val(),
             segundoNombre: $("#segundoNombre").val(),
             primerApellido: $("#primerApellido").val(),
@@ -120,8 +120,8 @@
             identificacion: $("#identificacion").val(),
             telefono: $("#telefono").val(),
             correo: $("#correo").val(),
-            edad: $("#edad").val(),
-            idCiudad: idCiudad
+            edad: parseInt($("#edad").val()),
+            idCiudad: parseInt(idCiudad)
         }
         debugger
         if (update == false) {
@@ -133,10 +133,7 @@
                 cache: false,
                 traditional: true,
                 async: true,
-                data: function (entidad) {
-                    debugger
-                    return JSON.stringify(entidad);
-                },
+                data: JSON.stringify(entidad),
                 header: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'

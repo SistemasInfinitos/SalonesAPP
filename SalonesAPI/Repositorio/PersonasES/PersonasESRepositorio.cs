@@ -45,9 +45,9 @@ namespace SalonesAPI.Repositorio.PersonasES
                         actualizarRegistro.SegundoApellido = entidad.segundoApellido;
                         actualizarRegistro.Telefono = entidad.telefono;
                         actualizarRegistro.Identificacion = entidad.identificacion;
-                        actualizarRegistro.Edad = entidad.edad;
+                        actualizarRegistro.Edad = entidad.edad.Value;
                         actualizarRegistro.Correo = entidad.correo;
-                        actualizarRegistro.IdCiudad = entidad.idCiudad;
+                        actualizarRegistro.IdCiudad = entidad.idCiudad.Value;
                         actualizarRegistro.Estado = true;
                         actualizarRegistro.FechaCreacion = DateTime.Now;
                         actualizarRegistro.FechaActualizacion = null;
@@ -89,9 +89,9 @@ namespace SalonesAPI.Repositorio.PersonasES
                         nuevoRegistro.SegundoApellido = entidad.segundoApellido;
                         nuevoRegistro.Telefono = entidad.telefono;
                         nuevoRegistro.Identificacion = entidad.identificacion;
-                        nuevoRegistro.Edad = entidad.edad;
+                        nuevoRegistro.Edad = entidad.edad.Value;
                         nuevoRegistro.Correo = entidad.correo;
-                        nuevoRegistro.IdCiudad = entidad.idCiudad;
+                        nuevoRegistro.IdCiudad = entidad.idCiudad.Value;
                         nuevoRegistro.Estado = true;
                         nuevoRegistro.FechaCreacion = DateTime.Now;
                         nuevoRegistro.FechaActualizacion = null;
