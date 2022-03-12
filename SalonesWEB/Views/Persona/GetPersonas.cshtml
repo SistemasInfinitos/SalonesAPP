@@ -38,9 +38,9 @@
         GetPersonas();
     });
     function GetPersonas() {
-        //$('#tableDinamica').find('tbody').empty();
-        ////$('#tableDinamica').dataTable().fnClearTable();
-        //$('#tableDinamica').dataTable().fnDestroy();
+        $('#tableDinamica').find('tbody').empty();
+        //$('#tableDinamica').dataTable().fnClearTable();
+        $('#tableDinamica').dataTable().fnDestroy();
         DataTablePaginada = "";
 
         if ($.fn.DataTable.isDataTable("#tableDinamica")) {
@@ -123,13 +123,13 @@
 
     function BorrarPersona(id) {
 
-        if (id != "" && id != undefined && id != NaN) {
-            var uri = `${api}/api/Personas/`;
-            var url = uri + '?' + $.param({ "idString": id });
+        if (id >0) {
+            var parametro = '?' + $.param({ "id": id });
             $.ajax({
-                url: `${api}/api/Personas/BorrarPersona`,
+                url: `${api}/api/Personas/BorrarPersona${parametro}`,
                 type: 'DELETE',
                 success: function (response) {
+                    debugger
                     if (response.ok) {
                         toastr.success(response.mensaje);
                     } else {

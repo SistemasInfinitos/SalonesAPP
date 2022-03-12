@@ -122,6 +122,7 @@ namespace SalonesAPI.Controllers
                 try
                 {
                     data.ok = await Task.Run(() => _repositoryPersonas.DeletePersona(id.Value));
+                    data.mensaje = "Transaccion exitosa!";
                     return Ok(data);
                 }
                 catch (Exception x)

@@ -250,11 +250,11 @@ namespace SalonesAPI.Repositorio.PersonasES
             {
                 try
                 {
-                    Persona delete = _context.Personas.Where(x => x.Id == id).FirstOrDefault();
+                    var delete = _context.Personas.Where(x => x.Id == id).FirstOrDefault();
 
                     if (delete != null)
                     {
-                        _context.Entry(delete).State = EntityState.Detached;
+                        _context.Entry(delete).State = EntityState.Deleted;
                         ok = await _context.SaveChangesAsync() > 0;
                     }
                     if (ok)
