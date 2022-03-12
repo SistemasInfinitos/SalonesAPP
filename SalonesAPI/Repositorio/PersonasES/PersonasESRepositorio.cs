@@ -166,31 +166,25 @@ namespace SalonesAPI.Repositorio.PersonasES
             {
                 DataTableResponsePersona datos = new DataTableResponsePersona();
                 string search = dtParameters.search?.value;
-                search = search?.Replace(" ", "");
+                search = search.Replace(" ", "");
                 List<string> sortcolumn2 = new List<string>();
                 string sortcolumn3 = "";
 
                 if (dtParameters != null && dtParameters.order != null && dtParameters.order.Count() > 0)
                 {
-                    foreach (var id in dtParameters?.order)
+                    foreach (var id in dtParameters.order)
                     {
                         sortcolumn2.Add(dtParameters.columns[id.column].name);
                         sortcolumn3 += (dtParameters.columns[id.column].name) + ",";
                     }
                 }
-                string sortcolumn = dtParameters.columns != null && dtParameters.order != null && dtParameters.order[0].column != null ?
-                    dtParameters.columns[dtParameters.order[0].column].name : "";
-                string sortcolumn1 = sortcolumn;
-                if (dtParameters.order != null && dtParameters.order.Count > 1)
-                {
-                    sortcolumn1 = dtParameters.columns[dtParameters.order[1].column].name;
-                }
+                string sortcolumn = dtParameters.columns[dtParameters.order[0].column].name;
 
                 var predicado = PredicateBuilder.True<Persona>();
                 var predicado2 = PredicateBuilder.False<Persona>();
                 predicado = predicado.And(d => d.Estado == true);
 
-                if (!string.IsNullOrWhiteSpace(dtParameters.search?.value))
+                if (!string.IsNullOrWhiteSpace(dtParameters.search.value))
                 {
                     predicado2 = predicado2.Or(d => 1 == 1 && d.PrimerNombre.Contains(dtParameters.search.value));
                     predicado2 = predicado2.Or(d => 1 == 1 && d.SegundoNombre.Contains(dtParameters.search.value));
@@ -202,10 +196,6 @@ namespace SalonesAPI.Repositorio.PersonasES
 
                 datos.recordsFiltered = _context.Personas.Where(predicado).ToList().Count();
                 datos.recordsTotal = datos.recordsFiltered;
-                if (dtParameters.start == null)
-                {
-                    dtParameters.start = 0;
-                }
                 datos.draw = dtParameters.draw;
 
                 if (dtParameters.length == -1)
@@ -213,8 +203,7 @@ namespace SalonesAPI.Repositorio.PersonasES
                     dtParameters.length = datos.recordsFiltered;
                 }
                 string order = "asc";
-
-                if (dtParameters.order?.Count > 1)
+                if (dtParameters.order.Count > 1)
                 {
                     order = dtParameters.order?[0].dir;
                 }
@@ -222,17 +211,29 @@ namespace SalonesAPI.Repositorio.PersonasES
                 {
                     sortcolumn = "PrimerNombre";
                 }
-                var datos2 = _context.Personas.Where(predicado).OrderBy2(sortcolumn, order).Skip((dtParameters.start)).Take((dtParameters.length)).ToList();
-                datos.data = datos2.Select(x => new PersonasModel
+                List<Persona> datos2 = new List<Persona>();
+                if (datos.recordsFiltered>0)
                 {
-                    primerNombre = x.PrimerNombre,
-                    primerApellido = x.PrimerApellido,
-                    segundoNombre = x.SegundoNombre,
-                    segundoApellido = x.SegundoApellido,
-                    fechaActualizacion = x.FechaActualizacion != null ? x.FechaActualizacion.Value.ToString("yyyy/MM/dd", culture) : "",
-                    fechaCreacion = x.FechaCreacion.ToString("yyyy/MM/dd", culture),
+                    datos2 = _context.Personas.Where(predicado).OrderBy2(sortcolumn, order).Skip(dtParameters.start).Take(dtParameters.length).ToList();
+                    datos.data = datos2.Select(x => new PersonasModel
+                    {
+                        id=x.Id,
+                        primerNombre = x.PrimerNombre,
+                        primerApellido = x.PrimerApellido,
+                        segundoNombre = x.SegundoNombre,
+                        segundoApellido = x.SegundoApellido,
+                        telefono=x.Telefono,
+                        correo=x.Correo,
+                        edad=x.Edad,
+                        estado=x.Estado.Value,
+                        identificacion=x.Identificacion,
+                        idCiudad=x.IdCiudad,
+                        fechaActualizacion = x.FechaActualizacion != null ? x.FechaActualizacion.Value.ToString("yyyy/MM/dd", culture) : "",
+                        fechaCreacion = x.FechaCreacion.ToString("yyyy/MM/dd", culture),
 
-                }).ToList();
+                    }).ToList();
+                }
+
 
                 return await Task.Run(() => datos);
             }
