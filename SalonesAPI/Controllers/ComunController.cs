@@ -89,12 +89,12 @@ namespace SalonesAPI.Controllers
         }
 
 
-        [Route("[action]", Name = "GetDropListRangoEad")]
+        [Route("[action]", Name = "GetDropListRangoEades")]
         [HttpGet]
-        public async Task<IActionResult> GetDropListRangoEad(string buscar, int? idDepartamento)
+        public async Task<IActionResult> GetDropListRangoEades()
         {
-            bool ok = false;
-            string mensaje = "Sin Datos";
+            bool ok = true;
+            string mensaje = "ok";
             List<Edades> edades = new List<Edades>();
 
             // como no se define claramente si se requiere la lista de posible edad de una persona -- considero que deberia ser una lista de rango de edades

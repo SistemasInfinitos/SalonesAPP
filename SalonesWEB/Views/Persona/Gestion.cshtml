@@ -390,52 +390,45 @@
     }
 
     function DropListEdades() {
-        
-        if (departamento != "" && departamento != undefined) {
-            $.ajax({
-                url: `${api}/api/Comun/GetDropListRangoEad`,
-                data:
-                {
-                    buscar: "",
-                    idDepartamento: departamento
-                },
-                method: 'get',
-                traditional: true,
-                async: true,
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                headers: {
-                    'Authorization': 'Bearer '
-                        + localStorage.getItem("accessToken")
-                },
-                success: function (data) {
-                    $('#edad').empty();
-                    
-                    $('#edad').append($('<option>', {
-                        value: "",
-                        text: "Seleccione un rango de Edad",
-                    }));
-                    if (data.ok) {
-                        $(data.listEdades).each(function (i) {
-                            
-                            $('#edad').append($('<option>', {
-                                value: data.listEdades[i].id,
-                                text: data.listEdades[i].rangoEdades,
-                            }));
-                        });
-                        if (data.listEdades.length == 1) {
-                            $("#edad").val(data.listEdades[0].id).trigger('change.select2');
-                            edad = data.listEdades[0].id;
-                        }
-                    } else {
-                        toastr.warning(data.mensaje);
+
+        $.ajax({
+            url: `${api}/api/Comun/GetDropListRangoEades`,
+            data: {},
+            method: 'get',
+            traditional: true,
+            async: true,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            headers: {
+                'Authorization': 'Bearer '
+                    + localStorage.getItem("accessToken")
+            },
+            success: function (data) {            debugger
+                $('#edad').empty();
+
+                $('#edad').append($('<option>', {
+                    value: "",
+                    text: "Seleccione un rango de Edad",
+                }));
+                if (data.ok) {
+                    $(data.listEdades).each(function (i) {
+                        $('#edad').append($('<option>', {
+                            value: data.listEdades[i].id,
+                            text: data.listEdades[i].rangoEdades,
+                        }));
+                    });
+                    if (data.listEdades.length == 1) {
+                        $("#edad").val(data.listEdades[0].id).trigger('change.select2');
+                        edad = data.listEdades[0].id;
                     }
-                },
-                error: function (data) {
-                    toastr.error("error!");
+                } else {
+                    toastr.warning(data.mensaje);
                 }
-            });
-        }
+            },
+            error: function (data) {
+                toastr.error("error!");
+            }
+        });
     }
 
 </script>
