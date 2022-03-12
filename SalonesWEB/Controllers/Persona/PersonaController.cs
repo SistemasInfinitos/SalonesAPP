@@ -99,7 +99,8 @@ namespace SalonesWEB.Controllers.Persona
                 if (deparamentos.IsSuccessStatusCode)
                 {
                     modelDeparamentos = JsonConvert.DeserializeObject<List<DepartamentoModel>>(await deparamentos.Content.ReadAsStringAsync());
-                    ViewBag.departamento = new SelectList(modelDeparamentos, "id", "distritoDepartamento", modelCiudades.Where(x => x.id == model.idCiudad).Select(x => x.idDepartamento));
+                    var select = modelCiudades.Where(x => x.id == model.idCiudad).Select(x => x.idDepartamento).First();
+                    ViewBag.departamento = new SelectList(modelDeparamentos, "id", "distritoDepartamento", select);
                 }
             }
             #endregion
@@ -118,7 +119,8 @@ namespace SalonesWEB.Controllers.Persona
                 if (paises.IsSuccessStatusCode)
                 {
                     modelPaises = JsonConvert.DeserializeObject<List<PaisesModel>>(await paises.Content.ReadAsStringAsync());
-                    ViewBag.pais = new SelectList(modelPaises, "id", "paisNombre", modelDeparamentos.Where(x=>x.id== modelCiudades.Where(s=>s.id==model.idCiudad).Select(n=>n.id).First()).Select(z=>z.idPais)); 
+                    var select = modelDeparamentos.Where(x => x.id == modelCiudades.Where(s => s.id == model.idCiudad).Select(n => n.id).First()).Select(z => z.idPais).First();
+                    ViewBag.pais = new SelectList(modelPaises, "id", "paisNombre", select); 
                 }
             }
             #endregion
