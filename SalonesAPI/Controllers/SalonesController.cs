@@ -64,7 +64,7 @@ namespace SalonesAPI.Controllers
         }
 
         [Route("[action]")]
-        [HttpPost]
+        [HttpDelete]
         public async Task<IActionResult> BorrarReservaSalon(int? id)
         {
             ResponseApp data = new ResponseApp()

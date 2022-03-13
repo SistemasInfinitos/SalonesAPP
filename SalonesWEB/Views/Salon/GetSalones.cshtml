@@ -27,7 +27,7 @@
                             <input type='text' class="form-control datepicker col-sm-8 mb-8 mb-sm-8" id='fechaHasta' />
                         </div>
                         <div class='col-sm-4 mb-4 mb-sm-4'>
-                            <button type="button" class="btn btn-success btn-xs" onclick="GetPersonas()">
+                            <button type="button" class="btn btn-success btn-xs" onclick="GetSalones()">
                                 <i class="fa fa-search"></i>&nbsp;Buscar&nbsp;
                             </button>
                         </div>
@@ -61,13 +61,13 @@
     var api = localStorage.getItem("api");
 
     $(document).ready(function () {
-        GetPersonas();
+        GetSalones();
         $('.datepicker').datetimepicker({
             format: 'yyyy-MM-DD HH:mm:ss'// formato de la base de datos
         });
     });
 
-    function GetPersonas() {
+    function GetSalones() {
         var fechaDesde = $("#fechaDesde").val();
         var fechaHasta = $("#fechaHasta").val();
 
@@ -181,7 +181,7 @@
                     } else {
                         toastr.warning(response.mensaje);
                     };
-                    GetPersonas();
+                    GetSalones();
                 },
                 error: function (jQXHR) {
                     toastr.error('error, No pudimos procesar su Solicitud!');
