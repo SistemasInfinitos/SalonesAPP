@@ -1,8 +1,184 @@
 ﻿
 @{
-    ViewData["Title"] = "GetSalones";
+    ViewData["Title"] = "Salones";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>GetSalones</h1>
+@*<div class="card mb-3" style="margin-top:57px;">*@
+<div >
+    <br /><br />
+    <h3>@ViewData["Title"]</h3>
+    @*<div class="card-body">*@
+    <div>
+        @*<div class="container">*@
+        <div class="">
+            <br />
+            @*<div style="width:90%; margin:0 auto;">*@
+        <div>
+            <div class="container">
+                <div class="row">
+                    <div class='col-sm-6'>
+                        <div class="form-group">
+                            <div class='input-group date' id='fechaDesde'>
+                                <input type='text' class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table id="tableDinamica" class="table table-bordered table-hover dt-responsive nowrap display compact" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">Editar</th>
+                        <th style="text-align:center">Cliente</th>
+                        <th style="text-align:center">Identificacion</th>
+                        <th style="text-align:center">Tel-Cel</th>
+                        <th style="text-align:center">Ciudad</th>
+                        <th style="text-align:center">Fecha Evento</th>
+                        <th style="text-align:center">Audiencia</th>
+                        <th style="text-align:center">Motivo</th>
+                        <th style="text-align:center">Estado</th>
+                        @*<th style="text-align:center">Observación</th>*@
+                        <th style="text-align:center">Acción</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    DataTablePaginada = "";
+    var api = localStorage.getItem("api");
+    $(document).ready(function () {
+        GetPersonas();
+    });
+    function GetPersonas() {
+        var fechaDesde = $("#fechaDesde").val();
+        var fechaHasta = $("#fechaHasta").val();
+
+        $('#tableDinamica').find('tbody').empty();
+        //$('#tableDinamica').dataTable().fnClearTable();
+        $('#tableDinamica').dataTable().fnDestroy();
+        DataTablePaginada = "";
+
+        if ($.fn.DataTable.isDataTable("#tableDinamica")) {
+
+            $('#tableDinamica').datatable.fnClearTable();
+            $('#tableDinamica').datatable.fnDestroy();
+        }
+        DataTablePaginada = $('#tableDinamica').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "filter": true,
+            "orderMulti": false,
+            "searching": false,
+            dom: "<''<'col-sm-4'><'col-sm-4 text-center'B><'col-sm-4'f>>t<'col-sm-4'li>p",
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            ajax: {
+                url: `${api}/api/Salones/ReporteGestionSalones`,
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'JSON',
+                cache: false,
+                traditional: true,
+                async: true,
+                data: function (datatParms)
+                {
+                    datatParms.fechaDesde = fechaDesde;
+                    datatParms.fechaHasta = fechaHasta;
+                    return JSON.stringify(datatParms);
+                },
+                header: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            },
+            scrollX: true,
+            pagingType: "full_numbers",
+            language: {
+                "search": "Buscar",
+                "lengthMenu": "Mostrar _MENU_ Registros",
+                "infoFiltered": "(Filtrado de _MAX_ Registros Totales)",
+                "infoEmpty": "Encontrados 0 de _MAX_ Entradas",
+                "zeroRecords": "No se Encontraron Registros!",
+                "info": "Página _PAGE_ de _PAGES_",
+                "paginate": {
+                    "first": "Primera",
+                    "last": "Ultima",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+            },
+            "columns": [
+                {
+                    "mData": null,
+                    "bSortable": false,
+                    "mRender": function (o) {
+                        var boton = `<button type="button" class="btn btn-success btn-xs" onclick="Gestion('${o.id}')">
+                                        <i class="fa fa-pencil-square"></i>&nbsp;Editar&nbsp;&nbsp;
+                                    </button>`;
+                        return boton;
+                    }
+                },
+                { "data": "cliente", "name": "primerNombre", "autoWidth": true, className: "align-right" },
+                { "data": "identificacion", "name": "identificacion", "autoWidth": true, className: "align-right" },
+                { "data": "telefono", "name": "telefono", className: "align-right" },
+                { "data": "ciudadNombre", "name": "ciudadNombre", className: "align-right" },
+                { "data": "fechaEventoTex", "name": "fechaEventoTex", "autoWidth": true, className: "align-right" },
+                { "data": "cantidadPersona", "name": "cantidadPersona", className: "align-right" },
+                { "data": "motivo", "name": "motivo", className: "align-right" },
+
+                { "data": "estadoText", "name": "estadoText", "autoWidth": true, className: "align-right" },
+                {
+                    "mData": null,
+                    "bSortable": false,
+                    "mRender": function (o) {
+                        var boton = ``;
+                        boton = `<button type="button" class="btn btn-warning btn-xs" onclick="BorrarPersona(${o.id})"><i class="fa fa-trash"></i>&nbsp;Borrar&nbsp;&nbsp;</button>`
+                        return boton;
+                    }
+                }
+            ],
+            buttons: [
+            ],
+            "order": [[2, "desc"]]
+        });
+    }
+
+    function Gestion(id) {
+        if (id != "" && id != undefined && id != NaN) {
+            var url = '?' + $.param({ "id": id });
+            window.location.href = "/web/per/Gestion" + url;
+        }
+    };
+
+    function BorrarPersona(id) {
+
+        if (id >0) {
+            var parametro = '?' + $.param({ "id": id });
+            $.ajax({
+                url: `${api}/api/Personas/BorrarPersona${parametro}`,
+                type: 'DELETE',
+                success: function (response) {
+                    debugger
+                    if (response.ok) {
+                        toastr.success(response.mensaje);
+                    } else {
+                        toastr.warning(response.mensaje);
+                    };
+                    GetPersonas();
+                },
+                error: function (jQXHR) {
+                    toastr.error('error, No pudimos procesar su Solicitud!');
+                }
+            });
+        }
+    };
+
+</script>
+
 

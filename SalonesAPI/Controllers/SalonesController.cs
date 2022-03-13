@@ -140,7 +140,7 @@ namespace SalonesAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> ListPersonas(DataTableParameter dtParms)
+        public async Task<IActionResult> ReporteGestionSalones(DataTableParameter dtParms)
         {
             DataTableViewSolicitudesPorFechaModel res = await Task.Run(() => _repositorySaloness.GetSalonesDataTable(dtParms));
             res.draw = dtParms.draw;

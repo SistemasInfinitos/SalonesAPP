@@ -181,7 +181,7 @@ namespace SalonesAPI.Repositorio.SalonesES
 
                 var predicado = PredicateBuilder.True<ViewSolicitudesPorFecha>();
                 var predicado2 = PredicateBuilder.False<ViewSolicitudesPorFecha>();
-                predicado = predicado.And(d => d.Estado == true);
+                //predicado = predicado.And(d => d.Estado == true);
 
                 if (!string.IsNullOrWhiteSpace(dtParameters.search?.value))
                 {
@@ -256,7 +256,9 @@ namespace SalonesAPI.Repositorio.SalonesES
                     motivo = x.Motivo,
                     ciudadNombre = x.CiudadNombre,
                     distritoDepartamento = x.DistritoDepartamento,
-                    paisNombre = x.PaisNombre
+                    paisNombre = x.PaisNombre,
+                    estadoText=x.Estado?"Confirmado":"No Confirmado",
+                    cliente = x.PrimerNombre + (!string.IsNullOrWhiteSpace(x.SegundoNombre) ? " " + x.SegundoNombre : "") + " " + x.PrimerApellido + "" + (!string.IsNullOrWhiteSpace(x.SegundoApellido) ? " " + x.SegundoApellido : "")
 
                 }).ToList();
 

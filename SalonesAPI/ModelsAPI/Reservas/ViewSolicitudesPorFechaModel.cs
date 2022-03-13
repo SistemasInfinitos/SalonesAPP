@@ -22,5 +22,7 @@ namespace SalonesAPI.ModelsAPI.Reservas
         public string ciudadNombre { get; set; }
         public string distritoDepartamento { get; set; }
         public string paisNombre { get; set; }
+        public virtual string estadoText { get; set; }
+        public virtual string cliente { get; set; }
     }
 }
