@@ -22,8 +22,8 @@
                 </div>
                 <div class="col-sm-3 mb-3 mb-sm-3">
                     <label class="col-form-label" for="idPersonaCliente"><span style="color:red">*</span>Cliente</label>
-                    <select class = "js-example-responsive form-control" id="idPersonaCliente" name="idPersonaCliente"></select>
-                    @*@Html.DropDownList("idPersonaCliente", null, "Buscar Persona", htmlAttributes: new { @class = "js-example-responsive form-control", @required = "required", @style = "width: 100%;" })*@
+                    @*<select class = "js-example-responsive form-control" id="idPersonaCliente" name="idPersonaCliente"></select>*@
+                    @Html.DropDownList("idPersonaCliente", null, "Buscar Persona", htmlAttributes: new { @class = "js-example-responsive form-control", @required = "required", @style = "width: 100%;" })
                 </div>
                 <div class="col-sm-3 mb-3 mb-sm-3">
                     <label class="col-form-label" for="segundoNombre"><span style="color:red">*</span>Fecha Evento</label>
@@ -58,38 +58,27 @@
 <script>
     var api = localStorage.getItem("api");
     var update = false;
-    var id = '@ViewBag.idString';
+    var id = parseInt('@ViewBag.idString');
 
     $(document).ready(function () {
         $(".collapse-inner").select2();
-
-        if (id != "") {
+        debugger
+        if (id != "" && id != undefined && id>0) {
             update = true;
         }
         $('.datepicker').datetimepicker({
             format: 'yyyy-MM-DD HH:mm:ss'// formato de la base de datos
         });
-        //$(".datepicker").datepicker();
-        //$(".datepicker").datepicker({
-        //    format: 'yyyy-MM-dd'
-        //});
-        //$('.datepicker').datetimepicker({
-        //    //format: 'DD/MM/YYYY HH:mm ',
-        //    format: 'yyyy-MM-dd HH:mm:ss',
-        //    minDate: '-' + new Date() + ''
-        //});
-
-        //$('.datepicker').datetimepicker({
-        //    locale: 'ru'
-        //});
     });
 
     $("#btnCrear").click(function () {
-        idCiudad = $("#idCiudad").val();
         var fechaEvento = $("#fechaEvento").val();
         debugger
+        if ($("#id").val() != undefined && $("#id").val()!="") {
+            id = $("#id").val();
+        }
         var entidad = {
-            id: parseInt($("#id").val()),
+            id: parseInt(id),
             idPersonaCliente: parseInt($("#idPersonaCliente").val()),
             fechaEvento: fechaEvento,
             cantidadPersona: parseInt($("#cantidadPersona").val()),
@@ -127,6 +116,7 @@
             });
         }
         else if (id != "" && id != undefined && id != NaN) {
+            debugger
             $.ajax({
                 url: `${api}/api/Salones/ActualizarReservaSalon`,
                 type: 'PUT',
@@ -141,7 +131,6 @@
                     'Content-Type': 'application/json'
                 },
                 success: function (ok) {
-
                     if (ok) {
                         toastr.success("success");
                     } else {

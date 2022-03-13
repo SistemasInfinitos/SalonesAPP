@@ -64,7 +64,7 @@ namespace SalonesAPI.Controllers
         }
 
         [Route("[action]")]
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> ActualizarReservaSalon([FromBody] SalonesModel entidad)
         {
             ResponseApp data = new ResponseApp()
