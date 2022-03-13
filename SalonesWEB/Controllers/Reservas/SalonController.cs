@@ -70,12 +70,13 @@ namespace SalonesWEB.Controllers.Reservas
             #region Cliente
             ViewBag.idPersonaCliente = new SelectList(modelPerona, "id", "rangoEdades");
             int param = model.idPersonaCliente;
+            //se estable la parsona para qu no traiga mas de uno ya que hay un buscar ajax dinamico
             string uriCliente = api + "/api/Personas/GetPersonasDropList" + "?id="+ param;
-            var cliente = await httpClient.GetAsync(uriMotivos);
+            var cliente = await httpClient.GetAsync(uriCliente);
             if (edades.IsSuccessStatusCode)
             {
                 modelPerona = JsonConvert.DeserializeObject<List<DropListModel>>(await cliente.Content.ReadAsStringAsync());
-                ViewBag.idPersonaCliente = new SelectList(modelPerona, "id", "text", model.idMotivo);
+                ViewBag.idPersonaCliente = new SelectList(modelPerona, "id", "text", model.idPersonaCliente);
             }
             #endregion
             #endregion
