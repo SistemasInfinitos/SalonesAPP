@@ -193,26 +193,26 @@ namespace SalonesAPI.Repositorio.SalonesES
                     predicado = predicado.And(predicado2);
                 }
 
-                //if (!string.IsNullOrWhiteSpace(dtParameters.fechaDesde))
-                //{
-                //    DateTime fechax = DateTime.Now;
-                //    bool convertir = DateTime.TryParse(dtParameters.fechaDesde, out fechax);
-                //    if (convertir)
-                //    {
-                //        predicado = predicado.And(d => d.FechaEvento >= fechax);
-                //    }
-                //}
+                if (!string.IsNullOrWhiteSpace(dtParameters.fechaDesde))
+                {
+                    DateTime fechax = DateTime.Now;
+                    bool convertir = DateTime.TryParse(dtParameters.fechaDesde, out fechax);
+                    if (convertir)
+                    {
+                        predicado = predicado.And(d => d.FechaEvento >= fechax);
+                    }
+                }
 
-                //if (!string.IsNullOrWhiteSpace(dtParameters.fechaHasta))
-                //{
-                //    DateTime fechax2 = DateTime.Now;
-                //    bool convertir = DateTime.TryParse(dtParameters.fechaHasta, out fechax2);
-                //    if (convertir)
-                //    {
-                //        fechax2 = fechax2.AddDays(1);
-                //        predicado = predicado.And(d => d.FechaEvento <= fechax2);
-                //    }
-                //}
+                if (!string.IsNullOrWhiteSpace(dtParameters.fechaHasta))
+                {
+                    DateTime fechax2 = DateTime.Now;
+                    bool convertir = DateTime.TryParse(dtParameters.fechaHasta, out fechax2);
+                    if (convertir)
+                    {
+                        fechax2 = fechax2.AddDays(1);
+                        predicado = predicado.And(d => d.FechaEvento <= fechax2);
+                    }
+                }
 
                 datos.recordsFiltered = _context.ViewSolicitudesPorFechas.Where(predicado).ToList().Count();
                 datos.recordsTotal = datos.recordsFiltered;
