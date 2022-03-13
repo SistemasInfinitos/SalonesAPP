@@ -7,8 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="~/Vendor/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" />
-    <link href="~/Vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
     <meta property="fb:app_id" content="1481700018637177" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="RETO PROGRAMACION | SALONES EMPRESARIALES XYZ" />
@@ -31,9 +30,13 @@
     <link href="~/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <!-- Page level plugin CSS-->
     <link href="~/Pluguin/DataTables/DataTables-1.11.3/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
-
+    <link href="~/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
     @*<link href="~/Pluguin/datetimepicker-master/build/jquery.datetimepicker.min.css" rel="stylesheet" />*@
-    <link href="~/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    @*<link href="~/css/bootstrap-datepicker.min.css" rel="stylesheet" />*@
+    @*<link href="~/css/bootstrap-datepicker.css" rel="stylesheet" />*@
+    @*<link href="~/Pluguin/datetimepicker-master/jquery.datetimepicker.css" rel="stylesheet" />*@
+    @*<link href="~/Vendor/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" />*@
+    @*<link href="~/Vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />*@
     <!-- Animated css -->
     <link href="~/css/toastr.css" rel="stylesheet" />
     <link href="~/css/Site.css" rel="stylesheet" />
@@ -120,27 +123,31 @@
     <script src="~/lib/select2/js/select2.min.js"></script>
 
     <script src="~/js/toastr.js"></script>
+    <script src="~/lib/moment-develop/min/moment.min.js"></script>
     <script src="~/Pluguin/DataTables/DataTables-1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="~/Pluguin/DataTables/DataTables-1.11.3/js/dataTables.bootstrap5.min.js"></script>
-    <script src="~/Vendor/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.min.js"></script>
-    <script src="~/Vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    @*<script src="~/js/bootstrap-datepicker.js"></script>*@
+    @*<script src="~/Pluguin/datetimepicker-master/build/jquery.datetimepicker.min.js"></script>*@
+    @*<script src="~/Vendor/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.min.js"></script>*@
+    @*<script src="~/Vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>*@
     <script type="text/javascript">
         $(document).ready(function () {
             Test();
         });
-        $(document).ready(function () {
-            $('#perito_id').select2();
+        //$(document).ready(function () {
+        //    $('#perito_id').select2();
 
-            $('.pos_fec_desde').datetimepicker({
-                minDate: '-' + new Date() + '',
-                format: 'DD/MM/YYYY HH:mm '
-            });
+        //    $('.pos_fec_desde').datetimepicker({
+        //        minDate: '-' + new Date() + '',
+        //        format: 'DD/MM/YYYY HH:mm '
+        //    });
 
-            $('.pos_fec_hasta').datetimepicker({
-                format: 'DD/MM/YYYY HH:mm ',
-                minDate: '-' + new Date() + ''
-            });
-        });
+        //    $('.pos_fec_hasta').datetimepicker({
+        //        format: 'DD/MM/YYYY HH:mm ',
+        //        minDate: '-' + new Date() + ''
+        //    });
+        //});
         function Test() {
             $.ajax({
                 //url: '/Home/GetService',

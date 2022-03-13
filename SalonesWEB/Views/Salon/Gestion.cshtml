@@ -7,7 +7,7 @@
 <h1>@ViewData["Title"]</h1>
 
 <hr />
-<div class="card o-hidden border-0 shadow-lg my-n2">
+<div @*class="card o-hidden border-0 shadow-lg my-n2"*@>
     <div class="tab-content">
         <br />
         @* Persona *@
@@ -65,10 +65,22 @@
         if (id != "") {
             update = true;
         }
-
-        $(".datepicker").datepicker({
-            format: 'yyyy-MM-dd HH:mm:ss' //can also use format: 'dd-mm-yyyy'
+        $('.datepicker').datetimepicker({
+            format: 'yyyy-MM-DD HH:mm:ss'
         });
+        //$(".datepicker").datepicker();
+        //$(".datepicker").datepicker({
+        //    format: 'yyyy-MM-dd'
+        //});
+        //$('.datepicker').datetimepicker({
+        //    //format: 'DD/MM/YYYY HH:mm ',
+        //    format: 'yyyy-MM-dd HH:mm:ss',
+        //    minDate: '-' + new Date() + ''
+        //});
+
+        //$('.datepicker').datetimepicker({
+        //    locale: 'ru'
+        //});
     });
 
     $("#btnCrear").click(function () {
