@@ -25,6 +25,10 @@ namespace SalonesAPI.ModelsAPI.Persona
         public string fechaActualizacion { get; set; }
         public bool? estado { get; set; }
 
+        /// <summary>
+        /// nombre combinado de la persona
+        /// </summary>
+        public virtual string cliente { get; set; }
         //public virtual int idDepartamento { get; set; }
     }
 }

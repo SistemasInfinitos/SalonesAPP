@@ -151,6 +151,7 @@ namespace SalonesAPI.Repositorio.PersonasES
                     persona.estado = true;
                     persona.fechaCreacion = data.FechaCreacion.ToString("yyyy/MM/dd", cultureFecha);
                     persona.fechaActualizacion = data.FechaActualizacion != null ? data.FechaActualizacion.Value.ToString("yyyy/MM/dd", cultureFecha) : "";
+                    persona.cliente = data.PrimerNombre + (!string.IsNullOrWhiteSpace(data.SegundoNombre)? " "+data.SegundoNombre:"")  + " " + data.PrimerApellido + "" + (!string.IsNullOrWhiteSpace(data.SegundoApellido) ? " " + data.SegundoApellido : "");
                 }
             }
             catch (Exception ex)
@@ -268,6 +269,40 @@ namespace SalonesAPI.Repositorio.PersonasES
                 }
             }
             return await Task.Run(() => ok);
+        }
+
+        public async Task<List<DropListModel>> GetPersonasDropList(string buscar)
+        {
+            List<DropListModel> datos = new List<DropListModel>();
+            try
+            {
+                var predicado = PredicateBuilder.True<Persona>();
+                var predicado2 = PredicateBuilder.False<Persona>();
+                predicado = predicado.And(d => d.Estado == true);
+
+                if (!string.IsNullOrWhiteSpace(buscar))
+                {
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.PrimerNombre.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.SegundoNombre.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.PrimerApellido.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.SegundoNombre.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.Correo.Contains(buscar));
+                    predicado = predicado.And(predicado2);
+                }
+
+                var data = _context.Personas.Where(predicado).Take(10).ToList();
+
+                datos = data.Select(x => new DropListModel
+                {
+                    id = x.Id,
+                    text = x.PrimerNombre + (!string.IsNullOrWhiteSpace(x.SegundoNombre) ? " " + x.SegundoNombre : "") + " " + x.PrimerApellido + "" + (!string.IsNullOrWhiteSpace(x.SegundoApellido) ? " " + x.SegundoApellido : "")
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return await Task.Run(() => datos);
         }
     }
 }

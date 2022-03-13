@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SalonesWEB.Configuration;
+using SalonesWEB.Models.Persona;
 using SalonesWEB.Models.Reservas;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace SalonesWEB.Controllers.Reservas
             string api = _jwtConfig.api; // esto garantiza la migracion a produccion ya que la url siempre cambia
             SalonesModel model = new SalonesModel();
             List<MotivosModel> modelMotivos = new List<MotivosModel>();
+            List<PersonasModel> modelPerona = new List<PersonasModel>();
 
             ViewBag.idString = "";
 
@@ -65,6 +67,7 @@ namespace SalonesWEB.Controllers.Reservas
             }
             #endregion
             #endregion
+            ViewBag.idPersonaCliente = new SelectList(modelPerona, "id", "cliente");// se declara vacio para usar ajax
             return View(model);
         }
 

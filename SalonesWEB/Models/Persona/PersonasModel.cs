@@ -26,5 +26,10 @@ namespace SalonesWEB.Models.Persona
         public bool estado { get; set; }
 
         public virtual int idDepartamento { get; set; }
+
+        /// <summary>
+        /// nombre combinado de la persona
+        /// </summary>
+        public virtual string cliente { get; set; }
     }
 }

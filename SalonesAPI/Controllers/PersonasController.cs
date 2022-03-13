@@ -148,6 +148,14 @@ namespace SalonesAPI.Controllers
             //var data = new { persona, mensaje, ok };
             var json = JsonConvert.SerializeObject(persona);
             return Ok(json);
+        }  
+        
+        [Route("[action]", Name = "GetPersonasDropList")]
+        [HttpGet]
+        public async Task<IActionResult> GetPersonasDropList(string buscar)
+        {
+            var persona = await Task.Run(() => _repositoryPersonas.GetPersonasDropList(buscar));
+            return Ok(persona);
         }
 
         /// <summary>
