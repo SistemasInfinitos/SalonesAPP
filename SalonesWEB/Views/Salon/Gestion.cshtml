@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-sm-3 mb-3 mb-sm-3">
                     <label class="col-form-label" for="segundoNombre"><span style="color:red">*</span>Fecha Evento</label>
-                    @Html.EditorFor(Model => Model.fechaEvento, new { htmlAttributes = new { @class = "form-control", @placeholder = "Fecha Evento" } })
+                    @Html.EditorFor(Model => Model.fechaEvento, new { htmlAttributes = new { @class = "form-control datepicker", @placeholder = "Fecha Evento" } })
                 </div>
                 <div class="col-sm-3 mb-3 mb-sm-3">
                     <label class="col-form-label" for="primerApellido"><span style="color:red">*</span>Cantidad Persona</label>
@@ -65,24 +65,26 @@
         if (id != "") {
             update = true;
         }
+
+        $(".datepicker").datepicker({
+            format: 'yyyy-mm-dd' //can also use format: 'dd-mm-yyyy'
+        });
     });
 
     $("#btnCrear").click(function () {
         idCiudad = $("#idCiudad").val();
-
+        var fechaEvento = $("#fechaEvento").val();
+        debugger
         var entidad = {
             id: parseInt(id),
-            primerNombre: $("#primerNombre").val(),
-            segundoNombre: $("#segundoNombre").val(),
-            primerApellido: $("#primerApellido").val(),
-            segundoApellido: $("#segundoApellido").val(),
-            identificacion: $("#identificacion").val(),
-            telefono: $("#telefono").val(),
-            correo: $("#correo").val(),
-            edad: parseInt($("#edad").val()),
-            idCiudad: parseInt(idCiudad)
-        }
+            idPersonaCliente: parseInt($("#idPersonaCliente").val()),
+            fechaEvento: fechaEvento,
+            cantidadPersona: parseInt($("#cantidadPersona").val()),
+            idMotivo: parseInt($("#idMotivo").val()),
+            observacion: $("#observacion").val(),
 
+        }
+            debugger
         if (update == false) {
             $.ajax({
                 url: `${api}/api/Personas/CreatePersona`,
@@ -143,7 +145,7 @@
         }
     });
 
-    $('#idPersonaCliente').select2({        
+    $('#idPersonaCliente').select2({
         ajax: {
             url: `${api}/api/Personas/GetPersonasDropList`,
             cache: false,
