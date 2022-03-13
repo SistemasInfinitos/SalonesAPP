@@ -64,6 +64,35 @@ namespace SalonesAPI.Controllers
         }
 
         [Route("[action]")]
+        [HttpPost]
+        public async Task<IActionResult> BorrarReservaSalon(int? id)
+        {
+            ResponseApp data = new ResponseApp()
+            {
+                mensaje = "Ups!. Tu Solicitud No Pudo ser Procesada",
+                ok = false
+            };
+            try
+            {
+                if (id!=null)
+                {
+                    data.ok = await Task.Run(() => _repositorySaloness.BorrarSalon(id.Value));
+                    data.mensaje = "Transaccion exitosa!";
+                }
+                else
+                {
+                    data.mensaje ="Ups!. Algo salio mal! debes validar el id enviado!";
+                }
+                return Ok(data);
+            }
+            catch (Exception x)
+            {
+                data.mensaje = "Ups!. Algo salio mal!. Error interno. " + x.HResult;
+                return BadRequest(data);
+            }
+        }
+
+        [Route("[action]")]
         [HttpPut]
         public async Task<IActionResult> ActualizarReservaSalon([FromBody] SalonesModel entidad)
         {

@@ -59,12 +59,14 @@
 <script type="text/javascript">
     DataTablePaginada = "";
     var api = localStorage.getItem("api");
+
     $(document).ready(function () {
         GetPersonas();
         $('.datepicker').datetimepicker({
             format: 'yyyy-MM-DD HH:mm:ss'// formato de la base de datos
         });
     });
+
     function GetPersonas() {
         var fechaDesde = $("#fechaDesde").val();
         var fechaHasta = $("#fechaHasta").val();
@@ -147,7 +149,7 @@
                     "bSortable": false,
                     "mRender": function (o) {
                         var boton = ``;
-                        boton = `<button type="button" class="btn btn-warning btn-xs" onclick="BorrarPersona(${o.id})"><i class="fa fa-trash"></i>&nbsp;Borrar&nbsp;&nbsp;</button>`
+                        boton = `<button type="button" class="btn btn-warning btn-xs" onclick="BorrarReserva(${o.id})"><i class="fa fa-trash"></i>&nbsp;Borrar&nbsp;&nbsp;</button>`
                         return boton;
                     }
                 }
@@ -165,12 +167,12 @@
         }
     };
 
-    function BorrarPersona(id) {
+    function BorrarReserva(id) {
 
         if (id >0) {
             var parametro = '?' + $.param({ "id": id });
             $.ajax({
-                url: `${api}/api/Personas/BorrarPersona${parametro}`,
+                url: `${api}/api/Salones/BorrarReservaSalon${parametro}`,
                 type: 'DELETE',
                 success: function (response) {
                     debugger
