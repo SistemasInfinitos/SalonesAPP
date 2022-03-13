@@ -67,7 +67,7 @@
         }
 
         $(".datepicker").datepicker({
-            format: 'yyyy-mm-dd' //can also use format: 'dd-mm-yyyy'
+            format: 'yyyy-MM-dd HH:mm:ss' //can also use format: 'dd-mm-yyyy'
         });
     });
 
@@ -76,18 +76,18 @@
         var fechaEvento = $("#fechaEvento").val();
         debugger
         var entidad = {
-            id: parseInt(id),
+            id: parseInt($("#id").val()),
             idPersonaCliente: parseInt($("#idPersonaCliente").val()),
             fechaEvento: fechaEvento,
             cantidadPersona: parseInt($("#cantidadPersona").val()),
             idMotivo: parseInt($("#idMotivo").val()),
             observacion: $("#observacion").val(),
-
+            estado:false
         }
             debugger
         if (update == false) {
             $.ajax({
-                url: `${api}/api/Personas/CreatePersona`,
+                url: `${api}/api/Salones/CreateReservaSalon`,
                 type: 'POST',
                 contentType: "application/json; charset=utf-8",
                 dataType: 'JSON',
@@ -100,7 +100,7 @@
                     'Content-Type': 'application/json'
                 },
                 success: function (response) {
-
+                    debugger
                     if (response.ok) {
                         toastr.success(response.mensaje);
                     } else {
@@ -115,7 +115,7 @@
         }
         else if (id != "" && id != undefined && id != NaN) {
             $.ajax({
-                url: `${api}/api/Personas/ActualizarPersona`,
+                url: `${api}/api/Salones/ActualizarReservaSalon`,
                 type: 'PUT',
                 contentType: "application/json; charset=utf-8",
                 dataType: 'JSON',
