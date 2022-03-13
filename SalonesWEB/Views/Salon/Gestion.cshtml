@@ -40,11 +40,15 @@
                 </div>
                 <div class="col-sm-3 mb-3 mb-sm-3">
                     <label class="col-form-label" for="Observación"><span style="color:red">*</span>Observación</label>
-                    @Html.TextAreaFor(Model => Model.observacion, new {  @class = "form-control", @placeholder = "Observación", @row="4",@columns="10", @required = "required" })
+                    @Html.TextAreaFor(Model => Model.observacion, new { @class = "form-control", @placeholder = "Observación", @row = "4", @columns = "10", @required = "required" })
+                </div>
+                <div class="col-sm-3 mb-3 mb-sm-3 estado" style="display:none">
+                    <label class="col-form-label" for="estado"><span style="color:red">*</span>Estado</label>
+                    @Html.CheckBoxFor(Model => Model.estado, new { @class = "form-control check" })
                 </div>
                 <div class="col-sm-3 mb-3 mb-sm-3">
                     <label class="col-form-label" for="btnCrear">.</label>
-                    <button type="button" class="form-control btn-secondary" id="btnCrear" placeholder="Guardar" style="background: #4e73df;font-size:15px;color:white;">Guardar</button>
+                    <button type="button" class="form-control btn-secondary"  id="btnCrear" placeholder="Guardar" style="background: #4e73df;font-size:15px;color:white;">Guardar</button>
                     <div>
                         <a asp-action="GetSalones">Back to List</a>
                     </div>
@@ -59,12 +63,13 @@
     var api = localStorage.getItem("api");
     var update = false;
     var id = parseInt('@ViewBag.idString');
-
+    var estado = false;
     $(document).ready(function () {
         $(".collapse-inner").select2();
         debugger
         if (id != "" && id != undefined && id>0) {
             update = true;
+            $(".estado").show();
         }
         $('.datepicker').datetimepicker({
             format: 'yyyy-MM-DD HH:mm:ss'// formato de la base de datos
@@ -84,7 +89,7 @@
             cantidadPersona: parseInt($("#cantidadPersona").val()),
             idMotivo: parseInt($("#idMotivo").val()),
             observacion: $("#observacion").val(),
-            estado:false
+            estado: $("#estado").prop("checked")
         }
             debugger
         if (update == false) {
