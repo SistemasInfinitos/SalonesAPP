@@ -141,9 +141,9 @@ namespace SalonesAPI.Repositorio.SalonesES
                     resevas.idMotivo = data.IdMotivo;
                     resevas.observacion = data.Observacion;
                     resevas.estado = true;
-                    resevas.fechaEvento = data.FechaEvento.ToString("yyyy/MM/dd", cultureFecha);
-                    resevas.fechaCreacion = data.FechaCreacion.ToString("yyyy/MM/dd", cultureFecha);
-                    resevas.fechaActualizacion = data.FechaActualizacion != null ? data.FechaActualizacion.Value.ToString("yyyy/MM/dd", cultureFecha) : "";
+                    resevas.fechaEvento = data.FechaEvento.ToString("yyyy-MM-dd HH:mm:ss", cultureFecha);
+                    resevas.fechaCreacion = data.FechaCreacion.ToString("yyyy-MM-dd HH:mm:ss", cultureFecha);
+                    resevas.fechaActualizacion = data.FechaActualizacion != null ? data.FechaActualizacion.Value.ToString("yyyy-MM-dd HH:mm:ss", cultureFecha) : "";
                 }
             }
             catch (Exception ex)

@@ -152,9 +152,9 @@ namespace SalonesAPI.Controllers
         
         [Route("[action]", Name = "GetPersonasDropList")]
         [HttpGet]
-        public async Task<IActionResult> GetPersonasDropList(string buscar)
+        public async Task<IActionResult> GetPersonasDropList(string buscar,int? id)
         {
-            var persona = await Task.Run(() => _repositoryPersonas.GetPersonasDropList(buscar));
+            var persona = await Task.Run(() => _repositoryPersonas.GetPersonasDropList(buscar, id));
             return Ok(persona);
         }
 

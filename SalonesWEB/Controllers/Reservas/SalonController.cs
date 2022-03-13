@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SalonesWEB.Configuration;
+using SalonesWEB.Models.Comun;
 using SalonesWEB.Models.Persona;
 using SalonesWEB.Models.Reservas;
 using System;
@@ -29,7 +30,7 @@ namespace SalonesWEB.Controllers.Reservas
             string api = _jwtConfig.api; // esto garantiza la migracion a produccion ya que la url siempre cambia
             SalonesModel model = new SalonesModel();
             List<MotivosModel> modelMotivos = new List<MotivosModel>();
-            List<PersonasModel> modelPerona = new List<PersonasModel>();
+            List<DropListModel> modelPerona = new List<DropListModel>();
 
             ViewBag.idString = "";
 
@@ -63,11 +64,21 @@ namespace SalonesWEB.Controllers.Reservas
             if (edades.IsSuccessStatusCode)
             {
                 modelMotivos = JsonConvert.DeserializeObject<List<MotivosModel>>(await edades.Content.ReadAsStringAsync());
-                ViewBag.idMotivo = new SelectList(modelMotivos, "id", "motivo");
+                ViewBag.idMotivo = new SelectList(modelMotivos, "id", "motivo",model.idMotivo);
+            }
+            #endregion
+            #region Cliente
+            ViewBag.idPersonaCliente = new SelectList(modelPerona, "id", "rangoEdades");
+            int param = model.idPersonaCliente;
+            string uriCliente = api + "/api/Personas/GetPersonasDropList" + "?id="+ param;
+            var cliente = await httpClient.GetAsync(uriMotivos);
+            if (edades.IsSuccessStatusCode)
+            {
+                modelPerona = JsonConvert.DeserializeObject<List<DropListModel>>(await cliente.Content.ReadAsStringAsync());
+                ViewBag.idPersonaCliente = new SelectList(modelPerona, "id", "text", model.idMotivo);
             }
             #endregion
             #endregion
-            ViewBag.idPersonaCliente = new SelectList(modelPerona, "id", "cliente");// se declara vacio para usar ajax
             return View(model);
         }
 

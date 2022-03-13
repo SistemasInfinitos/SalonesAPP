@@ -271,7 +271,7 @@ namespace SalonesAPI.Repositorio.PersonasES
             return await Task.Run(() => ok);
         }
 
-        public async Task<List<DropListModel>> GetPersonasDropList(string buscar)
+        public async Task<List<DropListModel>> GetPersonasDropList(string buscar,int? id)
         {
             List<DropListModel> datos = new List<DropListModel>();
             try
@@ -288,6 +288,10 @@ namespace SalonesAPI.Repositorio.PersonasES
                     predicado2 = predicado2.Or(d => 1 == 1 && d.SegundoNombre.Contains(buscar));
                     predicado2 = predicado2.Or(d => 1 == 1 && d.Correo.Contains(buscar));
                     predicado = predicado.And(predicado2);
+                }
+                if (id!=null)
+                {
+                    predicado = predicado.And(d => d.Id == id);
                 }
 
                 var data = _context.Personas.Where(predicado).Take(10).ToList();
