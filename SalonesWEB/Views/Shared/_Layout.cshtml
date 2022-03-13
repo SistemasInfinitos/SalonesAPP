@@ -7,8 +7,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
+    <link href="~/Vendor/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/Vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
     <meta property="fb:app_id" content="1481700018637177" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="RETO PROGRAMACION | SALONES EMPRESARIALES XYZ" />
@@ -54,35 +54,35 @@
             <span id="ExpireTokenAcces" hidden style="display:none"></span>
             <!-- ============ SideBar Init =================== -->
             @* Menu *@
-        <ul class="navbar-nav navbar-sidenav bg-gradient-primary sidebar-dark accordion text-white-50 ml-auto" id="exampleAccordion" style="background-color:#4e73df">
+            <ul class="navbar-nav navbar-sidenav bg-gradient-primary sidebar-dark accordion text-white-50 ml-auto" id="exampleAccordion" style="background-color:#4e73df">
 
-            <!-- Nav Item -  Menu Aplicaciones -->
-            <li class="nav-item display compact" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Personas" data-parent="#exampleAccordion">
-                    <i class="fa fa-user"></i>
-                    <span class="nav-link-text text-white-50">Personas</span>
-                </a>
-                <ul class="sidenav-second-level collapse display compact" id="Personas" style="background-color:transparent;">
-                    <li class="display compact" style="margin:0.5px;padding:1px">
-                        <a class="list-group-item list-group-item-action fa fa-user display compact" style="color: black; padding: 8px" href="/web/per/Gestion" target="_blank">&nbsp;Gestión Clientes</a>
-                        <a class="list-group-item list-group-item-action fa fa-list display compact" style="color: black; padding: 8px" href="/web/per/GetPersonas" target="_blank">&nbsp;List Clientes</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item display compact" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Reservas" data-parent="#exampleAccordion">
-                    <i class="fa fa-user"></i>
-                    <span class="nav-link-text text-white-50">Reservas</span>
-                </a>
-                <ul class="sidenav-second-level collapse display compact" id="Reservas" style="background-color:transparent;">
-                    <li class="display compact" style="margin:0.5px;padding:1px">
-                        <a class="list-group-item list-group-item-action fa fa-user display compact" style="color: black; padding: 8px" href="/web/Res/Gestion" target="_blank">&nbsp;Gestión Reservas</a>
-                        <a class="list-group-item list-group-item-action fa fa-list display compact" style="color: black; padding: 8px" href="/web/Res/GetSalones" target="_blank">&nbsp;List Reservas</a>
-                    </li>
-                </ul>
-            </li>
-            @* fin del menu home*@
-        </ul>
+                <!-- Nav Item -  Menu Aplicaciones -->
+                <li class="nav-item display compact" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Personas" data-parent="#exampleAccordion">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-link-text text-white-50">Personas</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse display compact" id="Personas" style="background-color:transparent;">
+                        <li class="display compact" style="margin:0.5px;padding:1px">
+                            <a class="list-group-item list-group-item-action fa fa-user display compact" style="color: black; padding: 8px" href="/web/per/Gestion" target="_blank">&nbsp;Gestión Clientes</a>
+                            <a class="list-group-item list-group-item-action fa fa-list display compact" style="color: black; padding: 8px" href="/web/per/GetPersonas" target="_blank">&nbsp;List Clientes</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item display compact" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Reservas" data-parent="#exampleAccordion">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-link-text text-white-50">Reservas</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse display compact" id="Reservas" style="background-color:transparent;">
+                        <li class="display compact" style="margin:0.5px;padding:1px">
+                            <a class="list-group-item list-group-item-action fa fa-user display compact" style="color: black; padding: 8px" href="/web/Res/Gestion" target="_blank">&nbsp;Gestión Reservas</a>
+                            <a class="list-group-item list-group-item-action fa fa-list display compact" style="color: black; padding: 8px" href="/web/Res/GetSalones" target="_blank">&nbsp;List Reservas</a>
+                        </li>
+                    </ul>
+                </li>
+                @* fin del menu home*@
+            </ul>
             @* Buoton acordeon *@
             <ul class="navbar-nav sidenav-toggler" style="background-color:#4e83df">
                 <li class="nav-item">
@@ -122,12 +122,25 @@
     <script src="~/js/toastr.js"></script>
     <script src="~/Pluguin/DataTables/DataTables-1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="~/Pluguin/DataTables/DataTables-1.11.3/js/dataTables.bootstrap5.min.js"></script>
-
+    <script src="~/Vendor/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/Vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             Test();
         });
+        $(document).ready(function () {
+            $('#perito_id').select2();
 
+            $('.pos_fec_desde').datetimepicker({
+                minDate: '-' + new Date() + '',
+                format: 'DD/MM/YYYY HH:mm '
+            });
+
+            $('.pos_fec_hasta').datetimepicker({
+                format: 'DD/MM/YYYY HH:mm ',
+                minDate: '-' + new Date() + ''
+            });
+        });
         function Test() {
             $.ajax({
                 //url: '/Home/GetService',
