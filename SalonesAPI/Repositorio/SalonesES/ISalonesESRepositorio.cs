@@ -15,7 +15,7 @@ namespace SalonesAPI.Repositorio.SalonesES
         Task<bool> ActualizarSalon(SalonesModel entidad);
 
         /// <summary>
-        /// Crea un nuevo Salon en la base de datos
+        /// Crea un nuevo Salon en la base de datos, Formato de fecha recibido "yyyy-MM-dd HH:mm:ss"
         /// </summary>
         /// <param name="entidad"></param>
         /// <returns></returns>

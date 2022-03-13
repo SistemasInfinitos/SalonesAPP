@@ -12,7 +12,6 @@
     <meta property="og:type" content="article" />
     <meta property="og:title" content="RETO PROGRAMACION | SALONES EMPRESARIALES XYZ" />
     <meta property="og:description" content="RETO PROGRAMACION | SALONES EMPRESARIALES XYZ" />
-    *
     <meta property="og:image" content="~/css/Imagenes/logo.png" />
 
     <link href="~/css/startbootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -31,12 +30,6 @@
     <!-- Page level plugin CSS-->
     <link href="~/Pluguin/DataTables/DataTables-1.11.3/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
     <link href="~/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-    @*<link href="~/Pluguin/datetimepicker-master/build/jquery.datetimepicker.min.css" rel="stylesheet" />*@
-    @*<link href="~/css/bootstrap-datepicker.min.css" rel="stylesheet" />*@
-    @*<link href="~/css/bootstrap-datepicker.css" rel="stylesheet" />*@
-    @*<link href="~/Pluguin/datetimepicker-master/jquery.datetimepicker.css" rel="stylesheet" />*@
-    @*<link href="~/Vendor/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" />*@
-    @*<link href="~/Vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />*@
     <!-- Animated css -->
     <link href="~/css/toastr.css" rel="stylesheet" />
     <link href="~/css/Site.css" rel="stylesheet" />
@@ -112,7 +105,6 @@
     <!-- Bootstrap core JavaScript-->
     <script src="~/Pluguin/jquery-3.6/jquery/jquery.min.js"></script>
     <script src="~/Pluguin/jquery-ui-1.13.0/jquery-ui.min.js"></script>
-    @*<script src="~/Pluguin/datetimepicker-master/build/jquery.datetimepicker.full.js"></script>*@
     <script src="~/css/startbootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
     <script src="~/css/startbootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -127,30 +119,12 @@
     <script src="~/Pluguin/DataTables/DataTables-1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="~/Pluguin/DataTables/DataTables-1.11.3/js/dataTables.bootstrap5.min.js"></script>
     <script src="~/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-    @*<script src="~/js/bootstrap-datepicker.js"></script>*@
-    @*<script src="~/Pluguin/datetimepicker-master/build/jquery.datetimepicker.min.js"></script>*@
-    @*<script src="~/Vendor/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.min.js"></script>*@
-    @*<script src="~/Vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>*@
     <script type="text/javascript">
         $(document).ready(function () {
             Test();
         });
-        //$(document).ready(function () {
-        //    $('#perito_id').select2();
-
-        //    $('.pos_fec_desde').datetimepicker({
-        //        minDate: '-' + new Date() + '',
-        //        format: 'DD/MM/YYYY HH:mm '
-        //    });
-
-        //    $('.pos_fec_hasta').datetimepicker({
-        //        format: 'DD/MM/YYYY HH:mm ',
-        //        minDate: '-' + new Date() + ''
-        //    });
-        //});
         function Test() {
             $.ajax({
-                //url: '/Home/GetService',
                 url: "@Url.Action("GetService", "Home")",
                 type: 'get',
                 traditional: true,

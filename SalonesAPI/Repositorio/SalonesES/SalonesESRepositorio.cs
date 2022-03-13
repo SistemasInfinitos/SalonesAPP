@@ -99,14 +99,14 @@ namespace SalonesAPI.Repositorio.SalonesES
                     var convertir = DateTime.TryParseExact(entidad.fechaEvento, "yyyy-MM-dd HH:mm:ss", null, DateTimeStyles.None, out DateTime fecha);
                     Salone actualizarRegistro = _context.Salones.Where(x => x.Id == entidad.id).FirstOrDefault();
                     Salone registro = new Salone();
-                    if (actualizarRegistro != null && convertir)
+                    if (actualizarRegistro == null && convertir)
                     {
                         registro.IdMotivo = entidad.idMotivo;
                         registro.IdPersonaCliente = entidad.idPersonaCliente;
                         registro.FechaEvento = fecha;
                         registro.CantidadPersona = entidad.cantidadPersona;
                         registro.Observacion = entidad.observacion;
-                        registro.Estado = true;
+                        registro.Estado = entidad.estado;
                         registro.FechaCreacion = DateTime.Now;
                         registro.FechaActualizacion = null;
 
