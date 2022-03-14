@@ -78,7 +78,7 @@ namespace SalonesAPI.Repositorio.SalonesES
                 parametros.Add(new SqlParameter() { ParameterName = "@id", Value = id, SqlDbType = SqlDbType.Int });
                 var param = parametros.ToArray();
                 //ok = await _context.Database.ExecuteSqlInterpolatedAsync($"EXEC {sp} @id={id}") > 0;
-                ok = await _context.Database.ExecuteSqlRawAsync($"EXEC SpDeleteReserva @id", param) > 0;
+                ok = await _context.Database.ExecuteSqlRawAsync($"EXEC {sp} @id", param) > 0;
             }
             catch (Exception e)
             {
