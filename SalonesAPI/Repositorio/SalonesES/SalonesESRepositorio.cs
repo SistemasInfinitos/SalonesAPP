@@ -229,7 +229,7 @@ namespace SalonesAPI.Repositorio.SalonesES
                 }
                 string order = "asc";
 
-                if (dtParameters.order?.Count > 1)
+                if (dtParameters.order?.Count > 0)
                 {
                     order = dtParameters.order?[0].dir;
                 }
