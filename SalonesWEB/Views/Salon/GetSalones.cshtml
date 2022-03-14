@@ -175,7 +175,7 @@
                 url: `${api}/api/Salones/BorrarReservaSalon${parametro}`,
                 type: 'DELETE',
                 success: function (response) {
-                    debugger
+                    
                     if (response.ok) {
                         toastr.success(response.mensaje);
                     } else {

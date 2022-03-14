@@ -12,8 +12,6 @@ using System.Threading.Tasks;
 
 namespace SalonesAPI.Controllers
 {
-    //[EnableCors("AudienciaPolicy")]
-    //[Authorize(Policy = "AudienciaPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class SalonesController : ControllerBase
@@ -138,12 +136,7 @@ namespace SalonesAPI.Controllers
             bool ok = false;
             string mensaje = "Sin Datos";
             var data = await Task.Run(() => _repositorySaloness.GetSalon(Id));
-            if (data != null)
-            {
-                mensaje = "ok";
-                ok = true;
-            }
-            //return Ok(new { data, ok, mensaje });
+
             return Ok(data);
         }
 

@@ -32,7 +32,6 @@ namespace SalonesWEB.Controllers.Reservas
             List<DropListModel> modelPerona = new List<DropListModel>();
 
             ViewBag.idString = "";
-
             if (!string.IsNullOrWhiteSpace(id))
             {
                 ViewBag.idString = id;

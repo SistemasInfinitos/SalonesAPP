@@ -44,7 +44,7 @@
                 </div>
                 <div class="col-sm-3 mb-3 mb-sm-3 estado" style="display:none">
                     <label class="col-form-label" for="estado"><span style="color:red">*</span>Estado</label>
-                    @Html.CheckBoxFor(Model => Model.estado, new { @class = "form-control check" })
+                    @Html.CheckBoxFor(Model => Model.estado, new { @class = "form-control check", @checked=Model.estado })
                 </div>
                 <div class="col-sm-3 mb-3 mb-sm-3">
                     <label class="col-form-label" for="btnCrear">.</label>
@@ -60,11 +60,12 @@
 <script>
     var api = localStorage.getItem("api");
     var update = false;
-    var id = parseInt('@ViewBag.idString');
+    var id = parseInt(`@ViewBag.idString`);
+
     var estado = false;
     $(document).ready(function () {
         $(".collapse-inner").select2();
-        debugger
+        
         if (id != "" && id != undefined && id>0) {
             update = true;
             $(".estado").show();
@@ -76,7 +77,7 @@
 
     $("#btnCrear").click(function () {
         var fechaEvento = $("#fechaEvento").val();
-        debugger
+        
         if ($("#id").val() != undefined && $("#id").val()!="") {
             id = $("#id").val();
         }
@@ -89,7 +90,7 @@
             observacion: $("#observacion").val(),
             estado: $("#estado").prop("checked")
         }
-            debugger
+            
         if (update == false) {
             $.ajax({
                 url: `${api}/api/Salones/CreateReservaSalon`,
@@ -105,7 +106,7 @@
                     'Content-Type': 'application/json'
                 },
                 success: function (response) {
-                    debugger
+                    
                     if (response.ok) {
                         toastr.success(response.mensaje);
                     } else {
@@ -119,7 +120,7 @@
             });
         }
         else if (id != "" && id != undefined && id != NaN) {
-            debugger
+            
             $.ajax({
                 url: `${api}/api/Salones/ActualizarReservaSalon`,
                 type: 'PUT',

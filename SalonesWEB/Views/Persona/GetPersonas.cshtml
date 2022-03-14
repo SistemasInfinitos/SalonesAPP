@@ -128,7 +128,7 @@
                 url: `${api}/api/Personas/BorrarPersona${parametro}`,
                 type: 'DELETE',
                 success: function (response) {
-                    debugger
+                    
                     if (response.ok) {
                         toastr.success(response.mensaje);
                     } else {

@@ -47,7 +47,7 @@ namespace SalonesAPI.Repositorio.SalonesES
                         actualizarRegistro.FechaEvento = fecha;
                         actualizarRegistro.CantidadPersona = entidad.cantidadPersona;
                         actualizarRegistro.Observacion = entidad.observacion;
-                        actualizarRegistro.Estado = true;
+                        actualizarRegistro.Estado = entidad.estado;
                         actualizarRegistro.FechaActualizacion = DateTime.Now;
 
                         _context.Entry(actualizarRegistro).State = EntityState.Modified;
@@ -141,7 +141,7 @@ namespace SalonesAPI.Repositorio.SalonesES
                     resevas.cantidadPersona = data.CantidadPersona;
                     resevas.idMotivo = data.IdMotivo;
                     resevas.observacion = data.Observacion;
-                    resevas.estado = true;
+                    resevas.estado = data.Estado.Value;
                     resevas.fechaEvento = data.FechaEvento.ToString("yyyy-MM-dd HH:mm:ss", cultureFecha);
                     resevas.fechaCreacion = data.FechaCreacion.ToString("yyyy-MM-dd HH:mm:ss", cultureFecha);
                     resevas.fechaActualizacion = data.FechaActualizacion != null ? data.FechaActualizacion.Value.ToString("yyyy-MM-dd HH:mm:ss", cultureFecha) : "";
