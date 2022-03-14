@@ -146,9 +146,8 @@ namespace SalonesAPI.Controllers
                 mensaje = "ok";
                 ok = true;
             }
-            //var data = new { persona, mensaje, ok };
-            //var json = JsonConvert.SerializeObject(persona);
-            var json = JsonSerializer.Serialize(persona);
+            var options = new JsonSerializerOptions { IncludeFields = true };
+            var json = JsonSerializer.Serialize(persona, options);
             return Ok(json);
         }
 
@@ -172,8 +171,8 @@ namespace SalonesAPI.Controllers
             DataTableResponsePersona res = await Task.Run(() => _repositoryPersonas.GetPersonasDataTable(datatParms));
             res.draw = datatParms.draw;
 
-            //var json = JsonConvert.SerializeObject(res); using Newtonsoft.Json;
-            var json = JsonSerializer.Serialize(res);
+            var options = new JsonSerializerOptions { IncludeFields = true };
+            var json = JsonSerializer.Serialize(res, options);
 
             return Ok(json);
         }
