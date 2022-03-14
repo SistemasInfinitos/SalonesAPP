@@ -151,7 +151,7 @@ namespace SalonesAPI.Repositorio.PersonasES
                     persona.estado = true;
                     persona.fechaCreacion = data.FechaCreacion.ToString("yyyy/MM/dd", cultureFecha);
                     persona.fechaActualizacion = data.FechaActualizacion != null ? data.FechaActualizacion.Value.ToString("yyyy/MM/dd", cultureFecha) : "";
-                    persona.cliente = data.PrimerNombre + (!string.IsNullOrWhiteSpace(data.SegundoNombre)? " "+data.SegundoNombre:"")  + " " + data.PrimerApellido + "" + (!string.IsNullOrWhiteSpace(data.SegundoApellido) ? " " + data.SegundoApellido : "");
+                    persona.cliente = data.PrimerNombre + (!string.IsNullOrWhiteSpace(data.SegundoNombre) ? " " + data.SegundoNombre : "") + " " + data.PrimerApellido + "" + (!string.IsNullOrWhiteSpace(data.SegundoApellido) ? " " + data.SegundoApellido : "");
                 }
             }
             catch (Exception ex)
@@ -271,7 +271,7 @@ namespace SalonesAPI.Repositorio.PersonasES
             return await Task.Run(() => ok);
         }
 
-        public async Task<List<DropListModel>> GetPersonasDropList(string buscar,int? id)
+        public async Task<List<DropListModel>> GetPersonasDropList(string buscar, int? id)
         {
             List<DropListModel> datos = new List<DropListModel>();
             try
@@ -289,7 +289,7 @@ namespace SalonesAPI.Repositorio.PersonasES
                     predicado2 = predicado2.Or(d => 1 == 1 && d.Correo.Contains(buscar));
                     predicado = predicado.And(predicado2);
                 }
-                if (id!=null)
+                if (id != null)
                 {
                     predicado = predicado.And(d => d.Id == id);
                 }

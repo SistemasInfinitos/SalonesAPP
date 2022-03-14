@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SalonesWEB.Models.Reservas
+﻿namespace SalonesWEB.Models.Reservas
 {
     public class MotivosModel
     {

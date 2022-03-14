@@ -74,14 +74,14 @@ namespace SalonesAPI.Controllers
             };
             try
             {
-                if (id!=null)
+                if (id != null)
                 {
                     data.ok = await Task.Run(() => _repositorySaloness.BorrarSalon(id.Value));
                     data.mensaje = "Transaccion exitosa!";
                 }
                 else
                 {
-                    data.mensaje ="Ups!. Algo salio mal! debes validar el id enviado!";
+                    data.mensaje = "Ups!. Algo salio mal! debes validar el id enviado!";
                 }
                 return Ok(data);
             }

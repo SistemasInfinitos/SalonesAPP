@@ -123,7 +123,7 @@ CREATE TABLE Motivos
 ALTER TABLE Salones  WITH noCHECK ADD  CONSTRAINT [FK_Motivos] FOREIGN KEY(idMotivo)REFERENCES Motivos (id)
 --drop view ViewSolicitudesPorFecha
 CREATE VIEW  ViewSolicitudesPorFecha as
-select p.id
+select s.id
 ,s.fechaEvento
 ,fechaEventoTex =CONVERT(varchar,FORMAT(s.fechaEvento, 'yyyy/MM/dd HH:mm','en-US'))
 ,s.estado

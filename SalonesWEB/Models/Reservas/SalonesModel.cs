@@ -2,7 +2,7 @@
 {
     public class SalonesModel
     {
-        public int id { get; set; }
+        public int? id { get; set; }
         public int idPersonaCliente { get; set; }
         public string fechaEvento { get; set; }
         public int cantidadPersona { get; set; }

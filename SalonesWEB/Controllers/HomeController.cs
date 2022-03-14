@@ -44,10 +44,10 @@ namespace SalonesWEB.Controllers
         {
             bool ok = false;
             string mensaje = "recurso inaccesible ";
-            string api =  _jwtConfig.api;
+            string api = _jwtConfig.api;
             var httpClient = new HttpClient();
             string endpoint = "api/Comun/GetTest";
-            string uri = api + "/" + endpoint ;
+            string uri = api + "/" + endpoint;
             try
             {
                 var response = await httpClient.GetAsync(uri);

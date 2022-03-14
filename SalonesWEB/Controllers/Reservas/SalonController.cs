@@ -4,7 +4,6 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SalonesWEB.Configuration;
 using SalonesWEB.Models.Comun;
-using SalonesWEB.Models.Persona;
 using SalonesWEB.Models.Reservas;
 using System;
 using System.Collections.Generic;
@@ -64,14 +63,14 @@ namespace SalonesWEB.Controllers.Reservas
             if (edades.IsSuccessStatusCode)
             {
                 modelMotivos = JsonConvert.DeserializeObject<List<MotivosModel>>(await edades.Content.ReadAsStringAsync());
-                ViewBag.idMotivo = new SelectList(modelMotivos, "id", "motivo",model.idMotivo);
+                ViewBag.idMotivo = new SelectList(modelMotivos, "id", "motivo", model.idMotivo);
             }
             #endregion
             #region Cliente
             ViewBag.idPersonaCliente = new SelectList(modelPerona, "id", "rangoEdades");
             int param = model.idPersonaCliente;
             //se estable la parsona para qu no traiga mas de uno ya que hay un buscar ajax dinamico
-            string uriCliente = api + "/api/Personas/GetPersonasDropList" + "?id="+ param;
+            string uriCliente = api + "/api/Personas/GetPersonasDropList" + "?id=" + param;
             var cliente = await httpClient.GetAsync(uriCliente);
             if (edades.IsSuccessStatusCode)
             {

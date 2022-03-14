@@ -42,7 +42,7 @@ namespace SalonesAPI.Repositorio.PersonasES
         /// </summary>
         /// <param name="buscar"></param>
         /// <returns></returns>
-        Task<List<DropListModel>> GetPersonasDropList(string buscar,int? id);
+        Task<List<DropListModel>> GetPersonasDropList(string buscar, int? id);
 
         /// <summary>
         /// Trae las personas de la base de datos,  segun el rango de paginado configurado

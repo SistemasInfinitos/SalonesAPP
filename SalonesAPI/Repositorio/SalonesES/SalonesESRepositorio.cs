@@ -258,7 +258,7 @@ namespace SalonesAPI.Repositorio.SalonesES
                     ciudadNombre = x.CiudadNombre,
                     distritoDepartamento = x.DistritoDepartamento,
                     paisNombre = x.PaisNombre,
-                    estadoText=x.Estado?"Confirmado":"No Confirmado",
+                    estadoText = x.Estado ? "Confirmado" : "No Confirmado",
                     cliente = x.PrimerNombre + (!string.IsNullOrWhiteSpace(x.SegundoNombre) ? " " + x.SegundoNombre : "") + " " + x.PrimerApellido + "" + (!string.IsNullOrWhiteSpace(x.SegundoApellido) ? " " + x.SegundoApellido : "")
 
                 }).ToList();
