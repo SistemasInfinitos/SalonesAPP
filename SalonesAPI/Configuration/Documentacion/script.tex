@@ -1,10 +1,10 @@
---// use este
+--// no este
 Scaffold-DbContext "Server=WIN-DESARROLLO\DEVSQLSERVER;Database=pruebas;user=simplexwebuser;Password=Ic3b3rg2021**;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir ModelsDB -ContextDir ModelsDB -Context Context -f
 Scaffold-DbContext "Server=WIN-DESARROLLO\DEVSQLSERVER;Database=pruebas;user=simplexwebuser;Password=Ic3b3rg2021**;trustServerCertificate=true;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir ModelsDB -ContextDir ModelsDB -Context Context -UseDatabaseNames -NoPluralize -force
 //no usar
 --Scaffold-DbContext "Server=WIN-DESARROLLO\DEVSQLSERVER;Database=pruebas;user=simplexwebuser;Password=Ic3b3rg2021**;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir ModelsDB -ContextDir ModelsDB -Context Context -f
 --Scaffold-DbContext "Server=WIN-DESARROLLO\DEVSQLSERVER;Database=pruebas;user=simplexwebuser;Password=Ic3b3rg2021**;trustServerCertificate=true;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir ModelsDB -ContextDir ModelsDB -Context Context -UseDatabaseNames -NoPluralize -force
- -- esta si funciona normalizacion camelcase principio variables inician con minuscula entidades y metodos con mayuscula
+ -- use esta: normalizacion camelcase principio variables inician con minuscula entidades y metodos con mayuscula
  Scaffold-DbContext "Server=WIN-DESARROLLO\DEVSQLSERVER;Database=pruebas;user=simplexwebuser;Password=Ic3b3rg2021**;trustServerCertificate=true;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir ModelsDB -ContextDir ModelsDB -Context Context -UseDatabaseNames  -force
 --//inicio
 Bricelam.EntityFrameworkCore.Pluralizer
