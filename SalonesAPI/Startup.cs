@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +32,7 @@ namespace SalonesAPI
                 });
             });
             services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
-
+            services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

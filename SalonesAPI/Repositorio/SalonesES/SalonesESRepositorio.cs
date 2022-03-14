@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient; 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using SalonesAPI.Configuration;
@@ -76,9 +76,9 @@ namespace SalonesAPI.Repositorio.SalonesES
                 string sp = "SpDeleteReserva";
                 List<SqlParameter> parametros = new List<SqlParameter>();
                 parametros.Add(new SqlParameter() { ParameterName = "@id", Value = id, SqlDbType = SqlDbType.Int });
-                //parametros.Add(new SqlParameter("@id", id));
                 var param = parametros.ToArray();
-                ok = await _context.Database.ExecuteSqlRawAsync(sp, id) > 0;
+                //ok = await _context.Database.ExecuteSqlInterpolatedAsync($"EXEC {sp} @id={id}") > 0;
+                ok = await _context.Database.ExecuteSqlRawAsync($"EXEC SpDeleteReserva @id", param) > 0;
             }
             catch (Exception e)
             {

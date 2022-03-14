@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using SalonesAPI.Configuration;
 using SalonesAPI.ModelsAPI.Comun;
 using SalonesAPI.ModelsAPI.DataTable;
@@ -8,6 +7,7 @@ using SalonesAPI.ModelsAPI.Reservas;
 using SalonesAPI.ModelsDB;
 using SalonesAPI.Repositorio.SalonesES;
 using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SalonesAPI.Controllers
@@ -174,8 +174,8 @@ namespace SalonesAPI.Controllers
         {
             DataTableViewSolicitudesPorFechaModel res = await Task.Run(() => _repositorySaloness.GetSalonesDataTable(dtParms));
             res.draw = dtParms.draw;
-
-            var json = JsonConvert.SerializeObject(res);
+            var options = new JsonSerializerOptions { IncludeFields = true };
+            var json = JsonSerializer.Serialize(res, options);
 
             return Ok(json);
         }

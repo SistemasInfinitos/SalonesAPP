@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
 using SalonesAPI.Configuration;
 using SalonesAPI.ModelsAPI.Comun;
 using SalonesAPI.ModelsAPI.DataTable;
@@ -10,6 +10,7 @@ using SalonesAPI.ModelsDB;
 using SalonesAPI.Repositorio.PersonasES;
 using System;
 using System.Globalization;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SalonesAPI.Controllers
@@ -146,7 +147,8 @@ namespace SalonesAPI.Controllers
                 ok = true;
             }
             //var data = new { persona, mensaje, ok };
-            var json = JsonConvert.SerializeObject(persona);
+            //var json = JsonConvert.SerializeObject(persona);
+            var json = JsonSerializer.Serialize(persona);
             return Ok(json);
         }
 
@@ -170,7 +172,8 @@ namespace SalonesAPI.Controllers
             DataTableResponsePersona res = await Task.Run(() => _repositoryPersonas.GetPersonasDataTable(datatParms));
             res.draw = datatParms.draw;
 
-            var json = JsonConvert.SerializeObject(res);
+            //var json = JsonConvert.SerializeObject(res); using Newtonsoft.Json;
+            var json = JsonSerializer.Serialize(res);
 
             return Ok(json);
         }

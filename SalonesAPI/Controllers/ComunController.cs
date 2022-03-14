@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using SalonesAPI.Configuration;
 using SalonesAPI.ModelsAPI.Comun;
 using SalonesAPI.ModelsDB;
 using SalonesAPI.Repositorio.ComunES;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SalonesAPI.Controllers
@@ -48,8 +48,8 @@ namespace SalonesAPI.Controllers
                 mensaje = "ok";
                 ok = true;
             }
-            //var data = new { paises, mensaje, ok };
-            var json = JsonConvert.SerializeObject(paises);
+            var options = new JsonSerializerOptions { IncludeFields = true };
+            var json = JsonSerializer.Serialize(paises, options);
             return Ok(json);
         }
 
@@ -65,8 +65,9 @@ namespace SalonesAPI.Controllers
                 mensaje = "ok";
                 ok = true;
             }
-            //var data = new { dapartamentos, mensaje, ok };
-            var json = JsonConvert.SerializeObject(dapartamentos);
+            var options = new JsonSerializerOptions { IncludeFields = true };
+            var json = JsonSerializer.Serialize(dapartamentos, options);
+
             return Ok(json);
         }
 
@@ -84,7 +85,9 @@ namespace SalonesAPI.Controllers
                 ok = true;
             }
             //var data = new { ciudades, mensaje, ok };// si lo hago asi complicaria mas la deserializacion si se consume desde un controller mvc
-            var json = JsonConvert.SerializeObject(ciudades);
+
+            var options = new JsonSerializerOptions { IncludeFields = true };
+            var json = JsonSerializer.Serialize(ciudades, options);
             return Ok(json);
         }
 
@@ -107,8 +110,8 @@ namespace SalonesAPI.Controllers
 
             var listEdades = await Task.Run(() => edades);
 
-            //var data = new { listEdades, mensaje, ok };// si lo hago asi complicaria mas la deserializacion si se consume desde un controller mvc
-            var json = JsonConvert.SerializeObject(listEdades);
+            var options = new JsonSerializerOptions { IncludeFields = true };
+            var json = JsonSerializer.Serialize(listEdades, options);
             return Ok(json);
         }
     }
