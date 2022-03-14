@@ -75,10 +75,10 @@ namespace SalonesAPI.Repositorio.SalonesES
             {
                 string sp = "SpDeleteReserva";
                 List<SqlParameter> parametros = new List<SqlParameter>();
-                //parametros.Add(new SqlParameter() { ParameterName = "@id", Value = id, SqlDbType = SqlDbType.Int });
-                parametros.Add(new SqlParameter("@id", id));
+                parametros.Add(new SqlParameter() { ParameterName = "@id", Value = id, SqlDbType = SqlDbType.Int });
+                //parametros.Add(new SqlParameter("@id", id));
                 var param = parametros.ToArray();
-                ok = await _context.Database.ExecuteSqlRawAsync(sp, param) > 0;
+                ok = await _context.Database.ExecuteSqlRawAsync(sp, id) > 0;
             }
             catch (Exception e)
             {
