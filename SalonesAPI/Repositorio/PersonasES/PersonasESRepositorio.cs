@@ -35,24 +35,24 @@ namespace SalonesAPI.Repositorio.PersonasES
             {
                 try
                 {
-                    Persona actualizarRegistro = _context.Personas.Where(x => x.Id == entidad.id).FirstOrDefault();
+                    Persona actualizarRegistro = _context.Personas.Where(x => x.id == entidad.id).FirstOrDefault();
 
                     if (actualizarRegistro != null)
                     {
-                        actualizarRegistro.PrimerNombre = entidad.primerNombre;
-                        actualizarRegistro.SegundoNombre = entidad.segundoNombre;
-                        actualizarRegistro.PrimerApellido = entidad.primerApellido;
-                        actualizarRegistro.SegundoApellido = entidad.segundoApellido;
-                        actualizarRegistro.Telefono = entidad.telefono;
-                        actualizarRegistro.Identificacion = entidad.identificacion;
-                        actualizarRegistro.Edad = entidad.edad.Value;
-                        actualizarRegistro.Correo = entidad.correo;
-                        actualizarRegistro.IdCiudad = entidad.idCiudad.Value;
-                        actualizarRegistro.Estado = true;
-                        actualizarRegistro.FechaCreacion = DateTime.Now;
-                        actualizarRegistro.FechaActualizacion = null;
+                        actualizarRegistro.primerNombre = entidad.primerNombre;
+                        actualizarRegistro.segundoNombre = entidad.segundoNombre;
+                        actualizarRegistro.primerApellido = entidad.primerApellido;
+                        actualizarRegistro.segundoApellido = entidad.segundoApellido;
+                        actualizarRegistro.telefono = entidad.telefono;
+                        actualizarRegistro.identificacion = entidad.identificacion;
+                        actualizarRegistro.edad = entidad.edad.Value;
+                        actualizarRegistro.correo = entidad.correo;
+                        actualizarRegistro.idCiudad = entidad.idCiudad.Value;
+                        actualizarRegistro.estado = true;
+                        actualizarRegistro.fechaCreacion = DateTime.Now;
+                        actualizarRegistro.fechaActualizacion = null;
 
-                        actualizarRegistro.FechaActualizacion = DateTime.Now;
+                        actualizarRegistro.fechaActualizacion = DateTime.Now;
 
                         _context.Entry(actualizarRegistro).State = EntityState.Modified;
                         ok = await _context.SaveChangesAsync() > 0;
@@ -79,22 +79,22 @@ namespace SalonesAPI.Repositorio.PersonasES
             {
                 try
                 {
-                    var verificarExiste = _context.Personas.Where(x => x.Identificacion == entidad.identificacion).FirstOrDefault();
+                    var verificarExiste = _context.Personas.Where(x => x.identificacion == entidad.identificacion).FirstOrDefault();
                     Persona nuevoRegistro = new Persona();
                     if (verificarExiste == null)
                     {
-                        nuevoRegistro.PrimerNombre = entidad.primerNombre;
-                        nuevoRegistro.SegundoNombre = entidad.segundoNombre;
-                        nuevoRegistro.PrimerApellido = entidad.primerApellido;
-                        nuevoRegistro.SegundoApellido = entidad.segundoApellido;
-                        nuevoRegistro.Telefono = entidad.telefono;
-                        nuevoRegistro.Identificacion = entidad.identificacion;
-                        nuevoRegistro.Edad = entidad.edad.Value;
-                        nuevoRegistro.Correo = entidad.correo;
-                        nuevoRegistro.IdCiudad = entidad.idCiudad.Value;
-                        nuevoRegistro.Estado = true;
-                        nuevoRegistro.FechaCreacion = DateTime.Now;
-                        nuevoRegistro.FechaActualizacion = null;
+                        nuevoRegistro.primerNombre = entidad.primerNombre;
+                        nuevoRegistro.segundoNombre = entidad.segundoNombre;
+                        nuevoRegistro.primerApellido = entidad.primerApellido;
+                        nuevoRegistro.segundoApellido = entidad.segundoApellido;
+                        nuevoRegistro.telefono = entidad.telefono;
+                        nuevoRegistro.identificacion = entidad.identificacion;
+                        nuevoRegistro.edad = entidad.edad.Value;
+                        nuevoRegistro.correo = entidad.correo;
+                        nuevoRegistro.idCiudad = entidad.idCiudad.Value;
+                        nuevoRegistro.estado = true;
+                        nuevoRegistro.fechaCreacion = DateTime.Now;
+                        nuevoRegistro.fechaActualizacion = null;
 
                         _context.Personas.Add(nuevoRegistro);
                         ok = await _context.SaveChangesAsync() > 0;
@@ -120,38 +120,38 @@ namespace SalonesAPI.Repositorio.PersonasES
             {
                 var predicado = PredicateBuilder.True<Persona>();
                 var predicado2 = PredicateBuilder.False<Persona>();
-                predicado = predicado.And(d => d.Estado == true);
+                predicado = predicado.And(d => d.estado == true);
 
                 if (!string.IsNullOrWhiteSpace(buscar))
                 {
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.PrimerNombre.Contains(buscar));
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.SegundoNombre.Contains(buscar));
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.PrimerApellido.Contains(buscar));
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.SegundoNombre.Contains(buscar));
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.Correo.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.primerNombre.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.segundoNombre.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.primerApellido.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.segundoNombre.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.correo.Contains(buscar));
                     predicado = predicado.And(predicado2);
                 }
                 if (Id != null)
                 {
-                    predicado = predicado.And(x => x.Id == Id);
+                    predicado = predicado.And(x => x.id == Id);
                 }
                 var data = _context.Personas.Where(predicado).FirstOrDefault();
                 if (data != null)
                 {
-                    persona.id = data.Id;
-                    persona.primerNombre = data.PrimerNombre;
-                    persona.segundoNombre = data.SegundoNombre;
-                    persona.primerApellido = data.PrimerApellido;
-                    persona.segundoApellido = data.SegundoApellido;
-                    persona.telefono = data.Telefono;
-                    persona.identificacion = data.Identificacion;
-                    persona.edad = data.Edad;
-                    persona.correo = data.Correo;
-                    persona.idCiudad = data.IdCiudad;
+                    persona.id = data.id;
+                    persona.primerNombre = data.primerNombre;
+                    persona.segundoNombre = data.segundoNombre;
+                    persona.primerApellido = data.primerApellido;
+                    persona.segundoApellido = data.segundoApellido;
+                    persona.telefono = data.telefono;
+                    persona.identificacion = data.identificacion;
+                    persona.edad = data.edad;
+                    persona.correo = data.correo;
+                    persona.idCiudad = data.idCiudad;
                     persona.estado = true;
-                    persona.fechaCreacion = data.FechaCreacion.ToString("yyyy/MM/dd", cultureFecha);
-                    persona.fechaActualizacion = data.FechaActualizacion != null ? data.FechaActualizacion.Value.ToString("yyyy/MM/dd", cultureFecha) : "";
-                    persona.cliente = data.PrimerNombre + (!string.IsNullOrWhiteSpace(data.SegundoNombre) ? " " + data.SegundoNombre : "") + " " + data.PrimerApellido + "" + (!string.IsNullOrWhiteSpace(data.SegundoApellido) ? " " + data.SegundoApellido : "");
+                    persona.fechaCreacion = data.fechaCreacion.ToString("yyyy/MM/dd", cultureFecha);
+                    persona.fechaActualizacion = data.fechaActualizacion != null ? data.fechaActualizacion.Value.ToString("yyyy/MM/dd", cultureFecha) : "";
+                    persona.cliente = data.primerNombre + (!string.IsNullOrWhiteSpace(data.segundoNombre) ? " " + data.segundoNombre : "") + " " + data.primerApellido + "" + (!string.IsNullOrWhiteSpace(data.segundoApellido) ? " " + data.segundoApellido : "");
                 }
             }
             catch (Exception ex)
@@ -183,15 +183,15 @@ namespace SalonesAPI.Repositorio.PersonasES
 
                 var predicado = PredicateBuilder.True<Persona>();
                 var predicado2 = PredicateBuilder.False<Persona>();
-                predicado = predicado.And(d => d.Estado == true);
+                predicado = predicado.And(d => d.estado == true);
 
                 if (!string.IsNullOrWhiteSpace(dtParameters.search.value))
                 {
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.PrimerNombre.Contains(dtParameters.search.value));
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.SegundoNombre.Contains(dtParameters.search.value));
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.PrimerApellido.Contains(dtParameters.search.value));
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.SegundoNombre.Contains(dtParameters.search.value));
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.Correo.Contains(dtParameters.search.value));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.primerNombre.Contains(dtParameters.search.value));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.segundoNombre.Contains(dtParameters.search.value));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.primerApellido.Contains(dtParameters.search.value));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.segundoNombre.Contains(dtParameters.search.value));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.correo.Contains(dtParameters.search.value));
                     predicado = predicado.And(predicado2);
                 }
 
@@ -218,19 +218,19 @@ namespace SalonesAPI.Repositorio.PersonasES
                     datos2 = _context.Personas.Where(predicado).OrderBy2(sortcolumn, order).Skip(dtParameters.start).Take(dtParameters.length).ToList();
                     datos.data = datos2.Select(x => new PersonasModel
                     {
-                        id = x.Id,
-                        primerNombre = x.PrimerNombre,
-                        primerApellido = x.PrimerApellido,
-                        segundoNombre = x.SegundoNombre,
-                        segundoApellido = x.SegundoApellido,
-                        telefono = x.Telefono,
-                        correo = x.Correo,
-                        edad = x.Edad,
-                        estado = x.Estado.Value,
-                        identificacion = x.Identificacion,
-                        idCiudad = x.IdCiudad,
-                        fechaActualizacion = x.FechaActualizacion != null ? x.FechaActualizacion.Value.ToString("yyyy/MM/dd", culture) : "",
-                        fechaCreacion = x.FechaCreacion.ToString("yyyy/MM/dd", culture),
+                        id = x.id,
+                        primerNombre = x.primerNombre,
+                        primerApellido = x.primerApellido,
+                        segundoNombre = x.segundoNombre,
+                        segundoApellido = x.segundoApellido,
+                        telefono = x.telefono,
+                        correo = x.correo,
+                        edad = x.edad,
+                        estado = x.estado.Value,
+                        identificacion = x.identificacion,
+                        idCiudad = x.idCiudad,
+                        fechaActualizacion = x.fechaActualizacion != null ? x.fechaActualizacion.Value.ToString("yyyy/MM/dd", culture) : "",
+                        fechaCreacion = x.fechaCreacion.ToString("yyyy/MM/dd", culture),
 
                     }).ToList();
                 }
@@ -251,7 +251,7 @@ namespace SalonesAPI.Repositorio.PersonasES
             {
                 try
                 {
-                    var delete = _context.Personas.Where(x => x.Id == id).FirstOrDefault();
+                    var delete = _context.Personas.Where(x => x.id == id).FirstOrDefault();
 
                     if (delete != null)
                     {
@@ -278,28 +278,28 @@ namespace SalonesAPI.Repositorio.PersonasES
             {
                 var predicado = PredicateBuilder.True<Persona>();
                 var predicado2 = PredicateBuilder.False<Persona>();
-                predicado = predicado.And(d => d.Estado == true);
+                predicado = predicado.And(d => d.estado == true);
 
                 if (!string.IsNullOrWhiteSpace(buscar))
                 {
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.PrimerNombre.Contains(buscar));
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.SegundoNombre.Contains(buscar));
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.PrimerApellido.Contains(buscar));
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.SegundoNombre.Contains(buscar));
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.Correo.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.primerNombre.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.segundoNombre.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.primerApellido.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.segundoNombre.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.correo.Contains(buscar));
                     predicado = predicado.And(predicado2);
                 }
                 if (id != null)
                 {
-                    predicado = predicado.And(d => d.Id == id);
+                    predicado = predicado.And(d => d.id == id);
                 }
 
                 var data = _context.Personas.Where(predicado).Take(10).ToList();
 
                 datos = data.Select(x => new DropListModel
                 {
-                    id = x.Id,
-                    text = x.PrimerNombre + (!string.IsNullOrWhiteSpace(x.SegundoNombre) ? " " + x.SegundoNombre : "") + " " + x.PrimerApellido + "" + (!string.IsNullOrWhiteSpace(x.SegundoApellido) ? " " + x.SegundoApellido : "")
+                    id = x.id,
+                    text = x.primerNombre + (!string.IsNullOrWhiteSpace(x.segundoNombre) ? " " + x.segundoNombre : "") + " " + x.primerApellido + "" + (!string.IsNullOrWhiteSpace(x.segundoApellido) ? " " + x.segundoApellido : "")
                 }).ToList();
             }
             catch (Exception ex)

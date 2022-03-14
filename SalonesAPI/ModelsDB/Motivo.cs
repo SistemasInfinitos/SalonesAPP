@@ -12,11 +12,11 @@ namespace SalonesAPI.ModelsDB
             Salones = new HashSet<Salone>();
         }
 
-        public int Id { get; set; }
-        public string Motivo1 { get; set; }
-        public DateTime FechaCreacion { get; set; }
-        public DateTime? FechaActualizacion { get; set; }
-        public bool? Estado { get; set; }
+        public int id { get; set; }
+        public string motivo1 { get; set; }
+        public DateTime fechaCreacion { get; set; }
+        public DateTime? fechaActualizacion { get; set; }
+        public bool? estado { get; set; }
 
         public virtual ICollection<Salone> Salones { get; set; }
     }

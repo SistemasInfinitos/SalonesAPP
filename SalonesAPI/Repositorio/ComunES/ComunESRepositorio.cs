@@ -30,20 +30,20 @@ namespace SalonesAPI.Repositorio.ComunES
 
                 if (!string.IsNullOrWhiteSpace(buscar))
                 {
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.CiudadNombre.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.ciudadNombre.Contains(buscar));
 
                     predicado = predicado.And(predicado2);
                 }
                 if (idDepartamento != null)
                 {
-                    predicado = predicado.And(d => d.IdDepartamento == idDepartamento);
+                    predicado = predicado.And(d => d.idDepartamento == idDepartamento);
                 }
                 var datos2 = _context.Ciudades.Where(predicado).ToList();
                 data = datos2.Select(x => new CiudadesModel
                 {
-                    id = x.Id,
-                    ciudadNombre = x.CiudadNombre,
-                    idDepartamento = x.IdDepartamento,
+                    id = x.id,
+                    ciudadNombre = x.ciudadNombre,
+                    idDepartamento = x.idDepartamento,
                 }).ToList();
             }
             catch (Exception ex)
@@ -96,23 +96,23 @@ namespace SalonesAPI.Repositorio.ComunES
 
                 if (!string.IsNullOrWhiteSpace(buscar))
                 {
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.PaisNombre.Contains(buscar));
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.PaisCodigo.Contains(buscar));
-                    predicado2 = predicado2.Or(d => 1 == 1 && d.PaisContinente.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.paisNombre.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.paisCodigo.Contains(buscar));
+                    predicado2 = predicado2.Or(d => 1 == 1 && d.paisContinente.Contains(buscar));
 
                     predicado = predicado.And(predicado2);
                 }
                 if (Id != null)
                 {
-                    predicado = predicado.And(d => d.Id == Id);
+                    predicado = predicado.And(d => d.id == Id);
                 }
                 var datos2 = _context.Paises.Where(predicado).ToList();
                 data = datos2.Select(x => new PaisesModel
                 {
-                    id = x.Id,
-                    paisNombre = x.PaisNombre,
-                    paisCodigo = x.PaisCodigo,
-                    paisContinente = x.PaisContinente,
+                    id = x.id,
+                    paisNombre = x.paisNombre,
+                    paisCodigo = x.paisCodigo,
+                    paisContinente = x.paisContinente,
                 }).ToList();
             }
             catch (Exception ex)

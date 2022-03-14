@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 #nullable disable
 
@@ -6,17 +7,17 @@ namespace SalonesAPI.ModelsDB
 {
     public partial class Salone
     {
-        public int Id { get; set; }
-        public int IdPersonaCliente { get; set; }
-        public DateTime FechaEvento { get; set; }
-        public int CantidadPersona { get; set; }
-        public int IdMotivo { get; set; }
-        public string Observacion { get; set; }
-        public bool? Estado { get; set; }
-        public DateTime FechaCreacion { get; set; }
-        public DateTime? FechaActualizacion { get; set; }
+        public int id { get; set; }
+        public int idPersonaCliente { get; set; }
+        public DateTime fechaEvento { get; set; }
+        public int cantidadPersona { get; set; }
+        public int idMotivo { get; set; }
+        public string observacion { get; set; }
+        public bool? estado { get; set; }
+        public DateTime fechaCreacion { get; set; }
+        public DateTime? fechaActualizacion { get; set; }
 
-        public virtual Motivo IdMotivoNavigation { get; set; }
-        public virtual Persona IdPersonaClienteNavigation { get; set; }
+        public virtual Motivo idMotivoNavigation { get; set; }
+        public virtual Persona idPersonaClienteNavigation { get; set; }
     }
 }

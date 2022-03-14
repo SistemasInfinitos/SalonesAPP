@@ -12,21 +12,21 @@ namespace SalonesAPI.ModelsDB
             Salones = new HashSet<Salone>();
         }
 
-        public int Id { get; set; }
-        public string Identificacion { get; set; }
-        public string PrimerNombre { get; set; }
-        public string SegundoNombre { get; set; }
-        public string PrimerApellido { get; set; }
-        public string SegundoApellido { get; set; }
-        public string Telefono { get; set; }
-        public string Correo { get; set; }
-        public int IdCiudad { get; set; }
-        public int Edad { get; set; }
-        public DateTime FechaCreacion { get; set; }
-        public DateTime? FechaActualizacion { get; set; }
-        public bool? Estado { get; set; }
+        public int id { get; set; }
+        public string identificacion { get; set; }
+        public string primerNombre { get; set; }
+        public string segundoNombre { get; set; }
+        public string primerApellido { get; set; }
+        public string segundoApellido { get; set; }
+        public string telefono { get; set; }
+        public string correo { get; set; }
+        public int idCiudad { get; set; }
+        public int edad { get; set; }
+        public DateTime fechaCreacion { get; set; }
+        public DateTime? fechaActualizacion { get; set; }
+        public bool? estado { get; set; }
 
-        public virtual Ciudade IdCiudadNavigation { get; set; }
+        public virtual Ciudade idCiudadNavigation { get; set; }
         public virtual ICollection<Salone> Salones { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 #nullable disable
 
@@ -11,11 +12,11 @@ namespace SalonesAPI.ModelsDB
             Departamentos = new HashSet<Departamento>();
         }
 
-        public string PaisCodigo { get; set; }
-        public string PaisNombre { get; set; }
-        public string PaisContinente { get; set; }
-        public int Id { get; set; }
-        public int? CodigoDian { get; set; }
+        public string paisCodigo { get; set; }
+        public string paisNombre { get; set; }
+        public string paisContinente { get; set; }
+        public int id { get; set; }
+        public int? codigoDian { get; set; }
 
         public virtual ICollection<Departamento> Departamentos { get; set; }
     }
