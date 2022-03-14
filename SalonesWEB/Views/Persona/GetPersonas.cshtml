@@ -17,11 +17,11 @@
                     <thead>
                         <tr>
                             <th style="text-align:center">Editar</th>
-                            <th style="text-align:center">Nombres</th>
-                            <th style="text-align:center">Número</th>
+                            <th style="text-align:center">NIU</th>
+                            <th style="text-align:center">Cliente</th>
                             <th style="text-align:center">Tel-Cel</th>
                             <th style="text-align:center">Correo</th>
-                            <th style="text-align:center">Edad</th>
+                            <th style="text-align:center">Rango Edad</th>
                             <th style="text-align:center">Acción</th>
                         </tr>
                     </thead>
@@ -90,8 +90,7 @@
                     "bSortable": false,
                     "mRender": function (o) {
                         var boton = ``;
-                        boton = `<input  onclick="funcion" type="text" class="form-control"
-                                    value="${o.primerNombre} ${o.segundoNombre} ${o.primerApellido} ${o.segundoNombre}" />`
+                        boton = `${o.primerNombre} ${o.segundoNombre} ${o.primerApellido} ${o.segundoNombre}`
                         return boton;
                     }
                 },
