@@ -2,9 +2,9 @@
 
 Licencia:
 
-By. Mauricio Bello (sistemasinfinitos.com)
+By. (sistemasinfinitos.com)
 
-La aplicación Salones APP, fue realizada con el fin de comprobar habilidades de desarrollo para la empresa Outsourcing S.A.S. BIC,
+La aplicación Salones APP, fue realizada con el fin de comprobar habilidades de desarrollo ,
 por  lo que no se autoriza su uso para cualquier otro fin, queda prohibido su reproducción parcial o total.
 
 Módulos:  SalonesAPI, SalonesWEB
