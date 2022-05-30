@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SalonesAPI.ModelsDB;
-
 namespace SalonesAPI
 {
     public class Startup
