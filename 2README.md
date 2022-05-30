@@ -1,4 +1,3 @@
-# 
 
 Actividad 4 - Utilizando sistemas de control de versiones
 
@@ -11,10 +10,10 @@ Mantenimiento de software
 Francisco Castro 
 
 
-Mauricio Bello 
+BY.
 
-
-
+  Maricio Bello  
+  
 Jhonny Alejandro Sanchez Q
 
 
@@ -25,13 +24,10 @@ Mayo 28 2022
 
 
 
+
 JUSTIFICACIÓN
 
-El rápido avance de las nuevas tecnologías las cuales fomentan la innovación y el interés por mantenerse competitivo,
-ha llevado progresivamente al desarrollo de nuevas formas de recopilar datos, de una manera más precisa y eficiente, 
-obligando a las pequeña, medianas y grandes empresas, a contratar o crear soluciones informáticas personalizadas que se 
-ajusten a su modelo de negocio, permitiendo así mejorar sus procesos internos, satisfacer las necesidades de sus clientes y 
-obtener un gran incremento productivo y económico.
+El rápido avance de las nuevas tecnologías las cuales fomentan la innovación y el interés por mantenerse competitivo, ha llevado progresivamente al desarrollo de nuevas formas de recopilar datos, de una manera más precisa y eficiente, obligando a las pequeña, medianas y grandes empresas, a contratar o crear soluciones informáticas personalizadas que se ajusten a su modelo de negocio, permitiendo así mejorar sus procesos internos, satisfacer las necesidades de sus clientes y obtener un gran incremento productivo y económico.
 
 
 
@@ -76,3 +72,4 @@ Arquitectura Cliente Servidor
 
 Enlace Prototipo: SalonesAPP
 La arquitectura cliente servidor consiste básicamente en un Servicio disponible y un Cliente que consuma dicho servicio, de allí el termino Cliente Servidor.
+# SalonesAPP
