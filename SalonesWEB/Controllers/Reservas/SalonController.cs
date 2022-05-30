@@ -23,14 +23,12 @@ namespace SalonesWEB.Controllers.Reservas
         [Route("[action]")]
         [HttpGet]
         
-
         [Route("[action]")]
         [HttpGet]
         public async Task<ActionResult> GetSalones()
         {
             return View();
         }
-
         public async Task<ActionResult> Gestion(string id)
         {
             // esta es una forma de trabajar, aumenta la seguridad pero tanbien el tiempo de desarrollo
