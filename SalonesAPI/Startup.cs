@@ -51,7 +51,6 @@ namespace SalonesAPI
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthorization();
